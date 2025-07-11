@@ -5,9 +5,12 @@
     width: 100%;
     position: fixed;
     z-index: 50;
-    border: .1rem solid hsl(220 14% 85% / 1);
+    border-bottom: .1rem solid hsl(220 14% 85% / 1);
     top: 0;
     left: 0;
+    background-color: rgba(255,255,255, 0.7);
+    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(16px); // para Safari
     .containerPrincipal{
         display: flex;
         justify-content: space-between;

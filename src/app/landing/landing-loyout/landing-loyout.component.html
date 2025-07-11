@@ -1,7 +1,6 @@
 <app-header></app-header>
-<main style="height: 2000px;">
-
-    <section id="inicio" class="container">
+<main class="marginTopBody">
+    <section #inicio class="container">
         <div class="seccionInicio">
             <div  class="containerTitulo">
                 <h1 class="tituloInicio">
@@ -13,12 +12,87 @@
                     Transformamos espacios con un enfoque minimalista y sostenible, creando ambientes que inspiran y perduran en el tiempo.
                 </div>
                 <div class="buttonInicio">
-                    <button>Ver Proyectos</button>
-                    <button>Contáctanos</button>
+                    <button class="ver-proyectos">Ver Proyectos</button>
+                    <button class="contactanos">Contáctanos</button>
                 </div>
             </div>
             <div class="containerCarousel">
-                Carouseeeeeeeeeeeeeeeeeeeeeeeeeel
+                <app-carousel-proyectos></app-carousel-proyectos>
+            </div>
+        </div>
+    </section>
+    <section #proyectos class="container">
+        <div class="seccionProyectos">
+            <div class="containerTituloSeccion">
+                <h2 class="tituloSeccion">Nuestros Proyectos</h2>
+                <p class="descripcionSeccion">Exploramos la intersección entre funcionalidad, estética y sostenibilidad para crear espacios que transforman la experiencia humana.</p>
+            </div>
+            <div class="containerProyectos">
+                @for (item of data; track $index) {
+                    <div class="cardProyecto">
+                        <img [src]="item.imagen" [alt]="item.titulo">
+                        <div class="fondoOscuroImagen">
+                        </div>
+                        <div class="contenidoCard">
+                            <div class="tituloCard">
+                                {{item.titulo}}
+                            </div>
+                            <div class="categoriaCard">
+                                {{item.categoria}}
+                            </div>
+                            <div class="verDetalles">
+                                Ver detalles 
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--lucide ml-2" data-locator="src/components/projects.tsx:Icon:74:24" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7l-7 7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <section #nosotros class="container">
+        <div class="seccionNosotros">
+            <div class="leftNosotros">
+                <div class="tituloNosotros">
+                    Sobre Nosotros
+                </div>
+                <p class="descripcionNosotros">
+                    Somos un estudio de arquitectura con más de 15 años de experiencia, especializado en diseño residencial, comercial y cultural. Nuestro enfoque combina la estética minimalista con principios de sostenibilidad y funcionalidad.
+                </p>
+                <p class="descripcionNosotros">
+                    Cada proyecto es una oportunidad para crear espacios que inspiren, funcionen perfectamente y respeten el entorno. Trabajamos con un equipo multidisciplinario de arquitectos, diseñadores e ingenieros para ofrecer soluciones integrales y personalizadas.
+                </p>
+                <div class="experiencia">
+                    <div class="expValor">
+                        <span class="cantidadExp">15+</span>
+                        <div class="textExp">Años de experiencia</div>
+                    </div>
+                    <div class="expValor">
+                        <span class="cantidadExp">120+</span>
+                        <div class="textExp">Proyectos completados</div>
+                    </div>
+                    <div class="expValor">
+                        <span class="cantidadExp">18</span>
+                        <div class="textExp">Premios de diseño</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rightNosotros">
+                <div class="containerHabilidades">
+                    @for (item of dataNosotros; track item.id) {
+                        <div class="cardNosotros">
+                            <div class="imagenFondo">
+                                <img [src]="item.imagen" [alt]="item.habilidad">
+                            </div>
+                            <div class="textHabilidad">
+                                {{item.habilidad}}
+                            </div>
+                            <div class="textDescripcion">
+                                {{item.descripcion}}
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </section>

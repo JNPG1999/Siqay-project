@@ -1,0 +1,106 @@
+.container-wrapper{
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; // evita scrolls no deseados
+  margin: auto;
+}
+
+.carousel-slide{
+  position: relative;
+  width: 100%; // Que ocupe todo el espacio del slide
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.imagen-carousel{
+  width: 100%;
+  height: 100%;
+  //object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+.text-overlay {
+  position: absolute;
+  bottom: 3.8rem;
+  left: 2rem;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  //background: rgba(0, 0, 0, 0.3);
+  //padding: 10px 15px;
+  //border-radius: 8px;
+  h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 3.2rem;
+  }
+
+  p {
+  margin: .7rem 0 0;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  }
+
+}
+
+::ng-deep .owl-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 1rem; // espacio lateral opcional
+  pointer-events: none; // evita bloquear clics en el centro
+  z-index: 10;
+}
+
+// ::ng-deep .owl-nav button.owl-prev,
+// ::ng-deep .owl-nav button.owl-next 
+::ng-deep .owl-theme .owl-nav .owl-prev,
+::ng-deep .owl-theme .owl-nav .owl-next
+{
+  background : rgba(255,255,255, 0.7); // fondo opcional
+  //background-color: #ffffff66;
+  color: hsl(220 50% 30% / 1);
+  border: none;
+  font-size: 2rem;
+  width: 37px;
+  height: 37px;
+  //padding: 1rem 1.5rem;
+  border-radius: 50%;
+  pointer-events: all; // reactiva clics
+  transition:  rgba(255,255,255, 0.7) 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: lighter;
+    &:hover{
+        //backdrop-filter: blur(5px);
+        //background-color: rgba(48, 48, 48, 0.2);
+        background-color: rgba(255, 255, 255, .4);
+        color: hsl(220 50% 30% / 0.8);
+    }
+
+}
+
+::ng-deep .owl-nav button:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .owl-dots{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+}
+
+::ng-deep .owl-theme .owl-dots .owl-dot span{
+  width: 3.2rem !important;
+  border-radius: 9999px;
+}
