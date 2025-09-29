@@ -9,6 +9,7 @@ export interface proyectosCarousel{
   descripcion: string;
   imagen: string;
   categoria?: string;
+  fecha?: string;
 }
 
 export interface habilidadesNosotros{
@@ -16,4 +17,8 @@ export interface habilidadesNosotros{
   imagen:string,
   habilidad:string,
   descripcion:string
+}
+
+export interface modalProyecto{
+  proyecto: proyectosCarousel
 }
