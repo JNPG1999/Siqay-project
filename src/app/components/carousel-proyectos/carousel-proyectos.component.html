@@ -1,16 +1,15 @@
-
 <div class="container-wrapper">
-    <owl-carousel-o #owlCarousel [options]="carouselOptions">
-        @for (item of proyectosCarousel; track item.id) {
-            <ng-template carouselSlide [id]="item.id" [width]="608" >
-                <div class="carousel-slide">
-                    <img [src]="item.imagen" [alt]="item.titulo" class="imagen-carousel">
-                    <div class="text-overlay">
-                        <h2>{{item.titulo}}</h2>
-                        <p>{{item.descripcion}}</p>
-                    </div>
-                </div>
-            </ng-template>
-        }
-    </owl-carousel-o>
+  <owl-carousel-o #owlCarousel [options]="carouselOptions">
+    @for (item of proyectosCarousel; track item.id) {
+    <ng-template carouselSlide [id]="item.id" [width]="608">
+      <div class="carousel-slide">
+        <img [src]="item.imagen" [alt]="item.titulo" class="imagen-carousel" />
+        <div class="text-overlay">
+          <h2>{{ item.titulo }}</h2>
+          <p>{{ item.descripcion }}</p>
+        </div>
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
 </div>

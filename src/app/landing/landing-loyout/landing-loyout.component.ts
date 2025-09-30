@@ -48,9 +48,9 @@ export class LandingLoyoutComponent implements OnInit {
   formGrupo = this.form.group({
     nombre: ['', [Validators.required]],
     email: ['', [Validators.email, Validators.required]],
-    telefono: [''],
+    telefono: ['', [Validators.minLength(9)]],
     categoria: [''],
-    mensaje: ['',[ Validators.required]],
+    mensaje: ['', [Validators.required]],
   });
 
   openCategorias = signal<boolean>(false);
@@ -148,7 +148,6 @@ export class LandingLoyoutComponent implements OnInit {
   }
 
   seleccionarCategoria(categoria: any) {
-
     this.formGrupo.get('categoria')?.setValue(categoria.nombre);
 
     this.categorias.update((list) =>
@@ -163,6 +162,15 @@ export class LandingLoyoutComponent implements OnInit {
       this.formGrupo.markAllAsTouched();
       return;
     }
-    console.log(this.formGrupo.value)
+    console.log(this.formGrupo.value);
+  }
+
+  soloNumeros(e: Event) {
+    const el = e.target as HTMLInputElement;
+    const limpio = el.value.replace(/\D/g, ''); // quita todo lo no numérico
+    if (limpio !== el.value) {
+      el.value = limpio;
+      this.formGrupo.get('telefono')!.setValue(limpio, { emitEvent: false });
+    }
   }
 }

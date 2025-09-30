@@ -41,8 +41,8 @@ export class CarouselProyectosComponent {
   ]
   
   carouselOptions:OwlOptions = {
-    loop: true,
-    autoplay: true,
+    //loop: true,
+    //autoplay: true,
     mouseDrag: false,
     touchDrag: false,
     autoplayTimeout: 5000,
@@ -52,7 +52,7 @@ export class CarouselProyectosComponent {
     navSpeed: 700,
     nav: true,
     autoWidth:true,
-    navText:['<', '>'],
+    navText:['',''],
     items: 1,
     responsive: {
       0: {
@@ -65,10 +65,10 @@ export class CarouselProyectosComponent {
         items: 3
       },
       1420:{
-        items: 4
+        items: 3
       },
       1980:{
-        items: 4
+        items: 3
       }
     }
   }
