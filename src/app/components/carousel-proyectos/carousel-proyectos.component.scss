@@ -1,0 +1,134 @@
+.container-wrapper{
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; // evita scrolls no deseados
+  margin: auto;
+}
+
+.carousel-slide{
+  position: relative;
+  width: 100%; // Que ocupe todo el espacio del slide
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.imagen-carousel{
+  width: 100%;
+  height: 100%;
+  //object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+.text-overlay {
+  position: absolute;
+  bottom: 3.8rem;
+  left: 2rem;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  //background: rgba(0, 0, 0, 0.3);
+  //padding: 10px 15px;
+  //border-radius: 8px;
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 3.2rem;
+  }
+
+  p {
+    margin: .7rem 0 0;
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+}
+
+::ng-deep .owl-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 1rem; // espacio lateral opcional
+  pointer-events: none; // evita bloquear clics en el centro
+  z-index: 10;
+}
+
+::ng-deep .owl-theme .owl-nav .owl-prev,
+::ng-deep .owl-theme .owl-nav .owl-next {
+  background: rgba(255,255,255, 0.7); // fondo opcional
+  color: hsl(220 50% 30% / 1);
+  border: none;
+  font-size: 0;         // 👈 oculta cualquier texto interno
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  pointer-events: all;  // reactiva clics
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: lighter;
+  position: relative;   // para el ::before
+  overflow: hidden;     // seguridad visual
+}
+
+/* 👇 Icono con máscara (usa currentColor) */
+::ng-deep .owl-theme .owl-nav .owl-prev::before,
+::ng-deep .owl-theme .owl-nav .owl-next::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-color: currentColor;
+
+  /* Soporte estándar (mask) */
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+
+  /* Soporte Safari (webkit-mask) */
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+/* Prev (chevron izquierda) */
+::ng-deep .owl-theme .owl-nav .owl-prev::before {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>');
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M15 18l-6-6 6-6' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
+}
+
+/* Next (chevron derecha) */
+::ng-deep .owl-theme .owl-nav .owl-next::before {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>');
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 6l6 6-6 6' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
+}
+
+::ng-deep .owl-theme .owl-nav .owl-prev:hover,
+::ng-deep .owl-theme .owl-nav .owl-next:hover {
+  background-color: rgba(255, 255, 255, .4);
+  color: hsl(220 50% 30% / 0.8);
+}
+
+::ng-deep .owl-nav button:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .owl-dots{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+}
+
+::ng-deep .owl-theme .owl-dots .owl-dot span{
+  width: 3.2rem !important;
+  border-radius: 9999px;
+}
