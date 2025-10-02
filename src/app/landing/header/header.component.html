@@ -5,11 +5,11 @@
         </div>
         <div class="containerSeccion">
             @for (item of listaHeader; track item.id) {
-                <div class="itemSeccion">{{item.nombre}}</div>
+                <div class="itemSeccion" (click)="EnviarSeccion(item)">{{item.nombre}}</div>
             }
         </div>
         <div class="containerButton">
-            <button class="consultaGratuita">
+            <button class="consultaGratuita" (click)="EnviarSeccion(listaHeader[4])">
                 Consulta Gratuita
             </button>
         </div>

@@ -8,7 +8,7 @@
     .tituloInicio {
       font-size: 6rem;
       line-height: 1;
-      letter-spacing: -0.15rem;
+      //letter-spacing: -0.15rem;
       font-weight: 700;
       margin-bottom: 2.6rem;
     }
@@ -484,6 +484,11 @@
         background-color: #7676764d;
         border: none;
     }
+    &:not(:disabled),
+    &:hover{
+      cursor: pointer;
+    }
+    
 }
 
 .error {

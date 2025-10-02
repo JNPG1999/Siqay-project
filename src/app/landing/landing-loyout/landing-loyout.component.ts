@@ -1,18 +1,31 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CarouselProyectosComponent } from '../../components/carousel-proyectos/carousel-proyectos.component';
 import { OwlOptions, CarouselModule } from 'ngx-owl-carousel-o';
 import {
   habilidadesNosotros,
+  listaHeader,
   proyectosCarousel,
 } from '../../modals/listaHeader';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalProyectoComponent } from '../../components/modal-proyecto/modal-proyecto.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CardInfoComponent, DataCardComponent } from '../../components/card-info/card-info.component';
-import { TitleReusableComponent } from "../../components/title-reusable/title-reusable.component";
+import {
+  CardInfoComponent,
+  DataCardComponent,
+} from '../../components/card-info/card-info.component';
+import { TitleReusableComponent } from '../../components/title-reusable/title-reusable.component';
+import e from 'express';
 
 @Component({
   selector: 'app-landing-loyout',
@@ -26,8 +39,8 @@ import { TitleReusableComponent } from "../../components/title-reusable/title-re
     ReactiveFormsModule,
     CommonModule,
     CardInfoComponent,
-    TitleReusableComponent
-],
+    TitleReusableComponent,
+  ],
   templateUrl: './landing-loyout.component.html',
   styleUrl: './landing-loyout.component.scss',
 })
@@ -40,6 +53,11 @@ export class LandingLoyoutComponent implements OnInit {
   });
 
   form: FormBuilder = inject(FormBuilder);
+  @ViewChild('inicio') inicioSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('proyectos') proyectosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('nosotros') nosotrosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('servicios') serviciosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('contactos') contactosSeccion!: ElementRef<HTMLInputElement>;
 
   categorias = signal<any>([
     { id: 1, nombre: 'Residencial', seleccionado: false },
@@ -143,85 +161,93 @@ export class LandingLoyoutComponent implements OnInit {
 
   dataServicios: DataCardComponent[] = [
     {
-        id: 1,
-        numberAndIcon: 'assets/iconos/casaService.svg',
-        title: 'Arquitectura Residencial',
-        textDefinition: 'Diseñamos viviendas que reflejan la personalidad de sus habitantes, optimizando cada espacio para crear ambientes funcionales y estéticamente armoniosos.'
+      id: 1,
+      numberAndIcon: 'assets/iconos/casaService.svg',
+      title: 'Arquitectura Residencial',
+      textDefinition:
+        'Diseñamos viviendas que reflejan la personalidad de sus habitantes, optimizando cada espacio para crear ambientes funcionales y estéticamente armoniosos.',
     },
     {
-        id: 2,
-        numberAndIcon: 'assets/iconos/arquitecturaComercialService.svg',
-        title: 'Arquitectura Comercial',
-        textDefinition: 'Creamos espacios comerciales que potencian la identidad de marca y mejoran la experiencia del cliente, desde oficinas hasta tiendas y restaurantes.'
+      id: 2,
+      numberAndIcon: 'assets/iconos/arquitecturaComercialService.svg',
+      title: 'Arquitectura Comercial',
+      textDefinition:
+        'Creamos espacios comerciales que potencian la identidad de marca y mejoran la experiencia del cliente, desde oficinas hasta tiendas y restaurantes.',
     },
     {
-        id: 3,
-        numberAndIcon: 'assets/iconos/arquitecturaCulturalService.svg',
-        title: 'Arquitectura Cultural',
-        textDefinition: 'Desarrollamos proyectos culturales que se convierten en referentes urbanos, diseñando museos, teatros y centros comunitarios con personalidad única.'
+      id: 3,
+      numberAndIcon: 'assets/iconos/arquitecturaCulturalService.svg',
+      title: 'Arquitectura Cultural',
+      textDefinition:
+        'Desarrollamos proyectos culturales que se convierten en referentes urbanos, diseñando museos, teatros y centros comunitarios con personalidad única.',
     },
     {
-        id: 4,
-        numberAndIcon: 'assets/iconos/disenioInterioresService.svg',
-        title: 'Diseño de Interiores',
-        textDefinition: 'Transformamos espacios interiores con diseños personalizados que combinan funcionalidad, estética y confort, cuidando cada detalle.'
+      id: 4,
+      numberAndIcon: 'assets/iconos/disenioInterioresService.svg',
+      title: 'Diseño de Interiores',
+      textDefinition:
+        'Transformamos espacios interiores con diseños personalizados que combinan funcionalidad, estética y confort, cuidando cada detalle.',
     },
     {
-        id: 5,
-        numberAndIcon: 'assets/iconos/paisajismo2Service.svg',
-        title: 'Paisajismo',
-        textDefinition: 'Integramos arquitectura y naturaleza mediante diseños paisajísticos sostenibles que crean ambientes exteriores armoniosos y funcionales.'
+      id: 5,
+      numberAndIcon: 'assets/iconos/paisajismo2Service.svg',
+      title: 'Paisajismo',
+      textDefinition:
+        'Integramos arquitectura y naturaleza mediante diseños paisajísticos sostenibles que crean ambientes exteriores armoniosos y funcionales.',
     },
     {
-        id: 6,
-        numberAndIcon: 'assets/iconos/consultoriaService.svg',
-        title: 'Consultoría',
-        textDefinition: 'Ofrecemos asesoramiento especializado en sostenibilidad, eficiencia energética y normativas para optimizar proyectos arquitectónicos.'
+      id: 6,
+      numberAndIcon: 'assets/iconos/consultoriaService.svg',
+      title: 'Consultoría',
+      textDefinition:
+        'Ofrecemos asesoramiento especializado en sostenibilidad, eficiencia energética y normativas para optimizar proyectos arquitectónicos.',
     },
-   
-  ]
+  ];
 
-
-
-   dataProcesos: DataCardComponent[] = [
+  dataProcesos: DataCardComponent[] = [
     {
-        id: 1,
-        numberAndIcon: 1,
-        title: 'Consulta Inicial',
-        textDefinition: 'Nos reunimos para entender tus necesidades, objetivos y visión del proyecto. Analizamos el sitio, presupuesto y cronograma.'
+      id: 1,
+      numberAndIcon: 1,
+      title: 'Consulta Inicial',
+      textDefinition:
+        'Nos reunimos para entender tus necesidades, objetivos y visión del proyecto. Analizamos el sitio, presupuesto y cronograma.',
     },
     {
-        id: 2,
-        numberAndIcon: 2,
-        title: 'Concepto y Diseño',
-        textDefinition: 'Desarrollamos conceptos arquitectónicos y presentamos opciones de diseño preliminar con bocetos, renders y modelos 3D.'
+      id: 2,
+      numberAndIcon: 2,
+      title: 'Concepto y Diseño',
+      textDefinition:
+        'Desarrollamos conceptos arquitectónicos y presentamos opciones de diseño preliminar con bocetos, renders y modelos 3D.',
     },
     {
-        id: 3,
-        numberAndIcon: 3,
-        title: 'Desarrollo del Proyecto',
-        textDefinition: 'Refinamos el diseño seleccionado, definimos materiales, sistemas constructivos y elaboramos planos técnicos detallados.'
+      id: 3,
+      numberAndIcon: 3,
+      title: 'Desarrollo del Proyecto',
+      textDefinition:
+        'Refinamos el diseño seleccionado, definimos materiales, sistemas constructivos y elaboramos planos técnicos detallados.',
     },
     {
-        id: 4,
-        numberAndIcon: 4,
-        title: 'Documentación y Permisos',
-        textDefinition: 'Preparamos toda la documentación necesaria para obtener licencias y permisos de construcción con las autoridades competentes.'
+      id: 4,
+      numberAndIcon: 4,
+      title: 'Documentación y Permisos',
+      textDefinition:
+        'Preparamos toda la documentación necesaria para obtener licencias y permisos de construcción con las autoridades competentes.',
     },
     {
-        id: 5,
-        numberAndIcon: 5,
-        title: 'Construcción',
-        textDefinition: 'Supervisamos la ejecución del proyecto para garantizar que se construya según las especificaciones y estándares de calidad.'
+      id: 5,
+      numberAndIcon: 5,
+      title: 'Construcción',
+      textDefinition:
+        'Supervisamos la ejecución del proyecto para garantizar que se construya según las especificaciones y estándares de calidad.',
     },
     {
-        id: 6,
-        numberAndIcon: 6,
-        title: 'Entrega y Seguimiento',
-        textDefinition: 'Realizamos la entrega formal del proyecto y ofrecemos seguimiento posterior para asegurar su óptimo funcionamiento.'
+      id: 6,
+      numberAndIcon: 6,
+      title: 'Entrega y Seguimiento',
+      textDefinition:
+        'Realizamos la entrega formal del proyecto y ofrecemos seguimiento posterior para asegurar su óptimo funcionamiento.',
     },
-   
-  ]
+  ];
 
   ngOnInit() {}
 
@@ -257,6 +283,21 @@ export class LandingLoyoutComponent implements OnInit {
     if (limpio !== el.value) {
       el.value = limpio;
       this.formGrupo.get('telefono')!.setValue(limpio, { emitEvent: false });
+    }
+  }
+
+  RecibeSeccionHeader(evento: listaHeader) {
+    console.log('Seccion recibida en layout', evento);
+    const seccion = evento.nombre.toLocaleLowerCase() + 'Seccion';
+    // Acceso dinámico a la propiedad usando bracket notation
+    const sectionRef = (this as any)[seccion] as ElementRef<HTMLInputElement>;
+    if (sectionRef && sectionRef.nativeElement) {
+      sectionRef.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    } else {
+      console.warn(`No se encontró la sección: ${seccion}`);
     }
   }
 }

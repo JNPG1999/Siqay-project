@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (seccionHeader)="RecibeSeccionHeader($event)"></app-header>
 <main class="marginTopBody">
     <section #inicio class="container">
         <div class="seccionInicio">
@@ -27,12 +27,9 @@
     <section #proyectos class="container">
         <div class="seccionProyectos">
             <div class="containerTituloSeccion">
-                <h2 class="tituloSeccion">Nuestros Proyectos</h2>
-                <p class="descripcionSeccion">
-                    Exploramos la intersección entre funcionalidad, estética y
-                    sostenibilidad para crear espacios que transforman la experiencia
-                    humana.
-                </p>
+                <app-title-reusable 
+            [title]="'Nuestros Proyectos'"
+            [description]="'Exploramos la intersección entre funcionalidad, estética ysostenibilidad para crear espacios que transforman la experiencia humana.'"/>
             </div>
             <div class="containerProyectos">
                 <!-- <mat-icon>chevron_right</mat-icon> -->
@@ -119,7 +116,7 @@
     <!-- <div class="containerTituloSeccion">
         <h2 class="tituloSeccion">Nuestros Servicios</h2>
     </div> -->
-    <section class="container">
+    <section #servicios class="container">
         <!--* COMPONENTE DE TITULO-->
         <app-title-reusable 
             [title]="'Nuestros Servicios'"
@@ -133,7 +130,7 @@
     <!--! NUESTROS PROCESOS -->
 
     
-    <section class="container">
+    <section #procesos class="container">
         <!--* COMPONENTE DE TITULO-->
         <app-title-reusable 
             [title]="'Nuestros Procesos'"
@@ -144,7 +141,11 @@
         </div>
     </section>
 
-    <section #contactanos class="container">
+    <section #contactos class="container">
+        <app-title-reusable 
+            [title]="'Contacta con Nosotros'"
+            [description]="'Estamos aquí para ayudarte a dar vida a tu proyecto. Contáctanos para programar una consulta inicial gratuita.'"
+        ></app-title-reusable>
         <div class="seccionContactanos">
             <div class="leftContactanos">
                 <div class="contenidoContactanos">
