@@ -1,0 +1,32 @@
+<div class="cardComponent">
+    <div class="cardContainerComponent">
+        @for (item of data(); track item.title) {
+            @if ( isString(item.numberAndIcon) ) {
+                <div class="card">
+                    <div class="imagenFondo">
+                        <img [src]="item.numberAndIcon" [alt]="item.title" />
+                    </div>
+                    <div class="textTitle">
+                        {{ item.title }}
+                    </div>
+                    <div class="textDefinition">
+                        {{ item.textDefinition }}
+                    </div>
+                </div>
+
+            } @else {
+                <div class="card">
+                    <div class="numberTitle">
+                        <span>0</span>{{ item.numberAndIcon }}
+                    </div>
+                    <div class="textTitle">
+                        {{ item.title }}
+                    </div>
+                    <div class="textDefinition">
+                        {{ item.textDefinition }}
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

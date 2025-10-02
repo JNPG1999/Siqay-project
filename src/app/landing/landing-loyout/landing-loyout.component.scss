@@ -246,6 +246,13 @@
   }
 }
 
+.seccionCard {
+  display: flex;
+  gap: 6.4rem;
+  align-items: center;
+  padding: 0 3.2rem;
+}
+
 .seccionContactanos {
   padding: 0 3.2rem;
   display: grid;
