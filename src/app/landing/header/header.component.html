@@ -1,0 +1,17 @@
+<nav class="containerNav">
+    <div class="containerPrincipal">
+        <div class="containerLogo">
+            SIQAYESTUDIO
+        </div>
+        <div class="containerSeccion">
+            @for (item of listaHeader; track item.id) {
+                <div class="itemSeccion" (click)="EnviarSeccion(item)">{{item.nombre}}</div>
+            }
+        </div>
+        <div class="containerButton">
+            <button class="consultaGratuita" (click)="EnviarSeccion(listaHeader[4])">
+                Consulta Gratuita
+            </button>
+        </div>
+    </div>
+</nav>
