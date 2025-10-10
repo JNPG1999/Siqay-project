@@ -25,7 +25,7 @@ import {
   DataCardComponent,
 } from '../../components/card-info/card-info.component';
 import { TitleReusableComponent } from '../../components/title-reusable/title-reusable.component';
-import e from 'express';
+import { LandingLoyoutService } from '../../services/landing-loyout/landing-loyout.service';
 
 @Component({
   selector: 'app-landing-loyout',
@@ -46,6 +46,7 @@ import e from 'express';
 })
 export class LandingLoyoutComponent implements OnInit {
   dialog = inject(MatDialog);
+  landingLoyoutService = inject(LandingLoyoutService);
 
   categoriasProyecto = computed(() => {
     const categorias = this.data.map((proyecto) => proyecto.categoria);
@@ -249,7 +250,19 @@ export class LandingLoyoutComponent implements OnInit {
     },
   ];
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.landingLoyoutService.ObtenerProyectos().then(({data, error})=>{
+
+      console.log(data)
+      
+      if(error){
+        console.log('Error al obtener proyectos', error);
+        return;
+      }
+      
+    });
+  }
 
   openModalDetalle(proyecto: proyectosCarousel) {
     this.dialog.open(ModalProyectoComponent, {
@@ -300,4 +313,5 @@ export class LandingLoyoutComponent implements OnInit {
       console.warn(`No se encontró la sección: ${seccion}`);
     }
   }
+
 }
