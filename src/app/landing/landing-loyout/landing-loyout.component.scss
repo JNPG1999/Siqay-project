@@ -1,3 +1,9 @@
+::ng-deep {
+  .cdk-global-overlay-wrapper {
+    align-items: center !important;
+  }
+}
+
 .seccionInicio {
   display: flex;
   gap: 4.8rem;
@@ -323,7 +329,7 @@
   height: 5.6rem;
   position: relative;
 
-  &.sinHeight{
+  &.sinHeight {
     height: auto;
   }
 
@@ -352,19 +358,19 @@
     }
   }
 
-  .labelTextarea{
+  .labelTextarea {
     padding: 0 0.4rem;
     font-size: 1.2rem;
     color: #71717a;
   }
 
-  .textareaForm{
+  .textareaForm {
     width: 100%;
     resize: none;
     font: inherit;
     border: none;
     height: 8rem;
-    &:focus{
+    &:focus {
       outline: none;
       border: 0;
     }
@@ -466,33 +472,32 @@
   }
 }
 
-.enviarMensaje{
-    color: white;
-    height: 48px;
-    font-weight: 400;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    font-size: 1.5rem;
-    box-sizing: border-box;
-    padding: 0 2.4rem;
-    background-color: #333333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: .4rem;
-    &:disabled{ 
-        background-color: #7676764d;
-        border: none;
-    }
-    &:not(:disabled),
-    &:hover{
-      cursor: pointer;
-    }
-    
+.enviarMensaje {
+  color: white;
+  height: 48px;
+  font-weight: 400;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  padding: 0 2.4rem;
+  background-color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  &:disabled {
+    background-color: #7676764d;
+    border: none;
+  }
+  &:not(:disabled),
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .error {
-  margin-top: .3rem;
+  margin-top: 0.3rem;
   padding: 0 0.4rem;
   font-size: 1.2rem;
   color: #f31260;

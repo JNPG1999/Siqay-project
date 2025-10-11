@@ -23,6 +23,7 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.12",
+    "@emailjs/browser": "^4.4.1",
     "@supabase/supabase-js": "^2.74.0",
     "express": "^4.18.2",
     "ngx-owl-carousel-o": "^18.0.1",
@@ -47,7 +48,7 @@
     "typescript": "~5.5.2"
   },
   "overrides": {
-    "@supabase/supabase-js":{
+    "@supabase/supabase-js": {
       "@supabase/auth-js": "2.61.0"
     }
   }

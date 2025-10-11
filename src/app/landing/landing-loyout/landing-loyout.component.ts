@@ -19,13 +19,38 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ModalProyectoComponent } from '../../components/modal-proyecto/modal-proyecto.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   CardInfoComponent,
   DataCardComponent,
 } from '../../components/card-info/card-info.component';
 import { TitleReusableComponent } from '../../components/title-reusable/title-reusable.component';
 import { LandingLoyoutService } from '../../services/landing-loyout/landing-loyout.service';
+import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
+import { environment } from '../../../environments/environments.development';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
+interface FormContactanos {
+  nombre: string;
+  email: string;
+  telefono: string;
+  categoria: string;
+  mensaje: string;
+  fecha: string;
+}
+
+interface ContactoGrupo {
+  nombre: FormControl<string | null>;
+  email: FormControl<string | null>;
+  telefono: FormControl<string | null>;
+  categoria: FormControl<string | null>;
+  mensaje: FormControl<string | null>;
+}
 
 @Component({
   selector: 'app-landing-loyout',
@@ -40,6 +65,7 @@ import { LandingLoyoutService } from '../../services/landing-loyout/landing-loyo
     CommonModule,
     CardInfoComponent,
     TitleReusableComponent,
+    MatSnackBarModule,
   ],
   templateUrl: './landing-loyout.component.html',
   styleUrl: './landing-loyout.component.scss',
@@ -47,6 +73,7 @@ import { LandingLoyoutService } from '../../services/landing-loyout/landing-loyo
 export class LandingLoyoutComponent implements OnInit {
   dialog = inject(MatDialog);
   landingLoyoutService = inject(LandingLoyoutService);
+  _SnackBar = inject(MatSnackBar);
 
   categoriasProyecto = computed(() => {
     const categorias = this.data.map((proyecto) => proyecto.categoria);
@@ -68,12 +95,12 @@ export class LandingLoyoutComponent implements OnInit {
     { id: 5, nombre: 'Hospitalidad', seleccionado: false },
   ]);
 
-  formGrupo = this.form.group({
-    nombre: ['', [Validators.required]],
-    email: ['', [Validators.email, Validators.required]],
-    telefono: ['', [Validators.minLength(9)]],
-    categoria: [''],
-    mensaje: ['', [Validators.required]],
+  formGrupo = this.form.group<ContactoGrupo>({
+    nombre: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    telefono: new FormControl('', [Validators.minLength(9)]),
+    categoria: new FormControl(''),
+    mensaje: new FormControl('', [Validators.required]),
   });
 
   openCategorias = signal<boolean>(false);
@@ -251,16 +278,13 @@ export class LandingLoyoutComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.landingLoyoutService.ObtenerProyectos().then(({ data, error }) => {
+      console.log(data);
 
-    this.landingLoyoutService.ObtenerProyectos().then(({data, error})=>{
-
-      console.log(data)
-      
-      if(error){
+      if (error) {
         console.log('Error al obtener proyectos', error);
         return;
       }
-      
     });
   }
 
@@ -287,7 +311,50 @@ export class LandingLoyoutComponent implements OnInit {
       this.formGrupo.markAllAsTouched();
       return;
     }
-    console.log(this.formGrupo.value);
+
+    const payload = {
+      nombre: this.formGrupo.get('nombre')?.value || '',
+      email: this.formGrupo.get('email')?.value || '',
+      telefono: this.formGrupo.get('telefono')?.value || '',
+      categoria: this.formGrupo.get('categoria')?.value || '',
+      mensaje: this.formGrupo.get('mensaje')?.value || '',
+    };
+
+    if (payload) {
+      const formContacto: Record<string, string> = {
+        ...payload,
+        fecha:
+          new Date().getDate() +
+          '-' +
+          (new Date().getMonth() + 1) +
+          '-' +
+          new Date().getFullYear(),
+      };
+
+      //console.log('FORM CONTACTO', formContacto);
+
+      
+      emailjs
+      .send(
+        environment.SERVICE_ID,
+        environment.TEMPLATE_ID,
+        formContacto,
+        { publicKey: environment.PUBLIC_ID }
+      )
+      .then(
+        () => {
+            this.OpenSnackBar('Formulario enviado con éxito');
+            this.formGrupo.reset();
+            this.categorias.update((list) =>
+              list.map((c: any) => ({ ...c, seleccionado: false }))
+            );
+          },
+          (error) => {
+            this.OpenSnackBar('Error al enviar el formulario');
+            //console.error('Error al enviar el formulario', error);
+          }
+        );
+    }
   }
 
   soloNumeros(e: Event) {
@@ -314,4 +381,12 @@ export class LandingLoyoutComponent implements OnInit {
     }
   }
 
+  OpenSnackBar(mensaje: string, duracion?: number) {
+    this._SnackBar.open(mensaje, 'Cerrar', {
+      duration: duracion || 3000,
+      horizontalPosition: 'center', // 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: 'bottom', // 'top' | 'bottom' });
+      //panelClass: ['items-center'], // Clase CSS personalizada
+    });
+  }
 }

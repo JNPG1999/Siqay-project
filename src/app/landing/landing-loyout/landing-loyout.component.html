@@ -150,13 +150,13 @@
             <div class="leftContactanos">
                 <div class="contenidoContactanos">
                     <div class="tituloContactanos">Envíanos un mensaje</div>
-                    <form class="contenidoFormulario" [formGroup]="formGrupo">
+                    <form class="contenidoFormulario" #formC [formGroup]="formGrupo" (ngSubmit)="onSubmit()">
                         <div class="dosInputs">
                             <div class="contenedorInput">
                                 <label class="inputForm" for="nombre">
                                     <span class="labelInput">Nombre *</span>
                                     <div class="input__container">
-                                        <input id="nombre" type="text" class="input" placeholder="Tu nombre completo"
+                                        <input id="nombre" type="text" class="input" name="nombre" placeholder="Tu nombre completo"
                                             required formControlName="nombre" />
                                     </div>
                                 </label>
@@ -172,7 +172,7 @@
                                 <label class="inputForm" for="email">
                                     <span class="labelInput">Email *</span>
                                     <div class="input__container">
-                                        <input id="email" type="email" class="input" formControlName="email"
+                                        <input id="email" type="email" class="input" name="email" formControlName="email"
                                             placeholder="tu@email.com" required />
                                     </div>
                                 </label>
@@ -191,7 +191,7 @@
                                 <label class="inputForm" for="telefono">
                                     <span class="labelInput">Teléfono</span>
                                     <div class="input__container">
-                                        <input id="telefono" type="text" class="input" maxlength="9"
+                                        <input id="telefono" type="text" name="telefono" class="input" maxlength="9"
                                             placeholder="+51 123456789" formControlName="telefono"
                                             (input)="soloNumeros($event)" />
                                     </div>
@@ -264,7 +264,7 @@
                             </div>
                         </div>
 
-                        <button class="enviarMensaje" [disabled]="formGrupo.invalid" (click)="onSubmit()">
+                        <button class="enviarMensaje" [disabled]="formGrupo.invalid" type="submit">
                             Enviar Mensaje
                         </button>
                     </form>
