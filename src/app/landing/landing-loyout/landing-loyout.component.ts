@@ -330,10 +330,7 @@ export class LandingLoyoutComponent implements OnInit {
           '-' +
           new Date().getFullYear(),
       };
-
-      //console.log('FORM CONTACTO', formContacto);
-
-      
+    
       emailjs
       .send(
         environment.SERVICE_ID,

@@ -1,1 +1,22 @@
-<p>admin-layout works!</p>
+<mat-sidenav-container class="h-screen w-screen">
+  <mat-sidenav
+    mode="side"
+    opened
+    class="!w-80 h-screen bg-gray-800 text-white p-4 flex flex-col gap-4"
+  >
+    <div class="w-full font-bold text-3xl text-center mb-4">SIQAY PROJECT</div>
+
+    @for (item of navegationItems; track $index) {
+    <div
+      class="w-full text-xl h-10 border-b-black border cursor-pointer"
+      (click)="irARuta(item.ruta)"
+      [routerLink]="'/dashboard/' + item.ruta"
+    >
+      {{ item.nombre }}
+    </div>
+    }
+  </mat-sidenav>
+  <mat-sidenav-container>
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
+</mat-sidenav-container>
