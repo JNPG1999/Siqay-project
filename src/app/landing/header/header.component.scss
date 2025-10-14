@@ -1,72 +1,139 @@
+// .containerNav{
+//     //padding: 0 2.4rem;
+//     display: flex;
+//     justify-content: center;
+//     width: 100%;
+//     position: fixed;
+//     z-index: 50;
+//     border-bottom: .1rem solid hsl(220 14% 85% / 1);
+//     top: 0;
+//     left: 0;
+//     background-color: rgba(255,255,255, 0.7);
+//     backdrop-filter: blur(16px) saturate(1.5);
+//     -webkit-backdrop-filter: blur(16px); // para Safari
+//     .containerPrincipal{
+//         display: flex;
+//         justify-content: space-between;
+//         align-items: center;
+//         height: 6.5rem;
+//         font-size: 2rem;
+//         font-weight: 600;
+//         max-width: 128rem;
+//         width: 100%;
+//         .containerSeccion{
+//             display: flex;
+//             gap: 3.5rem;
+    
+//             .itemSeccion{
+//             font-size: 1.4rem;
+//             transition: opacity 0.2s ease;
+//             -webkit-tap-highlight-color: transparent;
+//             outline: none;
+//             color: #18181b;
+//             cursor: pointer;
+//             &:hover {
+//                 opacity: 0.8; // hover:opacity-hover
+//             }
+
+//             &:active {
+//                 opacity: 0.4; // active:opacity-disabled
+//             }    
+//             }
+    
+//         }
+
+//         .containerButton{
+//             .consultaGratuita{
+//                 color: #525252;
+//                 background-color: rgba(48, 48, 48, 0.2);
+//                 padding: 0 1.6rem;
+//                 font-weight: 600;
+//                 height: 4rem;
+//                 font-size: 1.4rem;
+//                 border: none;
+//                 border-radius: .5rem;
+//                 cursor: pointer;
+//                 user-select: none;
+//                 transition: opacity 0.2s ease, transform 0.2s ease;
+//                 &:hover{
+//                     opacity: 0.8; // equivale a `hover:opacity-hover`
+//                 }
+//                 &:active{
+//                       opacity: 0.4; // equivale a `active:opacity-disabled`
+//                 } 
+//                 &:focus-visible {
+//                     outline: 2px solid rgba(48, 48, 48, 0.4); // accesibilidad
+//                     outline-offset: 2px;
+//                 }
+//             }
+//         }
+    
+//     }
+// }
+
 .containerNav{
-    //padding: 0 2.4rem;
+  // padding: 0 1.5rem;            /* 2.4rem -> 1.5rem (comentado) */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  z-index: 50;
+  border-bottom: 0.0625rem solid hsl(220 14% 85% / 1); /* .1rem -> .0625rem */
+  top: 0;
+  left: 0;
+  background-color: rgba(255,255,255, 0.7);
+  backdrop-filter: blur(1rem) saturate(1.5);          /* 16px -> 1rem */
+  -webkit-backdrop-filter: blur(1rem) saturate(1.5);  /* 16px -> 1rem */
+
+  .containerPrincipal{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    height: 4.0625rem;     /* 6.5rem -> 4.0625rem */
+    font-size: 1.25rem;    /* 2rem -> 1.25rem */
+    font-weight: 600;
+    max-width: 80rem;      /* 128rem -> 80rem */
     width: 100%;
-    position: fixed;
-    z-index: 50;
-    border-bottom: .1rem solid hsl(220 14% 85% / 1);
-    top: 0;
-    left: 0;
-    background-color: rgba(255,255,255, 0.7);
-    backdrop-filter: blur(16px) saturate(1.5);
-    -webkit-backdrop-filter: blur(16px); // para Safari
-    .containerPrincipal{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 6.5rem;
-        font-size: 2rem;
-        font-weight: 600;
-        max-width: 128rem;
-        width: 100%;
-        .containerSeccion{
-            display: flex;
-            gap: 3.5rem;
-    
-            .itemSeccion{
-            font-size: 1.4rem;
-            transition: opacity 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-            outline: none;
-            color: #18181b;
-            cursor: pointer;
-            &:hover {
-                opacity: 0.8; // hover:opacity-hover
-            }
 
-            &:active {
-                opacity: 0.4; // active:opacity-disabled
-            }    
-            }
-    
-        }
+    .containerSeccion{
+      display: flex;
+      gap: 2.1875rem;      /* 3.5rem -> 2.1875rem */
 
-        .containerButton{
-            .consultaGratuita{
-                color: #525252;
-                background-color: rgba(48, 48, 48, 0.2);
-                padding: 0 1.6rem;
-                font-weight: 600;
-                height: 4rem;
-                font-size: 1.4rem;
-                border: none;
-                border-radius: .5rem;
-                cursor: pointer;
-                user-select: none;
-                transition: opacity 0.2s ease, transform 0.2s ease;
-                &:hover{
-                    opacity: 0.8; // equivale a `hover:opacity-hover`
-                }
-                &:active{
-                      opacity: 0.4; // equivale a `active:opacity-disabled`
-                } 
-                &:focus-visible {
-                    outline: 2px solid rgba(48, 48, 48, 0.4); // accesibilidad
-                    outline-offset: 2px;
-                }
-            }
-        }
-    
+      .itemSeccion{
+        font-size: 0.875rem;                 /* 1.4rem -> 0.875rem */
+        transition: opacity 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        color: #18181b;
+        cursor: pointer;
+
+        &:hover { opacity: 0.8; }
+        &:active { opacity: 0.4; }
+      }
     }
+
+    .containerButton{
+      .consultaGratuita{
+        color: #525252;
+        background-color: rgba(48, 48, 48, 0.2);
+        padding: 0 1rem;                     /* 0 1.6rem -> 0 1rem */
+        font-weight: 600;
+        height: 2.5rem;                      /* 4rem -> 2.5rem */
+        font-size: 0.875rem;                 /* 1.4rem -> 0.875rem */
+        border: none;
+        border-radius: 0.3125rem;            /* .5rem -> .3125rem */
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+
+        &:hover  { opacity: 0.8; }
+        &:active { opacity: 0.4; }
+
+        &:focus-visible {
+          outline: 0.125rem solid rgba(48, 48, 48, 0.4); /* 2px -> .125rem */
+          outline-offset: 0.125rem;                      /* 2px -> .125rem */
+        }
+      }
+    }
+  }
 }

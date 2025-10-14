@@ -1,0 +1,338 @@
+<div class="space-y-6">
+  <div class="flex justify-between">
+    <div class="text-2xl font-bold">Bandeja de Entrada</div>
+    <div class="flex justify-between gap-2">
+      <div
+        class="inline-flex min-w-fit min-h-fit items-center justify-center box-border px-1 text-[#525252] text-sm rounded-full bg-[#33333333] whitespace-nowrap h-7"
+      >
+        <span class="flex-1 font-normal px-2 text-inherit">3 No leídos</span>
+      </div>
+      <div
+        class="inline-flex min-w-fit min-h-fit items-center justify-center box-border px-1 text-[#3F3F46] text-sm rounded-full bg-[#d4d4d866] h-7 whitespace-nowrap"
+      >
+        <span class="flex-1 font-normal px-2 text-inherit">6 Total</span>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-60">
+    <label
+      for="buscar"
+      class="flex gap-[6px] h-10 m-h-10 items-center bg-[#F4F4F5] rounded-md px-3 text-[#a1a1aa] hover:bg-[#e4e4e7] cursor-text"
+    >
+      <div class="text-current">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+          role="img"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path d="m21 21l-4.34-4.34"></path>
+            <circle cx="11" cy="11" r="8"></circle>
+          </g>
+        </svg>
+      </div>
+      <input
+        class="w-full text-sm text-black outline-none bg-transparent placeholder:text-[12px]"
+        type="text"
+        name="buscar"
+        placeholder="Buscar mensajes..."
+        id="buscar"
+        (keyup)="filtrarPorTipo($event)"
+      />
+    </label>
+  </div>
+  <div class="inline-flex">
+    <div
+      class="w-full flex p-1 gap-2 text-sm font-normal bg-[#f4f4f5] rounded-md"
+      role="radiogroup"
+    >
+      <button
+        class="px-3 py-2 box-border text-current cursor-pointer"
+        [ngClass]="
+          filtro() === 'todos'
+            ? 'rounded-md bg-white'
+            : 'hover:text-[#11181C] text-[#71717A]'
+        "
+        (click)="seleccionar('todos')"
+        role="radio"
+        [attr.aria-checked]="filtro() === 'todos'"
+      >
+        Todos
+      </button>
+      <button
+        class="px-3 py-2 box-border cursor-pointer"
+        [ngClass]="
+          filtro() === 'no-leidos'
+            ? 'rounded-md bg-white'
+            : 'hover:text-[#11181C] text-[#71717A]'
+        "
+        (click)="seleccionar('no-leidos')"
+        role="radio"
+        [attr.aria-checked]="filtro() === 'no-leidos'"
+      >
+        No leídos
+      </button>
+      <button
+        class="px-3 py-2 box-border cursor-pointer"
+        [ngClass]="
+          filtro() === 'leidos'
+            ? 'rounded-md bg-white'
+            : 'hover:text-[#11181C] text-[#71717A]'
+        "
+        (click)="seleccionar('leidos')"
+        role="radio"
+        [attr.aria-checked]="filtro() === 'todos'"
+      >
+        Leídos
+      </button>
+    </div>
+  </div>
+  <div class="flex flex-col gap-4 w-full border border-[#E4E4E7] rounded-md">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="min-w-full h-auto w-full table-auto"
+    >
+      <ng-container matColumnDef="leido">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+        >
+          ESTADO
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="font-normal text-xs p-3 text-left !border-none"
+        >
+          @if (element.leido) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            class="text-[#a1a1aa]"
+            data-locator="src/components/admin/admin-inbox.tsx:Icon:104:20"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path
+                d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0z"
+              ></path>
+              <path d="m22 10l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
+            </g>
+          </svg>
+          } @else {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            class="text-black"
+            data-locator="src/components/admin/admin-inbox.tsx:Icon:106:20"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            </g>
+          </svg>
+          }
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+        >
+          NOMBRE
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="font-normal text-xs p-3 text-left !border-none"
+        >
+          {{ element.nombre }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+        >
+          EMAIL
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="font-normal text-xs p-3 text-left !border-none"
+        >
+          {{ element.email }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="asunto">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+        >
+          ASUNTO
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="font-normal text-xs p-3 text-left !border-none"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="flex items-center text-xs h-6 whitespace-nowrap px-1 rounded-full bg-[#33333333] text-[#525252]"
+            >
+              <span class="flex-1 text-inherit font-normal px-1">
+                {{ element.categoria }}
+              </span>
+            </div>
+            <span [ngClass]="element.leido ? 'font-normal' : 'font-semibold'">{{
+              element.asunto
+            }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fecha">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+        >
+          FECHA
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="font-normal text-xs p-3 text-left !border-none"
+        >
+          {{ element.fecha }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+        >
+          ACCIONES
+        </th>
+        <td mat-cell *matCellDef="let element" class="!border-none">
+          <div class="flex items-center gap-2">
+            <button
+              matTooltip="Ver mensaje"
+              class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+            >
+              <img
+                src="../../../../assets/iconos/ver-mensaje.svg"
+                alt="ver-mensaje"
+              />
+            </button>
+            <button
+              [matTooltip]="element.leido ? 'Marcar como no leído' : 'Marcar como leído'"
+              class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+            >
+              @if (element.leido) {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                aria-hidden="true"
+                role="img"
+                class="text-black"
+                data-locator="src/components/admin/admin-inbox.tsx:Icon:106:20"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                >
+                  <path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                </g>
+              </svg>
+              }@else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                aria-hidden="true"
+                role="img"
+                class="text-black"
+                data-locator="src/components/admin/admin-inbox.tsx:Icon:104:20"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0z"
+                  ></path>
+                  <path d="m22 10l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
+                </g>
+              </svg>
+              }
+            </button>
+            <button
+              matTooltip="Eliminar"
+              class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+            >
+              <img
+                src="../../../../assets/iconos/eliminar-mensaje.svg"
+                alt="eliminar-mensaje"
+              />
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-10"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="row.leido ? '' : '!bg-[#f7f7f7]'"
+        class="!border-none"
+      ></tr>
+    </table>
+  </div>
+</div>
