@@ -52,7 +52,7 @@ interface ContactoGrupo {
   mensaje: FormControl<string | null>;
 }
 
-@Component({
+@Component( {
   selector: 'app-landing-loyout',
   standalone: true,
   imports: [
@@ -69,31 +69,31 @@ interface ContactoGrupo {
   ],
   templateUrl: './landing-loyout.component.html',
   styleUrl: './landing-loyout.component.scss',
-})
+} )
 export class LandingLoyoutComponent implements OnInit {
   dialog = inject(MatDialog);
   landingLoyoutService = inject(LandingLoyoutService);
   _SnackBar = inject(MatSnackBar);
 
-  categoriasProyecto = computed(() => {
-    const categorias = this.data.map((proyecto) => proyecto.categoria);
+  categoriasProyecto = computed( () => {
+    const categorias = this.data.map( ( proyecto ) => proyecto.categoria );
     return categorias;
-  });
+  } );
 
-  form: FormBuilder = inject(FormBuilder);
-  @ViewChild('inicio') inicioSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild('proyectos') proyectosSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild('nosotros') nosotrosSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild('servicios') serviciosSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild('contactos') contactosSeccion!: ElementRef<HTMLInputElement>;
+  form: FormBuilder = inject( FormBuilder );
+  @ViewChild( 'inicio' ) inicioSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild( 'proyectos' ) proyectosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild( 'nosotros' ) nosotrosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild( 'servicios' ) serviciosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild( 'contactos' ) contactosSeccion!: ElementRef<HTMLInputElement>;
 
-  categorias = signal<any>([
+  categorias = signal<any>( [
     { id: 1, nombre: 'Residencial', seleccionado: false },
     { id: 2, nombre: 'Comercial', seleccionado: false },
     { id: 3, nombre: 'Cultural', seleccionado: false },
     { id: 4, nombre: 'Público', seleccionado: false },
     { id: 5, nombre: 'Hospitalidad', seleccionado: false },
-  ]);
+  ] );
 
   formGrupo = this.form.group<ContactoGrupo>({
     nombre: new FormControl('', [Validators.required]),
@@ -103,7 +103,7 @@ export class LandingLoyoutComponent implements OnInit {
     mensaje: new FormControl('', [Validators.required]),
   });
 
-  openCategorias = signal<boolean>(false);
+  openCategorias = signal<boolean>( false );
 
   data: proyectosCarousel[] = [
     {
@@ -277,6 +277,34 @@ export class LandingLoyoutComponent implements OnInit {
     },
   ];
 
+  dataTestimonios: DataCardTestimonios[] = [
+    {
+      id: 1,
+      imgTestimonioTemplate: 'assets/iconos/testimoniosTemplate.svg',
+      description: 'El equipo de ArchiStudio transformó nuestra visión en una casa que supera todas nuestras expectativas. Su enfoque en la sostenibilidad y el diseño bioclimático nos ha permitido reducir significativamente nuestros costos energéticos.',
+      imgPersona: 'https://img.heroui.chat/image/avatar?w=200&h=200&u=test1',
+      nombrePersona: 'Carlos Rodriguez',
+      Ocupacion: 'Propieta, Casa Horizonte',
+    },
+    {
+      id: 2,
+      imgTestimonioTemplate: 'assets/iconos/testimoniosTemplate.svg',
+      description: 'Trabajar con ArchiStudio en nuestro edificio corporativo fue una experiencia excepcional. Su capacidad para combinar estética, funcionalidad y sostenibilidad resultó en un espacio que refleja perfectamente nuestra identidad corporativa.',
+      imgPersona: 'https://img.heroui.chat/image/avatar?w=200&h=200&u=test2',
+      nombrePersona: 'Elena Martínez',
+      Ocupacion: 'CEO, Nexus Investments',
+    },
+    {
+      id: 3,
+      imgTestimonioTemplate: 'assets/iconos/testimoniosTemplate.svg',
+      description: 'La renovación de nuestro museo superó todas las expectativas. El diseño paramétrico no solo creó un espacio visualmente impactante, sino que también mejoró significativamente la experiencia del visitante y la funcionalidad del espacio.',
+      imgPersona: 'https://img.heroui.chat/image/avatar?w=200&h=200&u=test3',
+      nombrePersona: 'Miguel Sánchez',
+      Ocupacion: 'Director, Fundación Cultural Metropolitana',
+    },
+
+  ]
+
   ngOnInit() {
     this.landingLoyoutService.ObtenerProyectos().then(({ data, error }) => {
       console.log(data);
@@ -288,26 +316,26 @@ export class LandingLoyoutComponent implements OnInit {
     });
   }
 
-  openModalDetalle(proyecto: proyectosCarousel) {
-    this.dialog.open(ModalProyectoComponent, {
+  openModalDetalle( proyecto: proyectosCarousel ) {
+    this.dialog.open( ModalProyectoComponent, {
       width: '650px',
       height: '80%',
       data: { proyecto: proyecto },
-    });
+    } );
   }
 
-  seleccionarCategoria(categoria: any) {
-    this.formGrupo.get('categoria')?.setValue(categoria.nombre);
+  seleccionarCategoria( categoria: any ) {
+    this.formGrupo.get( 'categoria' )?.setValue( categoria.nombre );
 
-    this.categorias.update((list) =>
-      list.map((c: any) => ({ ...c, seleccionado: c.id === categoria.id }))
+    this.categorias.update( ( list ) =>
+      list.map( ( c: any ) => ( { ...c, seleccionado: c.id === categoria.id } ) )
     );
 
-    console.log(this.categorias());
+    console.log( this.categorias() );
   }
 
   onSubmit() {
-    if (this.formGrupo.invalid) {
+    if ( this.formGrupo.invalid ) {
       this.formGrupo.markAllAsTouched();
       return;
     }
@@ -354,27 +382,27 @@ export class LandingLoyoutComponent implements OnInit {
     }
   }
 
-  soloNumeros(e: Event) {
+  soloNumeros( e: Event ) {
     const el = e.target as HTMLInputElement;
-    const limpio = el.value.replace(/\D/g, ''); // quita todo lo no numérico
-    if (limpio !== el.value) {
+    const limpio = el.value.replace( /\D/g, '' ); // quita todo lo no numérico
+    if ( limpio !== el.value ) {
       el.value = limpio;
-      this.formGrupo.get('telefono')!.setValue(limpio, { emitEvent: false });
+      this.formGrupo.get( 'telefono' )!.setValue( limpio, { emitEvent: false } );
     }
   }
 
-  RecibeSeccionHeader(evento: listaHeader) {
-    console.log('Seccion recibida en layout', evento);
+  RecibeSeccionHeader( evento: listaHeader ) {
+    console.log( 'Seccion recibida en layout', evento );
     const seccion = evento.nombre.toLocaleLowerCase() + 'Seccion';
     // Acceso dinámico a la propiedad usando bracket notation
-    const sectionRef = (this as any)[seccion] as ElementRef<HTMLInputElement>;
-    if (sectionRef && sectionRef.nativeElement) {
-      sectionRef.nativeElement.scrollIntoView({
+    const sectionRef = ( this as any )[ seccion ] as ElementRef<HTMLInputElement>;
+    if ( sectionRef && sectionRef.nativeElement ) {
+      sectionRef.nativeElement.scrollIntoView( {
         behavior: 'smooth',
         block: 'start',
-      });
+      } );
     } else {
-      console.warn(`No se encontró la sección: ${seccion}`);
+      console.warn( `No se encontró la sección: ${ seccion }` );
     }
   }
 

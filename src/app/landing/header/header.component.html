@@ -3,10 +3,30 @@
         <div class="containerLogo">
             SIQAYESTUDIO
         </div>
+        <!-- @if (!openMenuToggle) { -->
         <div class="containerSeccion">
             @for (item of listaHeader; track item.id) {
-                <div class="itemSeccion" (click)="EnviarSeccion(item)">{{item.nombre}}</div>
+            <div class="itemSeccion" (click)="EnviarSeccion(item)">{{item.nombre}}</div>
             }
+        </div>
+        <!-- } -->
+        <!--! Menu Hamburguesa escondido en pantallas grandes -->
+        <!-- <div (click)="openMenu()" class="menuHamburguesa">
+            <mat-toolbar>
+                <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </mat-toolbar>
+
+        </div> -->
+
+        <div (click)="openMenu()" class="menuHamburguesa">
+            <mat-toolbar>
+                <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <span>SIQAYESTUDIO</span>
+            </mat-toolbar>
         </div>
         <div class="containerButton">
             <button class="consultaGratuita" (click)="EnviarSeccion(listaHeader[4])">
@@ -14,4 +34,23 @@
             </button>
         </div>
     </div>
+
+    <!--! menú desplegable para pantallas pequeñas -->
+    @if (openMenuToggle) {
+
+
+    <div class="menuMovil">
+        <div class="menuContenido">
+            <div class="mat-icon-close" (click)="openMenu()">
+                <mat-icon>close</mat-icon>
+            </div>
+
+            @for (item of listaHeader; track item.id) {
+            <div class="itemSeccion" (click)="EnviarSeccion(item)">
+                {{ item.nombre }}
+            </div>
+            }
+        </div>
+    </div>
+    }
 </nav>

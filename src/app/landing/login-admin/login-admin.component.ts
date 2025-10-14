@@ -9,6 +9,10 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { log } from 'console';
 import { SessionStorageService } from '../../services/session-storage/session-storage.service';
+import { JsonPipe } from '@angular/common';
+
+
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 interface LoginForm {
   email: FormControl<null | string>;
@@ -18,7 +22,7 @@ interface LoginForm {
 @Component({
   selector: 'app-login-admin',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, JsonPipe, MatSnackBarModule],
   templateUrl: './login-admin.component.html',
   styleUrl: './login-admin.component.scss',
 })
@@ -27,6 +31,11 @@ export class LoginAdminComponent {
   _loginService = inject(LoginService);
   _formBuilder = inject(FormBuilder);
   _router = inject(Router);
+
+    //! toast
+
+    constructor(private snackBar: MatSnackBar) {}
+   
 
   loginForm = this._formBuilder.group<LoginForm>({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -51,7 +60,39 @@ export class LoginAdminComponent {
     } catch (error) {
       if (error instanceof Error) {
         console.log('Error: ', error);
+        // this.openToast(error.message);
+        this.openToast("Email o contraseña son incorrectos")
       }
     }
+  }
+
+  getFieldError( campos: string ) : string | null {
+    
+    if ( !this.loginForm.get(campos)?.errors && !this.loginForm.get(campos)?.touched ) return null;
+
+    const errors = this.loginForm.get(campos)?.errors ?? {};
+
+    for ( const key of Object.keys(errors) ) {
+        switch(key) {
+            case 'required':
+                if ( campos === 'password') {
+                    return 'La contrasenia es requerida'
+                }
+
+                return 'El campo es requerido'
+            case 'email':
+                return 'Escribe un correo valido'
+        }
+    }
+
+    return null;
+  }
+
+  openToast( message: string ) {
+     this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+    });
   }
 }

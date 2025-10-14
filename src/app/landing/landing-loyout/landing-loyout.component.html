@@ -27,9 +27,8 @@
     <section #proyectos class="container">
         <div class="seccionProyectos">
             <div class="containerTituloSeccion">
-                <app-title-reusable 
-            [title]="'Nuestros Proyectos'"
-            [description]="'Exploramos la intersección entre funcionalidad, estética ysostenibilidad para crear espacios que transforman la experiencia humana.'"/>
+                <app-title-reusable [title]="'Nuestros Proyectos'"
+                    [description]="'Exploramos la intersección entre funcionalidad, estética ysostenibilidad para crear espacios que transforman la experiencia humana.'" />
             </div>
             <div class="containerProyectos">
                 <!-- <mat-icon>chevron_right</mat-icon> -->
@@ -118,10 +117,8 @@
     </div> -->
     <section #servicios class="container">
         <!--* COMPONENTE DE TITULO-->
-        <app-title-reusable 
-            [title]="'Nuestros Servicios'"
-            [description]="'Ofrecemos soluciones arquitectónicas integrales adaptadas a las necesidades específicas de cada cliente y proyecto.'" 
-        />
+        <app-title-reusable [title]="'Nuestros Servicios'"
+            [description]="'Ofrecemos soluciones arquitectónicas integrales adaptadas a las necesidades específicas de cada cliente y proyecto.'" />
         <div class="seccionCard">
             <app-card-info [data]="dataServicios" />
         </div>
@@ -129,23 +126,29 @@
 
     <!--! NUESTROS PROCESOS -->
 
-    
+
     <section #procesos class="container">
         <!--* COMPONENTE DE TITULO-->
-        <app-title-reusable 
-            [title]="'Nuestros Procesos'"
-            [description]="'Seguimos una metodología estructurada que garantiza resultados excepcionales en cada etapa del proyecto arquitectónico.'" 
-        />
+        <app-title-reusable [title]="'Nuestros Procesos'"
+            [description]="'Seguimos una metodología estructurada que garantiza resultados excepcionales en cada etapa del proyecto arquitectónico.'" />
         <div class="seccionCard">
             <app-card-info [data]="dataProcesos" />
         </div>
     </section>
 
+
+    <!--! TESTIMONIOS -->
+    <section #testimonios class="container">
+        <!--* COMPONENTE DE TITULO-->
+        <app-title-reusable [title]="'Lo Que Dicen Nuestros Clientes'"
+            [description]="'Nos enorgullece la satisfacción de nuestros clientes y el impacto positivo de nuestros proyectos en sus vidas y negocios.'"></app-title-reusable>
+
+        <card-testimonios [data]="dataTestimonios"></card-testimonios>
+    </section>
+
     <section #contactos class="container">
-        <app-title-reusable 
-            [title]="'Contacta con Nosotros'"
-            [description]="'Estamos aquí para ayudarte a dar vida a tu proyecto. Contáctanos para programar una consulta inicial gratuita.'"
-        ></app-title-reusable>
+        <app-title-reusable [title]="'Contacta con Nosotros'"
+            [description]="'Estamos aquí para ayudarte a dar vida a tu proyecto. Contáctanos para programar una consulta inicial gratuita.'"></app-title-reusable>
         <div class="seccionContactanos">
             <div class="leftContactanos">
                 <div class="contenidoContactanos">
@@ -270,7 +273,78 @@
                     </form>
                 </div>
             </div>
-            <div class="rightContactanos"></div>
+            <div class="rightContactanos">
+                <div class="rightContactanos-container">
+                    <h3>Informacion de Contacto</h3>
+                    <!--*CONTENEDOR-->
+                    <div class="container-principal">
+
+                        <!--* informacion -->
+                        <div class="container-secundario">
+                            <div class="mat-icon-class">
+                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                                 <!-- <mat-icon>location_on</mat-icon> -->
+                                  <img src="/assets/iconos/iconos-contacto/location.svg" alt="">
+                            </div>
+                            <div>
+                                <h4>Direccion</h4>
+                                <p>Calle Principal 123, Ciudad</p>
+                            </div>
+                        </div>
+                        <!--* informacion -->
+                        <div class="container-secundario">
+                            <div class="mat-icon-class">
+                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                                 <!-- <mat-icon>phone</mat-icon> -->
+                                  <img src="/assets/iconos/iconos-contacto/phone.svg" alt="">
+                            </div>
+                            <div>
+                                <h4>Telefono</h4>
+                                <p>+34 123 456 789</p>
+                            </div>
+                        </div>
+                        <!--* informacion -->
+                        <div class="container-secundario">
+                            <div class="mat-icon-class">
+                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                                 <!-- <mat-icon>email</mat-icon> -->
+                                  <img src="/assets/iconos/iconos-contacto/email.svg" alt="">
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>infosiquayestudio.com</p>
+                            </div>
+                        </div>
+                        <!--* informacion -->
+                        <div class="container-secundario">
+                            <div class="mat-icon-class">
+                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                                 <!-- <mat-icon>access_time</mat-icon> -->
+                                  <img src="/assets/iconos/iconos-contacto/horario.svg" alt="">
+                            </div>
+                            <div>
+                                <h4>Horario</h4>
+                                <p>Lun-Vie: 9:00 - 18:00</p>
+                            </div>
+                        </div>
+
+                        <h3>
+                            Siguenos
+                        </h3>
+                        <div class="container-redesSociales">
+                            <div class="mat-icon-class">
+                                <img src="/assets/iconos/iconos-redesSociales/instagram.svg" alt="">
+                            </div>
+                            <div class="mat-icon-class">
+                                <img src="/assets/iconos/iconos-redesSociales/facebook.svg">
+                            </div>
+                            <div class="mat-icon-class">
+                                <img src="/assets/iconos/iconos-redesSociales/linkdin.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <app-footer></app-footer>
