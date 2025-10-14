@@ -1,0 +1,22 @@
+<div class="cardComponent">
+    @for (persona of data(); track $index) {
+        <div class="cardContainerComponent">
+            <div>
+                <img class="imagenFondo" [src]="persona.imgTestimonioTemplate" [alt]="persona.nombrePersona">
+            </div>
+            <!-- <div class="quote-icon"></div> -->
+            <div class="textDefinition">
+                <p>"{{ persona.description }}"</p>
+            </div>
+            <div class="container-persona">
+                <div class="imagenPersona">
+                    <img  [src]="persona.imgPersona" [alt]="persona.nombrePersona">
+                </div>
+                <div>
+                    <h4 class="nombrePersona">{{ persona.nombrePersona }}</h4>
+                    <span>{{ persona.Ocupacion }}</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

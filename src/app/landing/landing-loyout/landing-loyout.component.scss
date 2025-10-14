@@ -5,16 +5,17 @@
   .containerTitulo {
     width: 50%;
 
+
     .tituloInicio {
       font-size: 6rem;
       line-height: 1;
       //letter-spacing: -0.15rem;
-      font-weight: 700;
+      font-weight: 500;
       margin-bottom: 2.6rem;
     }
 
     .subtituloInicio {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       color: #52525b;
       font-family: "Inter", sans-serif;
       line-height: 2.8rem;
@@ -62,11 +63,15 @@
   .containerCarousel {
     width: 50%;
     height: 100%;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
   }
 }
 
 .seccionProyectos {
-  padding: 0 3.2rem;
+//   padding: 0 3.2rem;
   .containerTituloSeccion {
     margin-bottom: 6.4rem;
     .tituloSeccion {
@@ -91,6 +96,17 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2.7rem;
 
+     @media (max-width: 1024px) {
+            
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 3.2rem;
+            
+        }
+
+        @media (max-width: 768px) {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
     .fondoOscuroImagen {
       background: linear-gradient(
         to top,
@@ -112,6 +128,15 @@
         object-fit: cover;
         border-radius: 1.3rem;
       }
+
+      
+
+        @media (max-width: 768px) {
+            width: 100%;
+        height: 256px;
+        object-fit: cover;
+        border-radius: 1.3rem;
+        }
 
       .contenidoCard {
         position: absolute;
@@ -159,11 +184,19 @@
   align-items: center;
   padding: 0 3.2rem;
   .leftNosotros {
-    width: 50%;
+      width: 50%;
+      
+
+
+
     .tituloNosotros {
       color: #11181c;
       font-size: 3rem;
       font-weight: 700;
+
+      @media (max-width: 1024px) {
+        text-align: center;
+      }
     }
     .descripcionNosotros {
       margin-top: 2.4rem;
@@ -198,12 +231,19 @@
     }
   }
 
+ 
+
   .rightNosotros {
     width: 50%;
+
     .containerHabilidades {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 2.4rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
       .cardNosotros {
         display: flex;
         flex-direction: column;
@@ -250,16 +290,21 @@
   display: flex;
   gap: 6.4rem;
   align-items: center;
-  padding: 0 3.2rem;
+//   padding: 0 3.2rem;
 }
 
 .seccionContactanos {
   padding: 0 3.2rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+//   grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 2fr 1fr;
   gap: 3.2rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
   .leftContactanos {
-    grid-column: span 2 / span 2;
+    // grid-column: span 2 / span 2;
     outline: 2px solid transparent;
     height: auto;
     box-sizing: border-box;
@@ -306,6 +351,62 @@
     background-color: #ffffff;
     box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 0.03),
       0px 2px 30px 0px rgb(0 0 0 / 0.08), 0px 0px 1px 0px rgb(0 0 0 / 0.3);
+
+    //   @media (max-width:1024px) {
+    //     grid-column: span 1 / span 3;
+    //   }
+
+      .rightContactanos-container {
+        padding: 24px;
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2.4rem;
+        }
+
+        .container-secundario {
+
+            &:not(:first-child) {
+                margin-top: 2.4rem;
+            }
+            
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            
+
+            h4 {
+                margin: 0;
+                color: #000;
+                font-weight: 500;
+                font-size: 1.6rem;
+            }
+
+            p {
+                color: #7c7c8d;
+                font-size: 1.4rem;
+            }
+        }
+        
+        .container-redesSociales {
+            display: flex;
+            gap: 1rem;
+
+        }
+
+        
+
+        .mat-icon-class {
+            img {
+                background-color: #eaeaea;
+                border-radius: 9999px;
+                padding: 10px;
+                width: inherit;
+                height: inherit;
+            }
+        }
+      }
   }
 }
 
@@ -496,4 +597,36 @@
   padding: 0 0.4rem;
   font-size: 1.2rem;
   color: #f31260;
+}
+
+
+@media (max-width: 1024px) {
+
+    .seccionInicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .containerTitulo {  
+        width: 100%;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // flex-direction: column;
+        // text-align: center;
+    }
+}
+  .seccionNosotros {
+    flex-direction: column; /* para que se apilen */
+    justify-content: start;
+    align-items: start;
+    padding: 0;
+
+    .leftNosotros,
+    .rightNosotros {
+      width: 100%;
+      
+    }
+  }
+
 }
