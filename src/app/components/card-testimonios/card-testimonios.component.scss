@@ -1,109 +1,103 @@
 .cardComponent {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    //   gap: 2.4rem;
-    gap: 3.2rem;
-    // @media (max-width: 1024px) {
-        
-    //     grid-template-columns: repeat(2, minmax(0, 1fr));
-    //     gap: 3.2rem;
-        
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  //   gap: 2.4rem;
+  gap: 2rem;
+  // @media (max-width: 1024px) {
+
+  //     grid-template-columns: repeat(2, minmax(0, 1fr));
+  //     gap: 3.2rem;
+
+  // }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .cardContainerComponent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+    // padding: 2.8rem;
+    padding: 2.0625rem;
+    // align-items: center;
+    height: auto;
+    //width: 100%;
+    // text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // shadow-medium
+    border: 1px solid #e5e7eb;
+    background-color: white;
+    border-radius: 1rem;
+    //ICONO
+    // .quote-icon {
+    //     position: relative;
+    //     width: 50px;
+    //     height: 50px;
     // }
-    @media (max-width: 768px) {
-            grid-template-columns: repeat(1, minmax(0, 1fr));
+
+    // .quote-icon::before,
+    // .quote-icon::after {
+    // content: "“"; /* o usa "❝" o "❞" si prefieres */
+    // position: absolute;
+    // font-size: 60px;
+    // color: #d4d4d8; /* gris claro */
+    // font-family: serif;
+    // opacity: 0.6;
+    // }
+
+    // .quote-icon::after {
+    // content: "”";
+    // left: 25px;
+    // }
+
+    .imagenFondo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.75rem;
+      height: 5rem;
+      margin-bottom: 0.625rem;
+      border-radius: 9999px;
+      background-color: white;
     }
-    .cardContainerComponent {
-        display: flex;
-        flex-direction: column;
-        gap: 1.8rem;
-        // padding: 2.8rem;
-        padding:3.3rem;
-        // align-items: center;
-        height: auto;
-        //width: 100%;
-        // text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // shadow-medium
-        border: 1px solid #e5e7eb;
-        background-color: white;
-        border-radius: 1.6rem;
-        //ICONO
-        // .quote-icon {
-        //     position: relative;
-        //     width: 50px;
-        //     height: 50px;
-        // }
 
-        // .quote-icon::before,
-        // .quote-icon::after {
-        // content: "“"; /* o usa "❝" o "❞" si prefieres */
-        // position: absolute;
-        // font-size: 60px;
-        // color: #d4d4d8; /* gris claro */
-        // font-family: serif;
-        // opacity: 0.6;
-        // }
+    .textDefinition {
+      color: #52525b;
+      font-size: 1.125rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 1.375rem;
+      font-style: italic;
+      flex: 1;
+      @media (max-width: 1024px) {
+        font-size: 1rem;
+      }
+    }
 
-        // .quote-icon::after {
-        // content: "”";
-        // left: 25px;
-        // }
+    .container-persona {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .imagenFondo {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 4.4rem;
-          height: 4.8rem;
-          margin-bottom: 1rem;
-          border-radius: 9999px;
-          background-color: white;
-        }
+    .imagenPersona {
+      img {
+        width: 50px; /* ancho */
+        height: 50px; /* alto igual al ancho para que sea un círculo */
+        border-radius: 50%; /* convierte el cuadrado en círculo */
+        object-fit: cover; /* hace que la imagen se recorte sin deformarse */
+      }
+    }
 
-        .textDefinition {
-          color: #52525b;
-          font-size: 1.8rem;
-          font-weight: 400;
-          letter-spacing: 1px;
-          line-height: 2.2rem;
-          font-style: italic;
+    .nombrePersona {
+      font-weight: 500;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
 
-           @media (max-width: 1024px) {
-            
-                font-size: 1.6rem;
-            
-            }
-        }
-
-        .container-persona {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .imagenPersona {
-            img {
-                width: 50px;          /* ancho */
-                height: 50px;         /* alto igual al ancho para que sea un círculo */
-                border-radius: 50%;    /* convierte el cuadrado en círculo */
-                object-fit: cover;     /* hace que la imagen se recorte sin deformarse */
-            }
-
-        }
-
-        .nombrePersona {
-            font-weight: 500;
-            font-size: 15px;
-            margin-bottom: 2px;
-
-        }
-        
-        span {
-            color: #7c7c8d;
-            font-size: 1.4rem;
-        }
-        
-
-    }        
+    span {
+      color: #7c7c8d;
+      font-size: 0.875rem;
+    }
+  }
 }

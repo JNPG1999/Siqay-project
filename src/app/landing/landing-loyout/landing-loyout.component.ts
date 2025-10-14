@@ -34,6 +34,7 @@ import { LandingLoyoutService } from '../../services/landing-loyout/landing-loyo
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { environment } from '../../../environments/environments.development';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { DataCardTestimonios, CardTestimoniosComponent } from '../../components/card-testimonios/card-testimonios.component';
 
 interface FormContactanos {
   nombre: string;
@@ -66,7 +67,8 @@ interface ContactoGrupo {
     CardInfoComponent,
     TitleReusableComponent,
     MatSnackBarModule,
-  ],
+    CardTestimoniosComponent
+],
   templateUrl: './landing-loyout.component.html',
   styleUrl: './landing-loyout.component.scss',
 } )

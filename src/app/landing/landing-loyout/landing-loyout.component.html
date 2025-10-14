@@ -31,7 +31,7 @@
                     [description]="'Exploramos la intersección entre funcionalidad, estética ysostenibilidad para crear espacios que transforman la experiencia humana.'" />
             </div>
             <div class="containerProyectos">
-                <!-- <mat-icon>chevron_right</mat-icon> -->
+                
                 @for (item of data; track $index) {
                 <div class="cardProyecto">
                     <img [src]="item.imagen" [alt]="item.titulo" />
@@ -142,8 +142,9 @@
         <!--* COMPONENTE DE TITULO-->
         <app-title-reusable [title]="'Lo Que Dicen Nuestros Clientes'"
             [description]="'Nos enorgullece la satisfacción de nuestros clientes y el impacto positivo de nuestros proyectos en sus vidas y negocios.'"></app-title-reusable>
-
-        <card-testimonios [data]="dataTestimonios"></card-testimonios>
+        <div class="seccionCard">
+            <card-testimonios [data]="dataTestimonios"></card-testimonios>
+        </div>
     </section>
 
     <section #contactos class="container">
