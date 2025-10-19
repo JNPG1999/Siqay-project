@@ -1,0 +1,125 @@
+<div class="flex flex-col gap-5 p-5 rounded-2xl">
+    <div class="flex justify-between">
+        <h3>Editar Proyecto</h3>
+        <div (click)="closeModal()">
+            x
+        </div>
+    </div>
+    @if( data.project ){
+    <div class="seccionContactanos">
+        <div class="leftContactanos">
+            <div class="contenidoContactanos">
+                <div class="tituloContactanos">Envíanos un mensaje</div>
+                <form class="contenidoFormulario">
+                    <div class="dosInputs">
+                        <div class="contenedorInput">
+                            <label class="inputForm" for="nombre">
+                                <span class="labelInput">Nombre *</span>
+                                <div class="input__container">
+                                    <input id="nombre" type="text" class="input" name="nombre"
+                                        placeholder="Tu nombre completo" required />
+                                </div>
+                            </label>
+                            <div class="error">
+                                El nombre es obligatorio.
+                            </div>
+                        </div>
+
+                        <div class="contenedorInput">
+                            <label class="inputForm" for="email">
+                                <span class="labelInput">Email *</span>
+                                <div class="input__container">
+                                    <input id="email" type="email" class="input" name="email" placeholder="tu@email.com"
+                                        required />
+                                </div>
+                            </label>
+                            <div class="error">
+                                Por favor, ingresa un correo electrónico válido.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dosInputs">
+                        <div class="contenedorInput">
+                            <label class="inputForm" for="telefono">
+                                <span class="labelInput">Teléfono</span>
+                                <div class="input__container">
+                                    <input id="telefono" type="text" name="telefono" class="input" maxlength="9"
+                                        placeholder="+51 123456789" />
+                                </div>
+                            </label>
+                            <div>
+                                El teléfono debe tener al menos 9 caracteres.
+                            </div>
+                        </div>
+                        <div class="contenedorInput" (click)="openCategorias.set(!openCategorias())">
+                            <div class="inputForm pointer">
+                                <div class="labelInput">Tipo de Proyecto</div>
+                                @if (categoriaSeleccionada() != null) {
+                                <span> {{ categoriaSeleccionada()?.nombre }} </span>
+                                }@else {
+                                <span class="placeholderSpan"> Selecciona una opción </span>
+                                }
+
+                                <div class="flechaContainer">
+                                    @if (openCategorias()) {
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M18 15L12 9 6 15" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    }@else {
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    }
+                                </div>
+                            </div>
+                            @if (openCategorias()) {
+                            <div class="opcionCategorias">
+                                <ul>
+                                    @for (categoria of categorias(); track categoria.id) {
+                                    <li (click)="seleccionarCategoria(categoria)">
+                                        {{ categoria.nombre }}
+                                        @if(categoria.seleccionado) {
+
+                                            <span class="checkIcon">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M5 13l4 4L19 7" stroke="#000" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </span>
+                                        }
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="dosInputs" style="grid-template-columns: 1fr">
+                        <div class="contenedorInput">
+                            <label class="inputForm sinHeight" for="mensaje">
+                                <span class="labelTextarea">Mensaje *</span>
+                                <textarea class="textareaForm" name="mensaje" id="mensaje"
+                                    placeholder="Cuéntanos sobre tu proyecto" required></textarea>
+                            </label>
+                            <div class="error">
+                                Completa este campo
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="enviarMensaje" type="submit">
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    }
+</div>
