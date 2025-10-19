@@ -5,13 +5,14 @@ import { SupabaseService } from '../supabase/supabase.service';
   providedIn: 'root',
 })
 export class LandingLoyoutService {
-  
   _SupabaseService = inject(SupabaseService).supabaseClient;
 
   async ObtenerProyectos() {
     let { data: any, error } = await this._SupabaseService
       .from('t_proyectos')
       .select('*');
-    return { data:any, error };
+    return { data: any, error };
   }
+
+  
 }

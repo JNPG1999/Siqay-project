@@ -1,352 +1,494 @@
 <app-header (seccionHeader)="RecibeSeccionHeader($event)"></app-header>
 <main class="marginTopBody">
-    <section #inicio class="container">
-        <div class="seccionInicio">
-            <div class="containerTitulo">
-                <h1 class="tituloInicio">
-                    Diseño arquitectónico
-                    <span style="color: #333333">innovador</span>
-                    y funcional
-                </h1>
-                <div class="subtituloInicio">
-                    Transformamos espacios con un enfoque minimalista y sostenible,
-                    creando ambientes que inspiran y perduran en el tiempo.
-                </div>
-                <div class="buttonInicio">
-                    <button class="ver-proyectos">Ver Proyectos</button>
-                    <button class="contactanos">Contáctanos</button>
-                </div>
-            </div>
-            <div class="containerCarousel">
-                <app-carousel-proyectos></app-carousel-proyectos>
-            </div>
+  <section #inicio class="container">
+    <div class="seccionInicio">
+      <div class="containerTitulo">
+        <h1 class="tituloInicio">
+          Diseño arquitectónico
+          <span style="color: #333333">innovador</span>
+          y funcional
+        </h1>
+        <div class="subtituloInicio">
+          Transformamos espacios con un enfoque minimalista y sostenible,
+          creando ambientes que inspiran y perduran en el tiempo.
         </div>
-    </section>
+        <div class="buttonInicio">
+          <button class="ver-proyectos">Ver Proyectos</button>
+          <button class="contactanos">Contáctanos</button>
+        </div>
+      </div>
+      <div class="containerCarousel">
+        <app-carousel-proyectos></app-carousel-proyectos>
+      </div>
+    </div>
+  </section>
 
-    <!--! NUESTROS PROYECTOS(COMPONENTE) -->
-    <section #proyectos class="container">
-        <div class="seccionProyectos">
-            <div class="containerTituloSeccion">
-                <app-title-reusable [title]="'Nuestros Proyectos'"
-                    [description]="'Exploramos la intersección entre funcionalidad, estética ysostenibilidad para crear espacios que transforman la experiencia humana.'" />
+  <!--! NUESTROS PROYECTOS(COMPONENTE) -->
+  <section #proyectos class="container">
+    <div class="seccionProyectos">
+      <div class="containerTituloSeccion">
+        <app-title-reusable
+          [title]="'Nuestros Proyectos'"
+          [description]="
+            'Exploramos la intersección entre funcionalidad, estética ysostenibilidad para crear espacios que transforman la experiencia humana.'
+          "
+        />
+      </div>
+      <div class="containerProyectos">
+        @for (item of data; track $index) {
+        <div class="cardProyecto">
+          <img [src]="item.imagen" [alt]="item.titulo" />
+          <div class="fondoOscuroImagen"></div>
+          <div class="contenidoCard">
+            <div class="tituloCard">
+              {{ item.titulo }}
             </div>
-            <div class="containerProyectos">
-                
-                @for (item of data; track $index) {
-                <div class="cardProyecto">
-                    <img [src]="item.imagen" [alt]="item.titulo" />
-                    <div class="fondoOscuroImagen"></div>
-                    <div class="contenidoCard">
-                        <div class="tituloCard">
-                            {{ item.titulo }}
-                        </div>
-                        <div class="categoriaCard">
-                            {{ item.categoria }} | {{ item.fecha | date : "yyyy" }}
-                        </div>
-                        <div class="verDetalles" (click)="openModalDetalle(item)">
-                            Ver detalles
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                aria-hidden="true" role="img" class="iconify iconify--lucide ml-2"
-                                data-locator="src/components/projects.tsx:Icon:74:24" width="1em" height="1em"
-                                viewBox="0 0 24 24">
-                                <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M5 12h14m-7-7l7 7l-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                }
+            <div class="categoriaCard">
+              {{ item.categoria }} | {{ item.fecha | date : "yyyy" }}
             </div>
+            <div class="verDetalles" (click)="openModalDetalle(item)">
+              Ver detalles
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                aria-hidden="true"
+                role="img"
+                class="iconify iconify--lucide ml-2"
+                data-locator="src/components/projects.tsx:Icon:74:24"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 12h14m-7-7l7 7l-7 7"
+                ></path>
+              </svg>
+            </div>
+          </div>
         </div>
-    </section>
-    <!--! SOBRE NOSOTROS(COMPONENTE)-->
-    <section #nosotros class="container">
-        <div class="seccionNosotros">
-            <div class="leftNosotros">
-                <div class="tituloNosotros">Sobre Nosotros</div>
-                <p class="descripcionNosotros">
-                    Somos un estudio de arquitectura con más de 15 años de experiencia,
-                    especializado en diseño residencial, comercial y cultural. Nuestro
-                    enfoque combina la estética minimalista con principios de
-                    sostenibilidad y funcionalidad.
-                </p>
-                <p class="descripcionNosotros">
-                    Cada proyecto es una oportunidad para crear espacios que inspiren,
-                    funcionen perfectamente y respeten el entorno. Trabajamos con un
-                    equipo multidisciplinario de arquitectos, diseñadores e ingenieros
-                    para ofrecer soluciones integrales y personalizadas.
-                </p>
-                <div class="experiencia">
-                    <div class="expValor">
-                        <span class="cantidadExp">15+</span>
-                        <div class="textExp">Años de experiencia</div>
-                    </div>
-                    <div class="expValor">
-                        <span class="cantidadExp">120+</span>
-                        <div class="textExp">Proyectos completados</div>
-                    </div>
-                    <div class="expValor">
-                        <span class="cantidadExp">18</span>
-                        <div class="textExp">Premios de diseño</div>
-                    </div>
-                </div>
-            </div>
-            <div class="rightNosotros">
-                <div class="containerHabilidades">
-                    @for (item of dataNosotros; track item.id) {
-                    <div class="cardNosotros">
-                        <div class="imagenFondo">
-                            <img [src]="item.imagen" [alt]="item.habilidad" />
-                        </div>
-                        <div class="textHabilidad">
-                            {{ item.habilidad }}
-                        </div>
-                        <div class="textDescripcion">
-                            {{ item.descripcion }}
-                        </div>
-                    </div>
-                    }
-                </div>
-            </div>
+        }
+      </div>
+    </div>
+  </section>
+  <!--! SOBRE NOSOTROS(COMPONENTE)-->
+  <section #nosotros class="container">
+    <div class="seccionNosotros">
+      <div class="leftNosotros">
+        <div class="tituloNosotros">Sobre Nosotros</div>
+        <p class="descripcionNosotros">
+          Somos un estudio de arquitectura con más de 15 años de experiencia,
+          especializado en diseño residencial, comercial y cultural. Nuestro
+          enfoque combina la estética minimalista con principios de
+          sostenibilidad y funcionalidad.
+        </p>
+        <p class="descripcionNosotros">
+          Cada proyecto es una oportunidad para crear espacios que inspiren,
+          funcionen perfectamente y respeten el entorno. Trabajamos con un
+          equipo multidisciplinario de arquitectos, diseñadores e ingenieros
+          para ofrecer soluciones integrales y personalizadas.
+        </p>
+        <div class="experiencia">
+          <div class="expValor">
+            <span class="cantidadExp">15+</span>
+            <div class="textExp">Años de experiencia</div>
+          </div>
+          <div class="expValor">
+            <span class="cantidadExp">120+</span>
+            <div class="textExp">Proyectos completados</div>
+          </div>
+          <div class="expValor">
+            <span class="cantidadExp">18</span>
+            <div class="textExp">Premios de diseño</div>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="rightNosotros">
+        <div class="containerHabilidades">
+          @for (item of dataNosotros; track item.id) {
+          <div class="cardNosotros">
+            <div class="imagenFondo">
+              <img [src]="item.imagen" [alt]="item.habilidad" />
+            </div>
+            <div class="textHabilidad">
+              {{ item.habilidad }}
+            </div>
+            <div class="textDescripcion">
+              {{ item.descripcion }}
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!--! NUESTROS SERVICIOS -->
-    <!-- <div class="containerTituloSeccion">
+  <!--! NUESTROS SERVICIOS -->
+  <!-- <div class="containerTituloSeccion">
         <h2 class="tituloSeccion">Nuestros Servicios</h2>
     </div> -->
-    <section #servicios class="container">
-        <!--* COMPONENTE DE TITULO-->
-        <app-title-reusable [title]="'Nuestros Servicios'"
-            [description]="'Ofrecemos soluciones arquitectónicas integrales adaptadas a las necesidades específicas de cada cliente y proyecto.'" />
-        <div class="seccionCard">
-            <app-card-info [data]="dataServicios" />
-        </div>
-    </section>
+  <section #servicios class="container">
+    <!--* COMPONENTE DE TITULO-->
+    <app-title-reusable
+      [title]="'Nuestros Servicios'"
+      [description]="
+        'Ofrecemos soluciones arquitectónicas integrales adaptadas a las necesidades específicas de cada cliente y proyecto.'
+      "
+    />
+    <div class="seccionCard">
+      <app-card-info [data]="dataServicios" />
+    </div>
+  </section>
 
-    <!--! NUESTROS PROCESOS -->
+  <!--! NUESTROS PROCESOS -->
 
+  <section #procesos class="container">
+    <!--* COMPONENTE DE TITULO-->
+    <app-title-reusable
+      [title]="'Nuestros Procesos'"
+      [description]="
+        'Seguimos una metodología estructurada que garantiza resultados excepcionales en cada etapa del proyecto arquitectónico.'
+      "
+    />
+    <div class="seccionCard">
+      <app-card-info [data]="dataProcesos" />
+    </div>
+  </section>
 
-    <section #procesos class="container">
-        <!--* COMPONENTE DE TITULO-->
-        <app-title-reusable [title]="'Nuestros Procesos'"
-            [description]="'Seguimos una metodología estructurada que garantiza resultados excepcionales en cada etapa del proyecto arquitectónico.'" />
-        <div class="seccionCard">
-            <app-card-info [data]="dataProcesos" />
-        </div>
-    </section>
+  <!--! TESTIMONIOS -->
+  <section #testimonios class="container">
+    <!--* COMPONENTE DE TITULO-->
+    <app-title-reusable
+      [title]="'Lo Que Dicen Nuestros Clientes'"
+      [description]="
+        'Nos enorgullece la satisfacción de nuestros clientes y el impacto positivo de nuestros proyectos en sus vidas y negocios.'
+      "
+    ></app-title-reusable>
+    <div class="seccionCard">
+      <card-testimonios [data]="dataTestimonios"></card-testimonios>
+    </div>
+  </section>
 
-
-    <!--! TESTIMONIOS -->
-    <section #testimonios class="container">
-        <!--* COMPONENTE DE TITULO-->
-        <app-title-reusable [title]="'Lo Que Dicen Nuestros Clientes'"
-            [description]="'Nos enorgullece la satisfacción de nuestros clientes y el impacto positivo de nuestros proyectos en sus vidas y negocios.'"></app-title-reusable>
-        <div class="seccionCard">
-            <card-testimonios [data]="dataTestimonios"></card-testimonios>
-        </div>
-    </section>
-
-    <section #contactos class="container">
-        <app-title-reusable [title]="'Contacta con Nosotros'"
-            [description]="'Estamos aquí para ayudarte a dar vida a tu proyecto. Contáctanos para programar una consulta inicial gratuita.'"></app-title-reusable>
-        <div class="seccionContactanos">
-            <div class="leftContactanos">
-                <div class="contenidoContactanos">
-                    <div class="tituloContactanos">Envíanos un mensaje</div>
-                    <form class="contenidoFormulario" #formC [formGroup]="formGrupo" (ngSubmit)="onSubmit()">
-                        <div class="dosInputs">
-                            <div class="contenedorInput">
-                                <label class="inputForm" for="nombre">
-                                    <span class="labelInput">Nombre *</span>
-                                    <div class="input__container">
-                                        <input id="nombre" type="text" class="input" name="nombre" placeholder="Tu nombre completo"
-                                            required formControlName="nombre" />
-                                    </div>
-                                </label>
-                                <div *ngIf="
+  <section #contactos class="container">
+    <app-title-reusable
+      [title]="'Contacta con Nosotros'"
+      [description]="
+        'Estamos aquí para ayudarte a dar vida a tu proyecto. Contáctanos para programar una consulta inicial gratuita.'
+      "
+    ></app-title-reusable>
+    <div class="seccionContactanos">
+      <div class="leftContactanos">
+        <div class="contenidoContactanos">
+          <div class="tituloContactanos">Envíanos un mensaje</div>
+          <form
+            class="contenidoFormulario"
+            #formC
+            [formGroup]="formGrupo"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="dosInputs">
+              <div class="contenedorInput">
+                <label class="inputForm" for="nombre">
+                  <span class="labelInput">Nombre *</span>
+                  <div class="input__container">
+                    <input
+                      id="nombre"
+                      type="text"
+                      class="input"
+                      name="nombre"
+                      placeholder="Tu nombre completo"
+                      required
+                      formControlName="nombre"
+                    />
+                  </div>
+                </label>
+                <div
+                  *ngIf="
                     formGrupo.get('nombre')?.hasError('required') &&
                     formGrupo.get('nombre')?.touched
-                  " class="error">
-                                    El nombre es obligatorio.
-                                </div>
-                            </div>
+                  "
+                  class="error"
+                >
+                  El nombre es obligatorio.
+                </div>
+              </div>
 
-                            <div class="contenedorInput">
-                                <label class="inputForm" for="email">
-                                    <span class="labelInput">Email *</span>
-                                    <div class="input__container">
-                                        <input id="email" type="email" class="input" name="email" formControlName="email"
-                                            placeholder="tu@email.com" required />
-                                    </div>
-                                </label>
-                                <div *ngIf="
+              <div class="contenedorInput">
+                <label class="inputForm" for="telefono">
+                  <span class="labelInput">Teléfono</span>
+                  <div class="input__container">
+                    <input
+                      id="telefono"
+                      type="text"
+                      name="telefono"
+                      class="input"
+                      maxlength="9"
+                      placeholder="+51 123456789"
+                      formControlName="telefono"
+                      (input)="soloNumeros($event)"
+                    />
+                  </div>
+                </label>
+                <div
+                  *ngIf="
+                    formGrupo.get('telefono')?.hasError('minlength') &&
+                    formGrupo.get('telefono')?.touched
+                  "
+                  class="error"
+                >
+                  El teléfono debe tener al menos 9 caracteres.
+                </div>
+              </div>
+            </div>
+
+            <div class="dosInputs">
+              <div class="contenedorInput">
+                <label class="inputForm" for="asunto">
+                  <span class="labelInput">Asunto *</span>
+                  <div class="input__container">
+                    <input
+                      id="nombre"
+                      type="text"
+                      class="input"
+                      name="asunto"
+                      placeholder="Escribe el asunto del correo"
+                      required
+                      formControlName="asunto"
+                    />
+                  </div>
+                </label>
+                <div
+                  *ngIf="
+                    formGrupo.get('asunto')?.hasError('required') &&
+                    formGrupo.get('asunto')?.touched
+                  "
+                  class="error"
+                >
+                  El asunto es necesario para el contacto.
+                </div>
+              </div>
+
+              <div class="contenedorInput">
+                <label class="inputForm" for="email">
+                  <span class="labelInput">Email *</span>
+                  <div class="input__container">
+                    <input
+                      id="email"
+                      type="email"
+                      class="input"
+                      name="email"
+                      formControlName="email"
+                      placeholder="tu@email.com"
+                      required
+                    />
+                  </div>
+                </label>
+                <div
+                  *ngIf="
                     formGrupo.get('email')?.hasError('email') ||
                     (formGrupo.get('email')?.hasError('required') &&
                       formGrupo.get('email')?.touched)
-                  " class="error">
-                                    Por favor, ingresa un correo electrónico válido.
-                                </div>
-                            </div>
-                        </div>
+                  "
+                  class="error"
+                >
+                  Por favor, ingresa un correo electrónico válido.
+                </div>
+              </div>
+            </div>
 
-                        <div class="dosInputs">
-                            <div class="contenedorInput">
-                                <label class="inputForm" for="telefono">
-                                    <span class="labelInput">Teléfono</span>
-                                    <div class="input__container">
-                                        <input id="telefono" type="text" name="telefono" class="input" maxlength="9"
-                                            placeholder="+51 123456789" formControlName="telefono"
-                                            (input)="soloNumeros($event)" />
-                                    </div>
-                                </label>
-                                <div *ngIf="
-                    formGrupo.get('telefono')?.hasError('minlength') &&
-                    formGrupo.get('telefono')?.touched
-                  " class="error">
-                                    El teléfono debe tener al menos 9 caracteres.
-                                </div>
-                            </div>
-                            <div class="contenedorInput" (click)="openCategorias.set(!openCategorias())">
-                                <div class="inputForm pointer">
-                                    <div class="labelInput">Tipo de Proyecto</div>
-                                    @if (formGrupo.get('categoria')?.value !== "") {
-                                    <span> {{ formGrupo.get("categoria")?.value }} </span>
-                                    }@else {
-                                    <span class="placeholderSpan"> Selecciona una opción </span>
-                                    }
+            <div class="dosInputs">
+              <div
+                class="contenedorInput"
+                (click)="openCategorias.set(!openCategorias())"
+              >
+                <div class="inputForm pointer">
+                  <div class="labelInput">Tipo de Proyecto</div>
+                  @if (categoriaSeleccionada() != null) {
+                  <span> {{ categoriaSeleccionada()?.nombre }} </span>
+                  }@else {
+                  <span class="placeholderSpan"> Selecciona una opción </span>
+                  }
+                  <div class="flechaContainer">
+                    @if (openCategorias()) {
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M18 15L12 9 6 15"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    }@else {
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 9l6 6 6-6"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    }
+                  </div>
+                </div>
+                @if (openCategorias()) {
+                <div class="opcionCategorias">
+                  <ul>
+                    @for (item of categorias(); track item.id) {
+                    <li (click)="seleccionarCategoria(item)">
+                      {{ item.nombre }}
+                      <span class="checkIcon" *ngIf="item.seleccionado">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M5 13l4 4L19 7"
+                            stroke="#000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </li>
+                    }
+                  </ul>
+                </div>
+                }
+              </div>
+            </div>
 
-                                    <div class="flechaContainer">
-                                        @if (openCategorias()) {
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path d="M18 15L12 9 6 15" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                        }@else {
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                        }
-                                    </div>
-                                </div>
-                                @if (openCategorias()) {
-                                <div class="opcionCategorias">
-                                    <ul>
-                                        @for (item of categorias(); track item.id) {
-                                        <li (click)="seleccionarCategoria(item)">
-                                            {{ item.nombre }}
-                                            <span class="checkIcon" *ngIf="item.seleccionado">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M5 13l4 4L19 7" stroke="#000" stroke-width="2"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
-                                        </li>
-                                        }
-                                    </ul>
-                                </div>
-                                }
-                            </div>
-                        </div>
-
-                        <div class="dosInputs" style="grid-template-columns: 1fr">
-                            <div class="contenedorInput">
-                                <label class="inputForm sinHeight" for="mensaje">
-                                    <span class="labelTextarea">Mensaje *</span>
-                                    <textarea class="textareaForm" name="mensaje" id="mensaje" formControlName="mensaje"
-                                        placeholder="Cuéntanos sobre tu proyecto" required></textarea>
-                                </label>
-                                <div *ngIf="
+            <div class="dosInputs" style="grid-template-columns: 1fr">
+              <div class="contenedorInput">
+                <label class="inputForm sinHeight" for="mensaje">
+                  <span class="labelTextarea">Mensaje *</span>
+                  <textarea
+                    class="textareaForm"
+                    name="mensaje"
+                    id="mensaje"
+                    formControlName="mensaje"
+                    placeholder="Cuéntanos sobre tu proyecto"
+                    required
+                  ></textarea>
+                </label>
+                <div
+                  *ngIf="
                     formGrupo.get('mensaje')?.hasError('required') &&
                     formGrupo.get('mensaje')?.touched
-                  " class="error">
-                                    Completa este campo
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="enviarMensaje" [disabled]="formGrupo.invalid" type="submit">
-                            Enviar Mensaje
-                        </button>
-                    </form>
+                  "
+                  class="error"
+                >
+                  Completa este campo
                 </div>
+              </div>
             </div>
-            <div class="rightContactanos">
-                <div class="rightContactanos-container">
-                    <h3>Informacion de Contacto</h3>
-                    <!--*CONTENEDOR-->
-                    <div class="container-principal">
 
-                        <!--* informacion -->
-                        <div class="container-secundario">
-                            <div class="mat-icon-class">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
-                                 <!-- <mat-icon>location_on</mat-icon> -->
-                                  <img src="/assets/iconos/iconos-contacto/location.svg" alt="">
-                            </div>
-                            <div>
-                                <h4>Direccion</h4>
-                                <p>Calle Principal 123, Ciudad</p>
-                            </div>
-                        </div>
-                        <!--* informacion -->
-                        <div class="container-secundario">
-                            <div class="mat-icon-class">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
-                                 <!-- <mat-icon>phone</mat-icon> -->
-                                  <img src="/assets/iconos/iconos-contacto/phone.svg" alt="">
-                            </div>
-                            <div>
-                                <h4>Telefono</h4>
-                                <p>+34 123 456 789</p>
-                            </div>
-                        </div>
-                        <!--* informacion -->
-                        <div class="container-secundario">
-                            <div class="mat-icon-class">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
-                                 <!-- <mat-icon>email</mat-icon> -->
-                                  <img src="/assets/iconos/iconos-contacto/email.svg" alt="">
-                            </div>
-                            <div>
-                                <h4>Email</h4>
-                                <p>infosiquayestudio.com</p>
-                            </div>
-                        </div>
-                        <!--* informacion -->
-                        <div class="container-secundario">
-                            <div class="mat-icon-class">
-                                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
-                                 <!-- <mat-icon>access_time</mat-icon> -->
-                                  <img src="/assets/iconos/iconos-contacto/horario.svg" alt="">
-                            </div>
-                            <div>
-                                <h4>Horario</h4>
-                                <p>Lun-Vie: 9:00 - 18:00</p>
-                            </div>
-                        </div>
-
-                        <h3>
-                            Siguenos
-                        </h3>
-                        <div class="container-redesSociales">
-                            <div class="mat-icon-class">
-                                <img src="/assets/iconos/iconos-redesSociales/instagram.svg" alt="">
-                            </div>
-                            <div class="mat-icon-class">
-                                <img src="/assets/iconos/iconos-redesSociales/facebook.svg">
-                            </div>
-                            <div class="mat-icon-class">
-                                <img src="/assets/iconos/iconos-redesSociales/linkdin.svg">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <button
+              class="enviarMensaje"
+              [disabled]="formGrupo.invalid"
+              type="submit"
+            >
+              Enviar Mensaje
+            </button>
+          </form>
         </div>
-    </section>
-    <app-footer></app-footer>
+      </div>
+      <div class="rightContactanos">
+        <div class="rightContactanos-container">
+          <h3>Informacion de Contacto</h3>
+          <!--*CONTENEDOR-->
+          <div class="container-principal">
+            <!--* informacion -->
+            <div class="container-secundario">
+              <div class="mat-icon-class">
+                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                <!-- <mat-icon>location_on</mat-icon> -->
+                <img src="/assets/iconos/iconos-contacto/location.svg" alt="" />
+              </div>
+              <div>
+                <h4>Direccion</h4>
+                <p>Calle Principal 123, Ciudad</p>
+              </div>
+            </div>
+            <!--* informacion -->
+            <div class="container-secundario">
+              <div class="mat-icon-class">
+                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                <!-- <mat-icon>phone</mat-icon> -->
+                <img src="/assets/iconos/iconos-contacto/phone.svg" alt="" />
+              </div>
+              <div>
+                <h4>Telefono</h4>
+                <p>+34 123 456 789</p>
+              </div>
+            </div>
+            <!--* informacion -->
+            <div class="container-secundario">
+              <div class="mat-icon-class">
+                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                <!-- <mat-icon>email</mat-icon> -->
+                <img src="/assets/iconos/iconos-contacto/email.svg" alt="" />
+              </div>
+              <div>
+                <h4>Email</h4>
+                <p>infosiquayestudio.com</p>
+              </div>
+            </div>
+            <!--* informacion -->
+            <div class="container-secundario">
+              <div class="mat-icon-class">
+                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="location"></mat-icon> -->
+                <!-- <mat-icon>access_time</mat-icon> -->
+                <img src="/assets/iconos/iconos-contacto/horario.svg" alt="" />
+              </div>
+              <div>
+                <h4>Horario</h4>
+                <p>Lun-Vie: 9:00 - 18:00</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Siguenos</h3>
+            <div class="container-redesSociales">
+              <div class="mat-icon-class">
+                <img
+                  src="/assets/iconos/iconos-redesSociales/instagram.svg"
+                  alt=""
+                />
+              </div>
+              <div class="mat-icon-class">
+                <img src="/assets/iconos/iconos-redesSociales/facebook.svg" />
+              </div>
+              <div class="mat-icon-class">
+                <img src="/assets/iconos/iconos-redesSociales/linkdin.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <app-footer></app-footer>
 </main>

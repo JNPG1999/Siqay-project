@@ -378,8 +378,10 @@
     //   }
 
     .rightContactanos-container {
+      display: flex;
       padding: 24px;
-
+      flex-direction: column;
+      min-height: 100%;
       h3 {
         font-size: 1.25rem;
         font-weight: 500;
@@ -422,8 +424,13 @@
           height: inherit;
         }
       }
+
     }
   }
+}
+
+.container-principal{
+  flex: 1 1 auto;
 }
 
 .inputForm {

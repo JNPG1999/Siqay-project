@@ -34,26 +34,28 @@ import { LandingLoyoutService } from '../../services/landing-loyout/landing-loyo
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { environment } from '../../../environments/environments.development';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { DataCardTestimonios, CardTestimoniosComponent } from '../../components/card-testimonios/card-testimonios.component';
-
-interface FormContactanos {
-  nombre: string;
-  email: string;
-  telefono: string;
-  categoria: string;
-  mensaje: string;
-  fecha: string;
-}
+import {
+  DataCardTestimonios,
+  CardTestimoniosComponent,
+} from '../../components/card-testimonios/card-testimonios.component';
+import { BandejaEntradaService } from '../../services/bandeja-entrada/bandeja-entrada.service';
+import { FormContactanos } from '../../modals/bandeja-entrada';
 
 interface ContactoGrupo {
   nombre: FormControl<string | null>;
+  asunto: FormControl<string | null>;
   email: FormControl<string | null>;
   telefono: FormControl<string | null>;
-  categoria: FormControl<string | null>;
   mensaje: FormControl<string | null>;
 }
 
-@Component( {
+interface Categoria {
+  id: number;
+  nombre: string;
+  seleccionado?: boolean;
+}
+
+@Component({
   selector: 'app-landing-loyout',
   standalone: true,
   imports: [
@@ -67,45 +69,48 @@ interface ContactoGrupo {
     CardInfoComponent,
     TitleReusableComponent,
     MatSnackBarModule,
-    CardTestimoniosComponent
-],
+    CardTestimoniosComponent,
+  ],
   templateUrl: './landing-loyout.component.html',
   styleUrl: './landing-loyout.component.scss',
-} )
+})
 export class LandingLoyoutComponent implements OnInit {
   dialog = inject(MatDialog);
   landingLoyoutService = inject(LandingLoyoutService);
   _SnackBar = inject(MatSnackBar);
+  _BandejaEntradaService = inject(BandejaEntradaService);
 
-  categoriasProyecto = computed( () => {
-    const categorias = this.data.map( ( proyecto ) => proyecto.categoria );
+  categoriasProyecto = computed(() => {
+    const categorias = this.data.map((proyecto) => proyecto.categoria);
     return categorias;
-  } );
+  });
 
-  form: FormBuilder = inject( FormBuilder );
-  @ViewChild( 'inicio' ) inicioSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild( 'proyectos' ) proyectosSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild( 'nosotros' ) nosotrosSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild( 'servicios' ) serviciosSeccion!: ElementRef<HTMLInputElement>;
-  @ViewChild( 'contactos' ) contactosSeccion!: ElementRef<HTMLInputElement>;
+  form: FormBuilder = inject(FormBuilder);
+  @ViewChild('inicio') inicioSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('proyectos') proyectosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('nosotros') nosotrosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('servicios') serviciosSeccion!: ElementRef<HTMLInputElement>;
+  @ViewChild('contactos') contactosSeccion!: ElementRef<HTMLInputElement>;
 
-  categorias = signal<any>( [
+  categorias = signal<Categoria[]>([
     { id: 1, nombre: 'Residencial', seleccionado: false },
     { id: 2, nombre: 'Comercial', seleccionado: false },
     { id: 3, nombre: 'Cultural', seleccionado: false },
     { id: 4, nombre: 'Público', seleccionado: false },
     { id: 5, nombre: 'Hospitalidad', seleccionado: false },
-  ] );
+  ]);
 
   formGrupo = this.form.group<ContactoGrupo>({
     nombre: new FormControl('', [Validators.required]),
+    asunto: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email, Validators.required]),
     telefono: new FormControl('', [Validators.minLength(9)]),
-    categoria: new FormControl(''),
     mensaje: new FormControl('', [Validators.required]),
   });
 
-  openCategorias = signal<boolean>( false );
+  openCategorias = signal<boolean>(false);
+
+  categoriaSeleccionada = signal<Categoria | null>(null);
 
   data: proyectosCarousel[] = [
     {
@@ -283,7 +288,8 @@ export class LandingLoyoutComponent implements OnInit {
     {
       id: 1,
       imgTestimonioTemplate: 'assets/iconos/testimoniosTemplate.svg',
-      description: 'El equipo de ArchiStudio transformó nuestra visión en una casa que supera todas nuestras expectativas. Su enfoque en la sostenibilidad y el diseño bioclimático nos ha permitido reducir significativamente nuestros costos energéticos.',
+      description:
+        'El equipo de ArchiStudio transformó nuestra visión en una casa que supera todas nuestras expectativas. Su enfoque en la sostenibilidad y el diseño bioclimático nos ha permitido reducir significativamente nuestros costos energéticos.',
       imgPersona: 'https://img.heroui.chat/image/avatar?w=200&h=200&u=test1',
       nombrePersona: 'Carlos Rodriguez',
       Ocupacion: 'Propieta, Casa Horizonte',
@@ -291,7 +297,8 @@ export class LandingLoyoutComponent implements OnInit {
     {
       id: 2,
       imgTestimonioTemplate: 'assets/iconos/testimoniosTemplate.svg',
-      description: 'Trabajar con ArchiStudio en nuestro edificio corporativo fue una experiencia excepcional. Su capacidad para combinar estética, funcionalidad y sostenibilidad resultó en un espacio que refleja perfectamente nuestra identidad corporativa.',
+      description:
+        'Trabajar con ArchiStudio en nuestro edificio corporativo fue una experiencia excepcional. Su capacidad para combinar estética, funcionalidad y sostenibilidad resultó en un espacio que refleja perfectamente nuestra identidad corporativa.',
       imgPersona: 'https://img.heroui.chat/image/avatar?w=200&h=200&u=test2',
       nombrePersona: 'Elena Martínez',
       Ocupacion: 'CEO, Nexus Investments',
@@ -299,78 +306,71 @@ export class LandingLoyoutComponent implements OnInit {
     {
       id: 3,
       imgTestimonioTemplate: 'assets/iconos/testimoniosTemplate.svg',
-      description: 'La renovación de nuestro museo superó todas las expectativas. El diseño paramétrico no solo creó un espacio visualmente impactante, sino que también mejoró significativamente la experiencia del visitante y la funcionalidad del espacio.',
+      description:
+        'La renovación de nuestro museo superó todas las expectativas. El diseño paramétrico no solo creó un espacio visualmente impactante, sino que también mejoró significativamente la experiencia del visitante y la funcionalidad del espacio.',
       imgPersona: 'https://img.heroui.chat/image/avatar?w=200&h=200&u=test3',
       nombrePersona: 'Miguel Sánchez',
       Ocupacion: 'Director, Fundación Cultural Metropolitana',
     },
-
-  ]
+  ];
 
   ngOnInit() {
-    this.landingLoyoutService.ObtenerProyectos().then(({ data, error }) => {
-      console.log(data);
-
-      if (error) {
-        console.log('Error al obtener proyectos', error);
-        return;
-      }
-    });
+    // this.landingLoyoutService.ObtenerProyectos().then(({ data, error }) => {
+    //   console.log(data);
+    //   if (error) {
+    //     console.log('Error al obtener proyectos', error);
+    //     return;
+    //   }
+    // });
   }
 
-  openModalDetalle( proyecto: proyectosCarousel ) {
-    this.dialog.open( ModalProyectoComponent, {
+  openModalDetalle(proyecto: proyectosCarousel) {
+    this.dialog.open(ModalProyectoComponent, {
       width: '650px',
       height: '80%',
       data: { proyecto: proyecto },
-    } );
+    });
   }
 
-  seleccionarCategoria( categoria: any ) {
-    this.formGrupo.get( 'categoria' )?.setValue( categoria.nombre );
+  seleccionarCategoria(categoria: Categoria) {
+    this.categoriaSeleccionada.set(categoria);
 
-    this.categorias.update( ( list ) =>
-      list.map( ( c: any ) => ( { ...c, seleccionado: c.id === categoria.id } ) )
+    this.categorias.update((list) =>
+      list.map((c: any) => ({ ...c, seleccionado: c.id === categoria.id }))
     );
-
-    console.log( this.categorias() );
   }
 
   onSubmit() {
-    if ( this.formGrupo.invalid ) {
+    if (this.formGrupo.invalid) {
       this.formGrupo.markAllAsTouched();
       return;
     }
 
-    const payload = {
-      nombre: this.formGrupo.get('nombre')?.value || '',
-      email: this.formGrupo.get('email')?.value || '',
-      telefono: this.formGrupo.get('telefono')?.value || '',
-      categoria: this.formGrupo.get('categoria')?.value || '',
-      mensaje: this.formGrupo.get('mensaje')?.value || '',
+    const rawForm = this.formGrupo.getRawValue();
+
+    const payload: FormContactanos = {
+      nombre: rawForm.nombre || '',
+      asunto: rawForm.asunto || '',
+      email: rawForm.email || '',
+      telefono: rawForm.telefono || '',
+      categoria:
+        this.categoriaSeleccionada()?.nombre ?? 'Sin categoria seleccionada',
+      mensaje: rawForm.mensaje || '',
     };
 
     if (payload) {
       const formContacto: Record<string, string> = {
         ...payload,
-        fecha:
-          new Date().getDate() +
-          '-' +
-          (new Date().getMonth() + 1) +
-          '-' +
-          new Date().getFullYear(),
       };
-    
+
       emailjs
-      .send(
-        environment.SERVICE_ID,
-        environment.TEMPLATE_ID,
-        formContacto,
-        { publicKey: environment.PUBLIC_ID }
-      )
-      .then(
-        () => {
+        .send(environment.SERVICE_ID, environment.TEMPLATE_ID, formContacto, {
+          publicKey: environment.PUBLIC_ID,
+        })
+        .then(
+          () => {
             this.OpenSnackBar('Formulario enviado con éxito');
+            this.guardarEmail(payload);
             this.formGrupo.reset();
             this.categorias.update((list) =>
               list.map((c: any) => ({ ...c, seleccionado: false }))
@@ -384,27 +384,53 @@ export class LandingLoyoutComponent implements OnInit {
     }
   }
 
-  soloNumeros( e: Event ) {
-    const el = e.target as HTMLInputElement;
-    const limpio = el.value.replace( /\D/g, '' ); // quita todo lo no numérico
-    if ( limpio !== el.value ) {
-      el.value = limpio;
-      this.formGrupo.get( 'telefono' )!.setValue( limpio, { emitEvent: false } );
+  async guardarEmail(data: FormContactanos) {
+    try {
+      //const usuario = this.authService.getCurrentUser()?.email || '';
+
+      const { categoria, ...menosCategoria } = data;
+
+      const usuario = 'jpachecog';
+      const idCategoria: number | null =
+        this.categoriaSeleccionada()?.id ?? null;
+      const payload = {
+        ...menosCategoria,
+        usuariocreacion: usuario,
+        usuariomodificacion: usuario,
+        idcategoria: idCategoria,
+      };
+
+      await this._BandejaEntradaService.InsertarEmail(payload).then(() => {});
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log('Error: ', error);
+        // this.openToast(error.message);
+        //this.openToast("Email o contraseña son incorrectos")
+      }
     }
   }
 
-  RecibeSeccionHeader( evento: listaHeader ) {
-    console.log( 'Seccion recibida en layout', evento );
+  soloNumeros(e: Event) {
+    const el = e.target as HTMLInputElement;
+    const limpio = el.value.replace(/\D/g, ''); // quita todo lo no numérico
+    if (limpio !== el.value) {
+      el.value = limpio;
+      this.formGrupo.get('telefono')!.setValue(limpio, { emitEvent: false });
+    }
+  }
+
+  RecibeSeccionHeader(evento: listaHeader) {
+    console.log('Seccion recibida en layout', evento);
     const seccion = evento.nombre.toLocaleLowerCase() + 'Seccion';
     // Acceso dinámico a la propiedad usando bracket notation
-    const sectionRef = ( this as any )[ seccion ] as ElementRef<HTMLInputElement>;
-    if ( sectionRef && sectionRef.nativeElement ) {
-      sectionRef.nativeElement.scrollIntoView( {
+    const sectionRef = (this as any)[seccion] as ElementRef<HTMLInputElement>;
+    if (sectionRef && sectionRef.nativeElement) {
+      sectionRef.nativeElement.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
-      } );
+      });
     } else {
-      console.warn( `No se encontró la sección: ${ seccion }` );
+      console.warn(`No se encontró la sección: ${seccion}`);
     }
   }
 

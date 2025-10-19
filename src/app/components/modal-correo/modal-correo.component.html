@@ -1,0 +1,248 @@
+@let correo = data.correo;
+<div class="w-full">
+  <div
+    class="flex justify-between items-center py-4 px-6 border-b border-[#1111111a]"
+  >
+    <div class="text-xl font-bold">{{ correo.asunto }}</div>
+    <div class="relative text-sm text-[#71717A]">{{ correo.fechacreacion | date:'dd/MM/yyyy, HH:mm:ss' }}</div>
+    <button
+      (click)="close()"
+      class="absolute p-2 bg-transparent appearance-none outline-none select-none text-[#71717a] top-[4px] end-1 hover:rounded-full hover:bg-[#f4f4f5]"
+    >
+      <svg
+        aria-hidden="true"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="presentation"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="space-y-6 px-6 py-2 bg-[#f7f7f7]">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div
+        class="flex items-center rounded-xl h-auto box-border shadow-md bg-white gap-2 p-3 border border-[#1111111a]"
+      >
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div class="text-sm text-[#71717A]">Nombre</div>
+          <div class="font-medium text-[#11181C]">{{ correo.nombre }}</div>
+        </div>
+      </div>
+      <div
+        class="flex items-center rounded-xl h-auto box-border shadow-md bg-white gap-2 p-3 border border-[#1111111a]"
+      >
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div class="text-sm text-[#71717A]">Email</div>
+          <div class="font-medium text-[#11181C]">
+            {{ correo.email }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex items-center rounded-xl h-auto box-border shadow-md bg-white gap-2 p-3 border border-[#1111111a]"
+      >
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233a14 14 0 0 0 6.392 6.384"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <div class="text-sm text-[#71717A]">Teléfono</div>
+          <div class="font-medium text-[#11181C]">+51 {{ correo.telefono }}</div>
+        </div>
+      </div>
+      <div
+        class="flex items-center rounded-xl h-auto box-border shadow-md bg-white gap-2 p-3 border border-[#1111111a]"
+      >
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path
+                d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"
+              ></path>
+              <circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div class="text-sm text-[#71717A]">Tipo de Proyecto</div>
+          <div class="font-medium text-[#11181C]">{{ correo.categoria }}</div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex flex-col rounded-xl h-auto box-border shadow-md bg-white gap-2 p-3 border border-[#1111111a]"
+    >
+      <div class="text-sm text-[#71717A]">Mensaje</div>
+      <div class="font-medium text-[#11181C]">
+        {{correo.mensaje}}
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between px-6 py-4">
+    <button
+      class="flex items-center rounded-lg gap-2 px-4 text-[#f31260] h-10 min-w-20 box-border hover:bg-[#f7f7f7] cursor-pointer transition-all duration-300"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        aria-hidden="true"
+        role="img"
+        focusable="false"
+        width="1em"
+        height="1em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+        ></path>
+      </svg>
+      <div class="text-sm">Eliminar</div>
+    </button>
+
+    <div class="flex gap-3">
+      <button
+        class="flex items-center rounded-lg gap-2 px-4 text-black h-10 min-w-20 box-border hover:bg-[#f7f7f7] cursor-pointer transition-all duration-300"
+      >
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            focusable="false"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            </g>
+          </svg>
+        </div>
+        <div class="text-sm">Marcar como no leído</div>
+      </button>
+      <button
+        class="flex items-center rounded-lg gap-2 px-4 bg-[#333333] text-white h-10 min-w-20 box-border hover:bg-[#11181c] cursor-pointer transition-all duration-300"
+      >
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            focusable="false"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path d="M20 18v-2a4 4 0 0 0-4-4H4"></path>
+              <path d="m9 17l-5-5l5-5"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="text-sm">Responder</div>
+      </button>
+    </div>
+  </div>
+</div>
