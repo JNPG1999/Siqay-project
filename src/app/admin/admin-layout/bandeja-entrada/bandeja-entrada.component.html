@@ -5,12 +5,12 @@
       <div
         class="inline-flex min-w-fit min-h-fit items-center justify-center box-border px-1 text-[#525252] text-sm rounded-full bg-[#33333333] whitespace-nowrap h-7"
       >
-        <span class="flex-1 font-normal px-2 text-inherit">3 No leídos</span>
+        <span class="flex-1 font-normal px-2 text-inherit">{{correosNoLeidos()}} No leídos</span>
       </div>
       <div
         class="inline-flex min-w-fit min-h-fit items-center justify-center box-border px-1 text-[#3F3F46] text-sm rounded-full bg-[#d4d4d866] h-7 whitespace-nowrap"
       >
-        <span class="flex-1 font-normal px-2 text-inherit">6 Total</span>
+        <span class="flex-1 font-normal px-2 text-inherit">{{totalCorreos()}} Total</span>
       </div>
     </div>
   </div>
@@ -91,7 +91,7 @@
         "
         (click)="seleccionar('leidos')"
         role="radio"
-        [attr.aria-checked]="filtro() === 'todos'"
+        [attr.aria-checked]="filtro() === 'leidos'"
       >
         Leídos
       </button>
@@ -218,7 +218,7 @@
               class="flex items-center text-xs h-6 whitespace-nowrap px-1 rounded-full bg-[#33333333] text-[#525252]"
             >
               <span class="flex-1 text-inherit font-normal px-1">
-                {{ element.categoria }}
+                {{ element.categoria ?? 'Sin categoría' }}
               </span>
             </div>
             <span [ngClass]="element.leido ? 'font-normal' : 'font-semibold'">{{
@@ -227,7 +227,7 @@
           </div>
         </td>
       </ng-container>
-      <ng-container matColumnDef="fecha">
+      <ng-container matColumnDef="fechacreacion">
         <th
           mat-header-cell
           *matHeaderCellDef
@@ -240,7 +240,7 @@
           *matCellDef="let element"
           class="font-normal text-xs p-3 text-left !border-none"
         >
-          {{ element.fecha }}
+          {{ element.fechacreacion | date: 'dd/MM/yyyy' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="acciones">
@@ -256,6 +256,7 @@
             <button
               matTooltip="Ver mensaje"
               class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+              (click)="verMensaje(element)"
             >
               <img
                 src="../../../../assets/iconos/ver-mensaje.svg"
@@ -265,6 +266,7 @@
             <button
               [matTooltip]="element.leido ? 'Marcar como no leído' : 'Marcar como leído'"
               class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+              (click)="ActualizarEstadoLeido(element.id,!element.leido)"
             >
               @if (element.leido) {
               <svg

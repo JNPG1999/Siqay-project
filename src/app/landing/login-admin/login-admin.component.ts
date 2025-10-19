@@ -22,7 +22,7 @@ interface LoginForm {
 @Component({
   selector: 'app-login-admin',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe, MatSnackBarModule],
+  imports: [ReactiveFormsModule, MatSnackBarModule],
   templateUrl: './login-admin.component.html',
   styleUrl: './login-admin.component.scss',
 })
