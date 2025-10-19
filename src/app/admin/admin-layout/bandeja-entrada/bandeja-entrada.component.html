@@ -265,6 +265,7 @@
             <button
               [matTooltip]="element.leido ? 'Marcar como no leído' : 'Marcar como leído'"
               class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+              (click)="ActualizarEstadoLeido(element.id,!element.leido)"
             >
               @if (element.leido) {
               <svg
