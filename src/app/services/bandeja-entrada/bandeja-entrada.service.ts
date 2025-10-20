@@ -41,12 +41,20 @@ export class BandejaEntradaService {
     const { data, error } = await this._SupabaseService
       .from('t_bandejaentrada')
       .update({ leido: leido })
-      .eq('id', id)
-      .select('id, leido');
+      .eq('id', id);
+    //.select('id, leido');
     //.select('id, asunto, leido, nombre, email, categoria, mensaje, fechacreacion');
 
     //console.log(data);
 
+    return { data, error };
+  }
+
+  async EliminarEmail(id: number) {
+    const { data, error } = await this._SupabaseService
+      .from('t_bandejaentrada')
+      .update({ estado: false })
+      .eq('id', id);
     return { data, error };
   }
 }

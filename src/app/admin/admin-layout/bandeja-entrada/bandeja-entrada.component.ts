@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalCorreoComponent } from '../../../components/modal-correo/modal-correo.component';
 import { BandejaEntradaService } from '../../../services/bandeja-entrada/bandeja-entrada.service';
 import { BandejaItem } from '../../../modals/bandeja-entrada';
+import { error } from 'console';
+import { ModalEliminarComponent } from '../../../components/modal-eliminar/modal-eliminar.component';
 
 type Filtro = 'todos' | 'no-leidos' | 'leidos';
 
@@ -41,10 +43,10 @@ export class BandejaEntradaComponent {
 
   dataSource = new MatTableDataSource<BandejaItem>([]);
 
-  constructor(){
+  constructor() {
     effect(() => {
       this.dataSource.data = this.data();
-    })
+    });
   }
 
   totalCorreos = () => this.data().length;
@@ -84,7 +86,7 @@ export class BandejaEntradaComponent {
     });
   }
 
-  async ObtenerBandejaEntrada(){
+  async ObtenerBandejaEntrada() {
     try {
       const { data, error } =
         await this._BandejaEntradaService.ObtenerBandejaEntrada();
@@ -102,23 +104,49 @@ export class BandejaEntradaComponent {
       const { data, error } =
         await this._BandejaEntradaService.ActualizarEstadoLeido(id, leido);
 
-      console.log({ data, error });
+      // console.log({ data, error });
 
-      let rowAfectada = data?.[0];
+      // let rowAfectada = data?.[0];
 
-      console.log(rowAfectada);
+      // console.log(rowAfectada);
 
       //Solo actualizamos una fila
-      this.data.update((email: BandejaItem[]) =>
-        email.map((it) => (it.id === rowAfectada?.id ? { ...it, leido: rowAfectada.leido! } : it))
-      );
-      
+      // this.data.update((email: BandejaItem[]) =>
+      //   email.map((it) => (it.id === rowAfectada?.id ? { ...it, leido: rowAfectada.leido! } : it))
+      // );
+
       //Actualizamos toda la data
-      //await this.ObtenerBandejaEntrada();
+      await this.ObtenerBandejaEntrada();
 
       if (error) throw error;
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async EliminarEmail(id: number) {
+    try {
+      const { data, error } = await this._BandejaEntradaService.EliminarEmail(
+        id
+      );
+
+      await this.ObtenerBandejaEntrada();
+
+      if (error) throw error;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  modalEliminar(id: number) {
+    const dialogRef = this.dialog.open(ModalEliminarComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.EliminarEmail(id);
+      }
+    });
   }
 }

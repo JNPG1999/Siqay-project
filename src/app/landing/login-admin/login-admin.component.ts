@@ -11,7 +11,6 @@ import { log } from 'console';
 import { SessionStorageService } from '../../services/session-storage/session-storage.service';
 import { JsonPipe } from '@angular/common';
 
-
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 interface LoginForm {
@@ -32,10 +31,9 @@ export class LoginAdminComponent {
   _formBuilder = inject(FormBuilder);
   _router = inject(Router);
 
-    //! toast
+  //! toast
 
-    constructor(private snackBar: MatSnackBar) {}
-   
+  constructor(private snackBar: MatSnackBar) {}
 
   loginForm = this._formBuilder.group<LoginForm>({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -61,35 +59,38 @@ export class LoginAdminComponent {
       if (error instanceof Error) {
         console.log('Error: ', error);
         // this.openToast(error.message);
-        this.openToast("Email o contraseña son incorrectos")
+        this.openToast('Email o contraseña son incorrectos');
       }
     }
   }
 
-  getFieldError( campos: string ) : string | null {
-    
-    if ( !this.loginForm.get(campos)?.errors && !this.loginForm.get(campos)?.touched ) return null;
+  getFieldError(campos: string): string | null {
+    if (
+      !this.loginForm.get(campos)?.errors &&
+      !this.loginForm.get(campos)?.touched
+    )
+      return null;
 
     const errors = this.loginForm.get(campos)?.errors ?? {};
 
-    for ( const key of Object.keys(errors) ) {
-        switch(key) {
-            case 'required':
-                if ( campos === 'password') {
-                    return 'La contrasenia es requerida'
-                }
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          if (campos === 'password') {
+            return 'La contrasenia es requerida';
+          }
 
-                return 'El campo es requerido'
-            case 'email':
-                return 'Escribe un correo valido'
-        }
+          return 'El campo es requerido';
+        case 'email':
+          return 'Escribe un correo valido';
+      }
     }
 
     return null;
   }
 
-  openToast( message: string ) {
-     this.snackBar.open(message, 'Cerrar', {
+  openToast(message: string) {
+    this.snackBar.open(message, 'Cerrar', {
       duration: 3000,
       verticalPosition: 'top',
       horizontalPosition: 'right',

@@ -5,12 +5,16 @@
       <div
         class="inline-flex min-w-fit min-h-fit items-center justify-center box-border px-1 text-[#525252] text-sm rounded-full bg-[#33333333] whitespace-nowrap h-7"
       >
-        <span class="flex-1 font-normal px-2 text-inherit">{{correosNoLeidos()}} No leídos</span>
+        <span class="flex-1 font-normal px-2 text-inherit"
+          >{{ correosNoLeidos() }} No leídos</span
+        >
       </div>
       <div
         class="inline-flex min-w-fit min-h-fit items-center justify-center box-border px-1 text-[#3F3F46] text-sm rounded-full bg-[#d4d4d866] h-7 whitespace-nowrap"
       >
-        <span class="flex-1 font-normal px-2 text-inherit">{{totalCorreos()}} Total</span>
+        <span class="flex-1 font-normal px-2 text-inherit"
+          >{{ totalCorreos() }} Total</span
+        >
       </div>
     </div>
   </div>
@@ -217,7 +221,7 @@
               class="flex items-center text-xs h-6 whitespace-nowrap px-1 rounded-full bg-[#33333333] text-[#525252]"
             >
               <span class="flex-1 text-inherit font-normal px-1">
-                {{ element.categoria ?? 'Sin categoría' }}
+                {{ element.categoria ?? "Sin categoría" }}
               </span>
             </div>
             <span [ngClass]="element.leido ? 'font-normal' : 'font-semibold'">{{
@@ -239,7 +243,7 @@
           *matCellDef="let element"
           class="font-normal text-xs p-3 text-left !border-none"
         >
-          {{ element.fechacreacion | date: 'dd/MM/yyyy' }}
+          {{ element.fechacreacion | date : "dd/MM/yyyy" }}
         </td>
       </ng-container>
       <ng-container matColumnDef="acciones">
@@ -263,9 +267,11 @@
               />
             </button>
             <button
-              [matTooltip]="element.leido ? 'Marcar como no leído' : 'Marcar como leído'"
+              [matTooltip]="
+                element.leido ? 'Marcar como no leído' : 'Marcar como leído'
+              "
               class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
-              (click)="ActualizarEstadoLeido(element.id,!element.leido)"
+              (click)="ActualizarEstadoLeido(element.id, !element.leido)"
             >
               @if (element.leido) {
               <svg
@@ -320,6 +326,7 @@
             <button
               matTooltip="Eliminar"
               class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+              (click)="modalEliminar(element.id)"
             >
               <img
                 src="../../../../assets/iconos/eliminar-mensaje.svg"
@@ -331,7 +338,9 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-10"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
         [ngClass]="row.leido ? '' : '!bg-[#f7f7f7]'"
         class="!border-none"
       ></tr>

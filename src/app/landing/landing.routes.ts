@@ -11,7 +11,7 @@ export const LANDING_ROUTES: Routes = [
   },
   {
     path: 'login-admin',
-    canActivate: [landingGuard],
+    canMatch: [landingGuard],
     loadComponent: () =>
       import('./login-admin/login-admin.component').then(
         (m) => m.LoginAdminComponent
