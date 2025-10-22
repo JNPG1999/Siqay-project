@@ -32,6 +32,7 @@
     }
 
     .contenidoFormulario {
+        width: inherit;
       .dosInputs {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -43,14 +44,18 @@
           flex-direction: column;
           position: relative;
         }
+
+        
       }
+      
     }
+
   }
 }
 
 .inputForm {
   box-sizing: border-box;
-  display: inline-flex;
+  display: flex;
   justify-content: flex-end;
   align-items: flex-start;
   flex-direction: column;
@@ -98,16 +103,32 @@
     color: #71717a;
   }
 
+  .textareaFormCorta {
+    min-height: 5rem;
+        width: 100%;
+        height: auto;
+        resize: none;
+        font: inherit;
+        border: none;
+        // height: 100%;
+        &:focus {
+        outline: none;
+        border: 0;
+        }
+  }
+
   .textareaForm {
-    width: 100%;
-    resize: none;
-    font: inherit;
-    border: none;
-    height: 8rem;
-    &:focus {
-      outline: none;
-      border: 0;
-    }
+      min-height: 8rem;
+        width: 100%;
+        height: auto;
+        resize: none;
+        font: inherit;
+        border: none;
+        // height: 100%;
+        &:focus {
+        outline: none;
+        border: 0;
+        }
   }
 
   .flechaContainer {

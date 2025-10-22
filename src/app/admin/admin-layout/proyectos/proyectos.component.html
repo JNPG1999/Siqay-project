@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="flex flex-col gap-4 w-full border border-[#E4E4E7] rounded-md">
-        <table mat-table [dataSource]="projects" class="mat-elevation-z8" class="min-w-full h-auto w-full table-auto">
+        <table mat-table [dataSource]="projects()" class="mat-elevation-z8" class="min-w-full h-auto w-full table-auto">
 
             <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -46,7 +46,7 @@
                     mat-header-cell *matHeaderCellDef> CATEGORIA
                 </th>
                 <td class="font-normal text-xs p-3 text-left !border-none" mat-cell *matCellDef="let element">
-                    {{element.idcategoria}} </td>
+                    {{element.categoria}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
