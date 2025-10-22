@@ -1,1 +1,100 @@
-<p>proyectos works!</p>
+<div class="space-y-6">
+    <div class="flex justify-between">
+        <div class="text-2xl font-bold">Gestion de Proyectos</div>
+        <div class=" rounded-lg text-sm flex justify-around gap-3 p-4 bg-slate-800 text-white">
+            <div>
+                <span>+</span>
+            </div>
+            <div>
+                <span>Nuevo Proyecto</span>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col gap-4 w-full border border-[#E4E4E7] rounded-md">
+        <table mat-table [dataSource]="projects()" class="mat-elevation-z8" class="min-w-full h-auto w-full table-auto">
+
+            <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+
+            <ng-container matColumnDef="imagenprincipal">
+                <th mat-header-cell *matHeaderCellDef
+                    class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none">
+                    IMAGEN
+                </th>
+                <td mat-cell *matCellDef="let element" class="font-normal text-xs p-3 text-left !border-none">
+
+                    <div class="w-16 h-12 m-2">
+                        <img [src]="element.imagenprincipal" class="w-full h-full object-cover" />
+                    </div>
+
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="titulo">
+                <th class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+                    mat-header-cell *matHeaderCellDef> TITULO </th>
+                <td class="font-normal text-xs p-3 text-left !border-none" mat-cell *matCellDef="let element">
+                    {{element.titulo}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="categoria">
+                <th class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+                    mat-header-cell *matHeaderCellDef> CATEGORIA
+                </th>
+                <td class="font-normal text-xs p-3 text-left !border-none" mat-cell *matCellDef="let element">
+                    {{element.categoria}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="fecha">
+                <th class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+                    mat-header-cell *matHeaderCellDef> AÑO
+                </th>
+                <td class="font-normal text-xs p-3 text-left !border-none" mat-cell *matCellDef="let element">
+                    {{element.fecha}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="ubicacion">
+                <th class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none"
+                    mat-header-cell *matHeaderCellDef> UBICACION
+                </th>
+                <td class="font-normal text-xs p-3 text-left !border-none" mat-cell *matCellDef="let element">
+                    {{element.ubicacion}} </td>
+            </ng-container>
+
+            <!--! ACCIONES -->
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef
+                    class="text-[#71717A] font-normal !bg-[#F4F4F5] text-xs p-3 text-left !outline-none !border-none">
+                    ACCIONES
+                </th>
+                <td mat-cell *matCellDef="let element" class="!border-none">
+                    <div class="flex items-center gap-2">
+                        <button (click)="openModalDetalle(element)" matTooltip="Ver mensaje"
+                            class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
+                            <img src="../../../../assets/iconos/editar.svg" alt="ver-mensaje" />
+                        </button>
+                         <button matTooltip="Eliminar"
+                            class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
+                            <img src="../../../../assets/iconos/eliminar-mensaje.svg" alt="eliminar-mensaje" />
+                        </button>
+                        <button class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
+                            <img src="../../../../assets/iconos/puntosInformation.svg" alt="ver-mensaje" />
+                        </button>
+                       
+                    </div>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-10">
+            <tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="!border-none"></tr>
+        </table>
+    </div>
+
+</div>

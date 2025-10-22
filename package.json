@@ -51,9 +51,9 @@
   },
   "overrides": {
     "@supabase/supabase-js": {
-    "@supabase/supabase-js": {
-      "@supabase/auth-js": "2.61.0"
+      "@supabase/supabase-js": {
+        "@supabase/auth-js": "2.61.0"
+      }
     }
-  }
   }
 }
