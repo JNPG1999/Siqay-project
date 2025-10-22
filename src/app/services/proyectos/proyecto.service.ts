@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from '../supabase/supabase.service';
-import { Project } from '../../admin/interface/project.interface';
+import { Project, Projects } from '../../admin/interface/project.interface';
 
 @Injectable( { providedIn: 'root' } )
 export class ProyectoService {
@@ -26,6 +26,30 @@ export class ProyectoService {
         return t_categoria ?? [];
     }
 
+    async createProyecto( data: any ) : Promise<Projects> {
+    // async createProyecto( data: Partial<Projects> | null ) : Promise<Projects> {
+        const usuario = 'develop_hunk';
+        const { data: t_proyecto, error } = await this.supabase
+            .from( 't_proyecto' )
+            .insert( [
+                {
+                    ...data,
+                    estado: true,
+                    usuariocreacion: usuario,
+                    usuariomodificacion: usuario,
+                } as Projects
+            ] )
+            .select().single();
+
+        if ( error ) {
+            console.error( '❌ Error al crear proyecto:', error.message );
+            throw error; // lanza el error real de Supabase
+        }
+        await this.getProjects();
+
+        return t_proyecto;
+    }
+
     //! METODO PARA ACTUALIZAR
     async updateProyecto( id: number, data: any ) {
         const { data: t_proyecto, error: error } = await this.supabase
@@ -39,4 +63,12 @@ export class ProyectoService {
 
         return t_proyecto;
     }
+
+    async DeleteProyecto(id: number) {
+    const { data, error } = await this.supabase
+      .from('t_proyecto')
+      .update({ estado: false })
+      .eq('id', id);
+    return { data, error };
+  }
 }

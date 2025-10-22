@@ -1,15 +1,14 @@
 <div class="flex flex-col gap-5 p-5 rounded-2xl">
     <div class="flex justify-between">
-        <h3>Editar Proyecto</h3>
+        <h2 class="font-extrabold text-3xl">{{ data?.project ? "Editar Proyecto" : "Crear Nuevo Proyecto"}}</h2>
         <div (click)="closeModal()">
             x
         </div>
     </div>
-    @if( data.project ){
     <div class="seccionContactanos">
         <div class="leftContactanos">
             <div class="contenidoContactanos">
-                <div class="tituloContactanos">Envíanos un mensaje</div>
+                <!-- <div class="tituloContactanos">Envíanos un mensaje</div> -->
                 <form class="contenidoFormulario" [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
                     <div class="dosInputs">
                         <!--! TITULO -->
@@ -18,13 +17,12 @@
                             <label class="inputForm" for="titulo">
                                 <span class="labelInput">Titulo *</span>
                                 <div class="input__container">
-                                    <input id="titulo" type="text" class="input"    name="titulo"
-                                        formControlName="titulo"
-                                        placeholder="El titulo del proyecto " [value]="data.project.titulo" required />
+                                    <input id="titulo" type="text" class="input" name="titulo" formControlName="titulo"
+                                        placeholder="El titulo del proyecto " required />
                                 </div>
                             </label>
                             @if( isValidField(proyectoForm, 'titulo') ) {
-                                <div class="error">
+                            <div class="error">
                                 El nombre del proyecto es obligatorio es obligatorio.
                             </div>
                             }
@@ -64,12 +62,12 @@
                                         {{ categoria.nombre }}
                                         @if(categoria.seleccionado) {
 
-                                            <span class="checkIcon">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M5 13l4 4L19 7" stroke="#000" stroke-width="2"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
+                                        <span class="checkIcon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                                <path d="M5 13l4 4L19 7" stroke="#000" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </span>
                                         }
                                     </li>
                                     }
@@ -81,111 +79,119 @@
 
                     <div class="dosInputs">
                         <!--! ANIO -->
-                        <div class="contenedorInput">
+                        <!-- <div class="contenedorInput">
                             <label class="inputForm" for="fecha">
                                 <span class="labelInput">Año</span>
                                 <div class="input__container">
-                                    <input id="fecha" type="text" name="fecha" 
-                                    formControlName="fecha" class="input"
+                                    <input id="fecha" type="text" name="fecha" formControlName="fecha" class="input"
                                         placeholder="2025" />
                                 </div>
                             </label>
-                             @if( isValidField(proyectoForm, 'fecha') ) {
-                                <div>
-                                    La fecha debe ser Obligatorio
-                                </div>
+                            @if( isValidField(proyectoForm, 'fecha') ) {
+                            <div class="error">
+                                La fecha debe ser Obligatorio
+                            </div>
                             }
-                        </div>
+                        </div> -->
+                        <!-- <mat-form-field appearance="fill" class="!bg-white">
+                            <mat-label>Fecha del proyecto</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="fecha" placeholder="DD/MM/YYYY" />
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field> -->
 
+                        <mat-form-field appearance="fill">
+                            <mat-label>Fecha</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="fecha" placeholder="DD/MM/YYYY">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
                         <!--! CLIENTE -->
-                        <!-- <div class="contenedorInput">
+                        <div class="contenedorInput">
                             <label class="inputForm" for="cliente">
                                 <span class="labelInput">Cliente *</span>
                                 <div class="input__container">
-                                    <input id="cliente" type="text" class="input" name="cliente" placeholder="Nombre del Cliente"
-                                        required formControlName="cliente" />
+                                    <input id="cliente" type="text" class="input" name="cliente"
+                                        placeholder="Nombre del Cliente" required formControlName="cliente" />
                                 </div>
-                            </label> -->
-                             <!-- @if( isValidField(proyectoForm, 'cliente') ) {
-                                <div class="error">
-                                    Por favor, ingresa el nombre del cliente
-                                </div>
-                            } -->
-                        <!-- </div> -->
-                        
+                            </label>
+                            @if( isValidField(proyectoForm, 'cliente') ) {
+                            <div class="error">
+                                Por favor, ingresa el nombre del cliente
+                            </div>
+                            }
+                        </div>
+
                     </div>
-                    
-                   <div class="flex flex-col space-y-1">
-                     <!--! UBICACION -->
-                     <div class="contenedorInput mb-5">
-                         <label class="inputForm" for="ubicacion">
-                             <span class="labelInput">Ubicacion *</span>
-                             <div class="input__container">
-                                 <input id="ubicacion" type="text" class="input" name="ubicacion" 
-                                 formControlName="ubicacion"
-                                 placeholder="Ubicacion"                                    required />
-                             </div>
-                         </label>
-                          @if( isValidField(proyectoForm, 'ubicacion') ) {
-                             <div class="error">
-                                 Por favor, ingresa la ubicacion
-                             </div>
-                         }
-                     </div>
-                    
-                     <!--! DESCRIPCION CORTA -->
-                     <div class="dosInputs" style="grid-template-columns: 1fr">
-                         <div class="contenedorInput">
-                             <label class="inputForm sinHeight" for="descripcioncorta">
-                                 <span class="labelTextarea">Descripcion Corta *</span>
-                                 <textarea class="textareaFormCorta" name="descripcioncorta" 
-                                 formControlName="descripcioncorta"
-                                 id="descripcioncorta"                                     placeholder="Cuéntanos sobre tu proyecto" required></textarea>
-                             </label>
-                              @if( isValidField(proyectoForm, 'descripcioncorta') ) {
-                                 <div class="error">
-                                     Completa este campo
-                                 </div>
-                             }  
-                         </div>
-                     </div>
-                     <!--! DESCRIPCION LARGA -->
-                     <div class="dosInputs" style="grid-template-columns: 1fr">
-                         <div class="contenedorInput">
-                             <label class="inputForm sinHeight" for="descripcioncompleta">
-                                 <span class="labelTextarea">Descripcion Larga *</span>
-                                 <textarea class="textareaForm" name="descripcioncompleta" id="descripcioncompleta"
-                                     placeholder="Cuéntanos sobre tu proyecto" 
-                                      formControlName="descripcioncompleta"
-                                      required></textarea>
-                             </label>
-                              @if( isValidField(proyectoForm, 'descripcioncompleta') ) {
-                                 <div class="error">
-                                     Completa este campo
-                                 </div>
-                             }
-                         </div>
-                   
-                    
-                    
-                     <!--! IMAGEN URL -->
-                     <div class="cotenedorCompletoInput">
-                         <label class="inputForm" for="imagenprincipal">
-                             <span class="labelInput">Imagen Principal *</span>
-                             <div class="input__container">
-                                 <input id="imagenprincipal" type="text" class="input" name="imagenprincipal" placeholder="Imagen"
-                                 formControlName="imagenprincipal"
-                                     required />
-                             </div>
-                         </label>
-                          @if( isValidField(proyectoForm, 'imagenprincipal') ) {
-                             <div class="error">
-                                 Por favor, tiene que ingresar una imagen
-                             </div>
-                         }
-                     </div>
-                   </div>
-                     </div>
+
+                    <div class="flex flex-col space-y-1">
+                        <!--! UBICACION -->
+                        <div class="contenedorInput mb-5">
+                            <label class="inputForm" for="ubicacion">
+                                <span class="labelInput">Ubicacion *</span>
+                                <div class="input__container">
+                                    <input id="ubicacion" type="text" class="input" name="ubicacion"
+                                        formControlName="ubicacion" placeholder="Ubicacion" required />
+                                </div>
+                            </label>
+                            @if( isValidField(proyectoForm, 'ubicacion') ) {
+                            <div class="error">
+                                Por favor, ingresa la ubicacion
+                            </div>
+                            }
+                        </div>
+
+                        <!--! DESCRIPCION CORTA -->
+                        <div class="dosInputs" style="grid-template-columns: 1fr">
+                            <div class="contenedorInput">
+                                <label class="inputForm sinHeight" for="descripcioncorta">
+                                    <span class="labelTextarea">Descripcion Corta *</span>
+                                    <textarea class="textareaFormCorta" name="descripcioncorta"
+                                        formControlName="descripcioncorta" id="descripcioncorta"
+                                        placeholder="Cuéntanos sobre tu proyecto" required></textarea>
+                                </label>
+                                @if( isValidField(proyectoForm, 'descripcioncorta') ) {
+                                <div class="error">
+                                    Completa este campo
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <!--! DESCRIPCION LARGA -->
+                        <div class="dosInputs" style="grid-template-columns: 1fr">
+                            <div class="contenedorInput">
+                                <label class="inputForm sinHeight" for="descripcioncompleta">
+                                    <span class="labelTextarea">Descripcion Larga *</span>
+                                    <textarea class="textareaForm" name="descripcioncompleta" id="descripcioncompleta"
+                                        placeholder="Cuéntanos sobre tu proyecto" formControlName="descripcioncompleta"
+                                        required></textarea>
+                                </label>
+                                @if( isValidField(proyectoForm, 'descripcioncompleta') ) {
+                                <div class="error">
+                                    Completa este campo
+                                </div>
+                                }
+                            </div>
+
+
+
+                            <!--! IMAGEN URL -->
+                            <div class="cotenedorCompletoInput">
+                                <label class="inputForm" for="imagenprincipal">
+                                    <span class="labelInput">Imagen Principal *</span>
+                                    <div class="input__container">
+                                        <input id="imagenprincipal" type="text" class="input" name="imagenprincipal"
+                                            placeholder="Imagen" formControlName="imagenprincipal" required />
+                                    </div>
+                                </label>
+                                @if( isValidField(proyectoForm, 'imagenprincipal') ) {
+                                <div class="error">
+                                    Por favor, tiene que ingresar una imagen
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- <div class="cotenedorCompletoInput">
                         <label class="inputForm" for="descripcioncompleta">
@@ -200,16 +206,15 @@
                         </div>
                     </div> -->
 
-                    
+
 
                     <button class="enviarMensaje" type="submit">
                         <!-- {{ loading() ? 'Guardando Proyecto' : 'Guardar Cambios'}} -->
-                          'Guardar Cambios'
+                        {{ data?.project ? 'Actualizar Proyecto' : 'Crear Proyecto'}}
                     </button>
                 </form>
             </div>
         </div>
 
     </div>
-    }
 </div>

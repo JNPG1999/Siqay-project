@@ -1,7 +1,8 @@
 <div class="space-y-6">
     <div class="flex justify-between">
         <div class="text-2xl font-bold">Gestion de Proyectos</div>
-        <div class=" rounded-lg text-sm flex justify-around gap-3 p-4 bg-slate-800 text-white">
+        <div class=" rounded-lg text-sm flex justify-around gap-3 p-4 bg-slate-800 text-white"
+            (click)="openModalDetalle('nuevo', projects())">
             <div>
                 <span>+</span>
             </div>
@@ -11,7 +12,7 @@
         </div>
     </div>
     <div class="flex flex-col gap-4 w-full border border-[#E4E4E7] rounded-md">
-        <table mat-table [dataSource]="projects()" class="mat-elevation-z8" class="min-w-full h-auto w-full table-auto">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="min-w-full h-auto w-full table-auto">
 
             <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -46,7 +47,13 @@
                     mat-header-cell *matHeaderCellDef> CATEGORIA
                 </th>
                 <td class="font-normal text-xs p-3 text-left !border-none" mat-cell *matCellDef="let element">
-                    {{element.categoria}} </td>
+                    <div
+                        class=" flex items-center max-w-fit flex-wrap justify-start  text-xs h-6 whitespace-nowrap px-1 rounded-full bg-[#33333333] text-[#525252]">
+                        <span class="flex-1 text-inherit font-normal px-1">
+                            {{ element.categoria ?? "Sin categoría" }}
+                        </span>
+                    </div>
+                </td>
             </ng-container>
 
             <!-- Symbol Column -->
@@ -74,18 +81,18 @@
                 </th>
                 <td mat-cell *matCellDef="let element" class="!border-none">
                     <div class="flex items-center gap-2">
-                        <button (click)="openModalDetalle(element)" matTooltip="Ver mensaje"
+                        <button (click)="openModalDetalle('editar', element)" matTooltip="Ver mensaje"
                             class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/editar.svg" alt="ver-mensaje" />
                         </button>
-                         <button matTooltip="Eliminar"
+                        <button matTooltip="Eliminar" (click)="modalDelete(element.id)"
                             class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/eliminar-mensaje.svg" alt="eliminar-mensaje" />
                         </button>
                         <button class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/puntosInformation.svg" alt="ver-mensaje" />
                         </button>
-                       
+
                     </div>
                 </td>
             </ng-container>

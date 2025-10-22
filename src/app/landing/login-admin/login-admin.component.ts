@@ -54,7 +54,7 @@ export class LoginAdminComponent {
       console.log(data);
 
       this._SessionStorageService.SetToken(data.session?.access_token ?? '');
-      this._router.navigateByUrl('/dashboard');
+      this._router.navigateByUrl('/dashboard', {replaceUrl: false});
     } catch (error) {
       if (error instanceof Error) {
         console.log('Error: ', error);

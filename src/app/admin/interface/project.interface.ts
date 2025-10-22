@@ -13,7 +13,11 @@ export type Projects  = {
     ubicacion:           string;
     usuariocreacion:     string;
     usuariomodificacion: string;
+    cliente: string;
     categoria?: {nombre: string};
 }
 
-export type Project = Pick<Projects, "imagenprincipal" | 'titulo' | 'idcategoria' | 'ubicacion' | 'fecha' | 'descripcioncompleta'>;
+export type Project = Pick<Projects, "imagenprincipal" | 'titulo' | 'idcategoria' | 'ubicacion' | 'fecha' | 'descripcioncompleta' | 'descripcioncorta' | 'cliente' | 'galeriaimagenes' | 'id'>;
+
+
+export type ProyectoFormType = Omit<Project, 'id' | 'galeriaimagenes'>;
