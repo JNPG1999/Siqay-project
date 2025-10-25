@@ -6,6 +6,9 @@ import { Project, Projects } from '../../admin/interface/project.interface';
 export class ProyectoService {
     private supabase = inject( SupabaseService ).supabaseClient;
     projectSignal: any = signal( [] );
+    projectSingalPagination : any = signal([]);
+    categoriaSignal: any = signal( [] );
+
 
 
 
@@ -23,11 +26,12 @@ export class ProyectoService {
             .from( 't_categoria' )
             .select( '*' );
         console.log( t_categoria );
+        this.categoriaSignal.set( t_categoria );
         return t_categoria ?? [];
     }
 
-    async createProyecto( data: any ) : Promise<Projects> {
-    // async createProyecto( data: Partial<Projects> | null ) : Promise<Projects> {
+    async createProyecto( data: any ): Promise<Projects> {
+        // async createProyecto( data: Partial<Projects> | null ) : Promise<Projects> {
         const usuario = 'develop_hunk';
         const { data: t_proyecto, error } = await this.supabase
             .from( 't_proyecto' )
@@ -64,11 +68,26 @@ export class ProyectoService {
         return t_proyecto;
     }
 
-    async DeleteProyecto(id: number) {
-    const { data, error } = await this.supabase
-      .from('t_proyecto')
-      .update({ estado: false })
-      .eq('id', id);
-    return { data, error };
-  }
+    async DeleteProyecto( id: number ) {
+        const { data, error } = await this.supabase
+            .from( 't_proyecto' )
+            .update( { estado: false } )
+            .eq( 'id', id );
+        return { data, error };
+    }
+
+    // async paginationProyecto(page: number, limit = 8) {
+    //     const from = ( page - 1 ) * limit;
+    //     const to = from + limit - 1;
+    //     let { data: t_proyecto, error } = await this.supabase
+    //         .from( 't_proyecto' )
+    //         .select( '*' )
+    //         .range( from, to );
+    //     if ( this.projectSingalPagination() ) {
+    //         this.projectSingalPagination.update( (p : any) => p = t_proyecto )
+    //     } 
+    //     this.projectSingalPagination.set(t_proyecto);
+
+    //     return { t_proyecto }
+    // }
 }

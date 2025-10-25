@@ -1,0 +1,48 @@
+<!--! primer modelo de pagination -->
+<!-- <div class="flex justify-center items-center gap-2 mt-6 flex-wrap"> -->
+  <!-- Botón Anterior -->
+  <!-- <button
+    class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-200 transition disabled:opacity-40"
+    [disabled]="currentPage === 1"
+    (click)="prevPage()"
+  >
+    ←
+  </button> -->
+
+  <!-- Números de página -->
+  <!-- <button
+    *ngFor="let page of totalPagesArray"
+    (click)="goToPage(page)"
+    [ngClass]="page === currentPage ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'"
+    class="w-9 h-9 rounded-full border transition-all duration-200 flex items-center justify-center font-medium"
+  >
+    {{ page }}
+  </button> -->
+
+  <!-- Botón Siguiente -->
+  <!-- <button
+    class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-200 transition disabled:opacity-40"
+    [disabled]="currentPage === totalPages"
+    (click)="nextPage()"
+  > -->
+    
+  <!-- </button>
+</div> -->
+
+<!--! segundo modelo de pagination -->
+
+<div class="flex justify-center items-center gap-2 mt-4">
+    @for (page of pages(); track $index) {
+        <button
+          type="button"
+          class="w-10 h-10 border text-sm font-medium transition"
+          [ngClass]="{
+            'bg-black text-white border-black': page === currentPage(),
+            'bg-white text-gray-700 border-gray-300 hover:bg-gray-100': page !== currentPage()
+          }"
+          (click)="setPage(page)"
+        >
+          {{ page }}
+        </button>
+    }
+</div>

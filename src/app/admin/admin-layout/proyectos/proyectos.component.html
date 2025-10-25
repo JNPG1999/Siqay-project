@@ -104,4 +104,10 @@
         </table>
     </div>
 
+    <app-pagination 
+        [totalProjects]="projectsActivos().length"
+        [currentPage]="currentPage()"
+        (pageChange)="onPageChange($event)"
+    ></app-pagination>
+
 </div>

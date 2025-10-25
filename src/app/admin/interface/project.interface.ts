@@ -17,7 +17,7 @@ export type Projects  = {
     categoria?: {nombre: string};
 }
 
-export type Project = Pick<Projects, "imagenprincipal" | 'titulo' | 'idcategoria' | 'ubicacion' | 'fecha' | 'descripcioncompleta' | 'descripcioncorta' | 'cliente' | 'galeriaimagenes' | 'id'>;
+export type Project = Pick<Projects, "imagenprincipal" | 'titulo' | 'idcategoria' | 'ubicacion' | 'fecha' | 'descripcioncompleta' | 'descripcioncorta' | 'cliente' | 'galeriaimagenes' | 'id' | 'categoria'>;
 
 
 export type ProyectoFormType = Omit<Project, 'id' | 'galeriaimagenes'>;

@@ -5,7 +5,7 @@
             x
         </div>
     </div>
-    <div class="seccionContactanos">
+    <div class="seccionContactanos flex-1">
         <div class="leftContactanos">
             <div class="contenidoContactanos">
                 <!-- <div class="tituloContactanos">Envíanos un mensaje</div> -->
@@ -79,26 +79,6 @@
 
                     <div class="dosInputs">
                         <!--! ANIO -->
-                        <!-- <div class="contenedorInput">
-                            <label class="inputForm" for="fecha">
-                                <span class="labelInput">Año</span>
-                                <div class="input__container">
-                                    <input id="fecha" type="text" name="fecha" formControlName="fecha" class="input"
-                                        placeholder="2025" />
-                                </div>
-                            </label>
-                            @if( isValidField(proyectoForm, 'fecha') ) {
-                            <div class="error">
-                                La fecha debe ser Obligatorio
-                            </div>
-                            }
-                        </div> -->
-                        <!-- <mat-form-field appearance="fill" class="!bg-white">
-                            <mat-label>Fecha del proyecto</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="fecha" placeholder="DD/MM/YYYY" />
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field> -->
 
                         <mat-form-field appearance="fill">
                             <mat-label>Fecha</mat-label>
@@ -193,18 +173,36 @@
                         </div>
                     </div>
 
-                    <!-- <div class="cotenedorCompletoInput">
-                        <label class="inputForm" for="descripcioncompleta">
-                            <span class="labelInput">Descripcion Completa *</span>
-                            <div class="input__container">
-                                <input id="descripcioncompleta" type="descripcioncompleta" class="input" name="descripcioncompleta" placeholder="Descripcion Corta" [value]="data.project.descripcioncompleta"
-                                    required />
-                            </div>
-                        </label>
-                        <div class="error">
-                            Por favor, tiene que tener minimo de 5 caracteres
+    
+                    <!--! Galería de imágenes -->
+                    <div formArrayName="galeriaimagenes" class="space-y-2">
+                        <h3 class="font-semibold">Galería de imágenes</h3>
+
+                        <!-- Campos dinámicos -->
+                         @for (control of galeriaimagenes.controls; track $index) {
+                             <div class="flex items-center gap-2">
+                                 <input [formControlName]="$index" type="text" class="border p-2 rounded flex-1"
+                                     placeholder="URL de imagen" />
+                                 <button type="button" (click)="removeImagen($index)"
+                                     class="bg-red-500 text-white px-2 py-1 rounded">
+                                     Eliminar
+                                 </button>
+                             </div>
+                         }
+
+                        <!-- Botón para agregar nueva imagen -->
+                        <button type="button" (click)="addImagen('')"
+                            class="bg-blue-500 text-white px-3 py-1 rounded mt-2">
+                            + Agregar imagen
+                        </button>
+
+                        <!-- Vista previa de imágenes -->
+                        <div class="grid grid-cols-3 gap-2 mt-3">
+                            <img *ngFor="let control of galeriaimagenes.controls" [src]="control.value"
+                                alt="imagen de galería" class="w-full h-32 object-cover rounded border" />
                         </div>
-                    </div> -->
+                    </div>
+
 
 
 

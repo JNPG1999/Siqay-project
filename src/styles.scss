@@ -33,10 +33,54 @@ body {
   overflow: hidden;
 }
 
-// .marginTopBody{
-//     margin-top: 6.5rem;
-    
-// }
+.custom-dialog {
+    margin: 0 1rem;
+    border-radius: 25px !important;
+    overflow-y: scroll;
+}
+
+//! TOAST PERSONALIZADO CON TAILWIND
+
+
+.toast-success {
+//   @apply bg-green-600 text-white font-medium rounded-lg shadow-lg;
+  background-color: theme('colors.green.600') !important;
+  color: white !important;
+  padding: .5rem !important;
+  border-radius: 30px !important;
+  font-weight: 900 !important;
+}
+
+.toast-error {
+  @apply bg-red-600 text-white font-medium rounded-lg shadow-lg;
+  background-color: theme('colors.red.600') !important;
+  color: white !important;
+}
+
+/* Quitar el fondo gris del snackbar */
+.mdc-snackbar__surface {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Estilo del botón */
+.toast-success .mat-mdc-snack-bar-action,
+.toast-error .mat-mdc-snack-bar-action {
+  @apply text-white font-semibold uppercase hover:opacity-80 transition;
+  font-weight: 600 !important;
+}
+
+.toast-success .mat-mdc-snack-bar-action {
+
+  color: white !important;
+  font-size: 1rem !important;
+  font-weight: 300 !important;
+
+}
+
+
+
+
 
 .marginTopBody{
     margin-top: 4.0625rem;  
