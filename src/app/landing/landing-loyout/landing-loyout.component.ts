@@ -387,10 +387,10 @@ export class LandingLoyoutComponent implements OnInit {
     openModalDetalle( proyecto: Project ) {
         const dialogRef = this.dialog.open( ModalProyectoComponent, {
             width: 'auto',
-            maxWidth: '896px',
-            maxHeight: '80%',
-            height: 'auto',
-            panelClass: 'custom-dialog',
+            //maxWidth: '896px',
+            maxHeight: '80vh',
+            //height: 'auto',
+            //panelClass: 'custom-dialog',
             data: {
                 proyecto,
                 irSeccion: this.RecibeSeccionHeader.bind( this ),

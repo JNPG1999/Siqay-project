@@ -197,13 +197,13 @@
   display: flex;
   gap: 4rem; /* 6.4rem -> 4rem */
   align-items: center;
-  padding: 0;
+  padding: 0 2rem; /* 3.2rem -> 2rem */
   
   @media (max-width: 1024px) {
     flex-direction: column; /* para que se apilen */
     justify-content: start;
     align-items: start;
-    padding: 0 2rem; /* 3.2rem -> 2rem */
+    //padding: 0 2rem; /* 3.2rem -> 2rem */
   }
 
   .leftNosotros {
@@ -349,9 +349,13 @@
     .contenidoFormulario {
       .dosInputs {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1,1fr);  
         gap: 1.5rem; /* 2.4rem -> 1.5rem */
         margin-bottom: 1.5rem; /* 2.4rem -> 1.5rem */
+        
+        @media (min-width:768px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
 
         .contenedorInput {
           display: flex;
