@@ -77,19 +77,18 @@
       />
     </div>
 
-    <div class="flex gap-3 overflow-x-auto py-4 justify-between scroll-delgado">
+    <div class="grid grid-cols-4 gap-3 overflow-x-auto py-4 box-border justify-between scroll-delgado">
       @for (item of project?.galeriaimagenes; track $index) {
       <div
-        class="flex-shrink-0 border-2 rounded-md overflow-hidden cursor-pointer transition-all duration-200"
-        [class.border-blue-500]="showImages() === item"
-        [class.border-gray-300]="showImages() !== item"
-        [class.scale-105]="showImages() === item"
+        class="flex-shrink-0 border-2 box-border rounded-md overflow-hidden cursor-pointer w-full h-20"
+        [ngClass]="{'border-[#333333]':showImages() === item}"
+        [class.border-transparent]="showImages() !== item"
         (click)="clickImageShow(item)"
       >
         <img
           [src]="item"
           alt="Imagen del proyecto"
-          class="w-32 h-20 object-cover"
+          class="w-full h-full object-cover"
         />
       </div>
       }

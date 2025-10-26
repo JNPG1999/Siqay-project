@@ -2,11 +2,11 @@ import { Component, ElementRef, inject, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { modalProyecto, proyectosCarousel } from '../../modals/listaHeader';
 import { Project } from '../../admin/interface/project.interface';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 @Component( {
     selector: 'app-modal-proyecto',
     standalone: true,
-    imports: [ MatDialogModule, DatePipe ],
+    imports: [MatDialogModule, DatePipe, NgClass],
     templateUrl: './modal-proyecto.component.html',
     styleUrl: './modal-proyecto.component.scss'
 } )
