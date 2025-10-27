@@ -1,15 +1,27 @@
-<div class="container-wrapper">
-  <owl-carousel-o #owlCarousel [options]="carouselOptions" >
-    @for (item of proyectosCarousel; track item.id) {
-    <ng-template carouselSlide [id]="item.id">
-      <div class="carousel-slide">
-        <img [src]="item.imagen" [alt]="item.titulo" class="imagen-carousel" />
-        <div class="text-overlay">
-          <h2>{{ item.titulo }}</h2>
-          <p>{{ item.descripcion }}</p>
+<div class="swiper" #swiperContainer>
+    <div class="swiper-wrapper">
+        @for (proyecto of proyectosCarousel; track $index) {
+        <div class="swiper-slide">
+
+            <div class="slide-content">
+                <img [src]="proyecto.imagen" alt="{{ proyecto.titulo }}" />
+                <div class="info">
+                    <h3 class="font-bold text-2xl">{{ proyecto.titulo }}</h3>
+                    <p>{{ proyecto.descripcion }}</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </ng-template>
-    }
-  </owl-carousel-o>
+        }
+    </div>
+
+    <!--! Botones -->
+    <div class="swiper-button-prev custom-btn">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--lucide text-xl" data-locator="src/components/project-carousel.tsx:Icon:27:10" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"></path></svg> -->
+    </div>
+    <div class="swiper-button-next custom-btn">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--lucide text-xl" data-locator="src/components/project-carousel.tsx:Icon:37:10" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"></path></svg> -->
+    </div>
+
+    <!-- Paginación -->
+    <div class="swiper-pagination"></div>
 </div>
