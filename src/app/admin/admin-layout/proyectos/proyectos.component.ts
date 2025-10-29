@@ -8,12 +8,13 @@ import { ProyectoService } from '../../../services/proyectos/proyecto.service';
 import { ModalEliminarComponent } from '../../../components/modal-eliminar/modal-eliminar.component';
 import { PaginationComponent } from "../../../components/pagination/pagination.component";
 import { PaginationService } from '../../../services/pagination/pagination.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component( {
     selector: 'app-proyectos',
     standalone: true,
-    imports: [ MatTableModule, PaginationComponent ],
+    imports: [ MatTableModule, PaginationComponent, MatTooltipModule ],
     templateUrl: './proyectos.component.html',
     styleUrl: './proyectos.component.scss'
 } )
@@ -108,7 +109,7 @@ export class ProyectosComponent {
     openModalDetalle( tipo: string, project?: any ) {
         this.dialog.open( ModalProjectAdminComponent, {
             width: '650px',
-            height: '80%',
+            maxHeight: '80vh',
             autoFocus: false,
             // data: { project }
             panelClass: 'modal-redondeado',

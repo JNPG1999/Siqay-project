@@ -81,7 +81,7 @@
                 </th>
                 <td mat-cell *matCellDef="let element" class="!border-none">
                     <div class="flex items-center gap-2">
-                        <button (click)="openModalDetalle('editar', element)" matTooltip="Ver mensaje"
+                        <button (click)="openModalDetalle('editar', element)" matTooltip="Editar"
                             class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/editar.svg" alt="ver-mensaje" />
                         </button>
@@ -89,7 +89,7 @@
                             class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/eliminar-mensaje.svg" alt="eliminar-mensaje" />
                         </button>
-                        <button class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
+                        <button matTooltip="Visible/No Visible" class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/puntosInformation.svg" alt="ver-mensaje" />
                         </button>
 

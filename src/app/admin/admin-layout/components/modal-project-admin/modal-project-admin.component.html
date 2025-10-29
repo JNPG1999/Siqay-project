@@ -1,218 +1,333 @@
-<div class="flex flex-col gap-5 p-5 rounded-2xl">
-    <div class="flex justify-between">
-        <h2 class="font-extrabold text-3xl">{{ data?.project ? "Editar Proyecto" : "Crear Nuevo Proyecto"}}</h2>
-        <div (click)="closeModal()">
-            x
-        </div>
-    </div>
-    <div class="seccionContactanos flex-1">
-        <div class="leftContactanos">
-            <div class="contenidoContactanos">
-                <!-- <div class="tituloContactanos">Envíanos un mensaje</div> -->
-                <form class="contenidoFormulario" [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
-                    <div class="dosInputs">
-                        <!--! TITULO -->
-
-                        <div class="contenedorInput">
-                            <label class="inputForm" for="titulo">
-                                <span class="labelInput">Titulo *</span>
-                                <div class="input__container">
-                                    <input id="titulo" type="text" class="input" name="titulo" formControlName="titulo"
-                                        placeholder="El titulo del proyecto " required />
-                                </div>
-                            </label>
-                            @if( isValidField(proyectoForm, 'titulo') ) {
-                            <div class="error">
-                                El nombre del proyecto es obligatorio es obligatorio.
-                            </div>
-                            }
-                        </div>
-
-                        <!--! CATEGORIA -->
-                        <div class="contenedorInput" (click)="openCategorias.set(!openCategorias())">
-                            <div class="inputForm pointer">
-                                <div class="labelInput">Categoria</div>
-                                @if (categorias()) {
-                                <span> {{ categoriaSeleccionadaLectura()?.nombre }} </span>
-                                }@else {
-                                <span class="placeholderSpan"> Selecciona una opción </span>
-                                }
-
-                                <div class="flechaContainer">
-                                    @if (openCategorias()) {
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M18 15L12 9 6 15" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    }@else {
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    }
-                                </div>
-                            </div>
-                            @if (openCategorias()) {
-                            <div class="opcionCategorias">
-                                <ul>
-                                    @for (categoria of categorias(); track categoria.id) {
-                                    <li (click)="seleccionarCategoria(categoria)">
-                                        {{ categoria.nombre }}
-                                        @if(categoria.seleccionado) {
-
-                                        <span class="checkIcon">
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                                <path d="M5 13l4 4L19 7" stroke="#000" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                                        }
-                                    </li>
-                                    }
-                                </ul>
-                            </div>
-                            }
-                        </div>
-                    </div>
-
-                    <div class="dosInputs">
-                        <!--! ANIO -->
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Fecha</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="fecha" placeholder="DD/MM/YYYY">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                        <!--! CLIENTE -->
-                        <div class="contenedorInput">
-                            <label class="inputForm" for="cliente">
-                                <span class="labelInput">Cliente *</span>
-                                <div class="input__container">
-                                    <input id="cliente" type="text" class="input" name="cliente"
-                                        placeholder="Nombre del Cliente" required formControlName="cliente" />
-                                </div>
-                            </label>
-                            @if( isValidField(proyectoForm, 'cliente') ) {
-                            <div class="error">
-                                Por favor, ingresa el nombre del cliente
-                            </div>
-                            }
-                        </div>
-
-                    </div>
-
-                    <div class="flex flex-col space-y-1">
-                        <!--! UBICACION -->
-                        <div class="contenedorInput mb-5">
-                            <label class="inputForm" for="ubicacion">
-                                <span class="labelInput">Ubicacion *</span>
-                                <div class="input__container">
-                                    <input id="ubicacion" type="text" class="input" name="ubicacion"
-                                        formControlName="ubicacion" placeholder="Ubicacion" required />
-                                </div>
-                            </label>
-                            @if( isValidField(proyectoForm, 'ubicacion') ) {
-                            <div class="error">
-                                Por favor, ingresa la ubicacion
-                            </div>
-                            }
-                        </div>
-
-                        <!--! DESCRIPCION CORTA -->
-                        <div class="dosInputs" style="grid-template-columns: 1fr">
-                            <div class="contenedorInput">
-                                <label class="inputForm sinHeight" for="descripcioncorta">
-                                    <span class="labelTextarea">Descripcion Corta *</span>
-                                    <textarea class="textareaFormCorta" name="descripcioncorta"
-                                        formControlName="descripcioncorta" id="descripcioncorta"
-                                        placeholder="Cuéntanos sobre tu proyecto" required></textarea>
-                                </label>
-                                @if( isValidField(proyectoForm, 'descripcioncorta') ) {
-                                <div class="error">
-                                    Completa este campo
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        <!--! DESCRIPCION LARGA -->
-                        <div class="dosInputs" style="grid-template-columns: 1fr">
-                            <div class="contenedorInput">
-                                <label class="inputForm sinHeight" for="descripcioncompleta">
-                                    <span class="labelTextarea">Descripcion Larga *</span>
-                                    <textarea class="textareaForm" name="descripcioncompleta" id="descripcioncompleta"
-                                        placeholder="Cuéntanos sobre tu proyecto" formControlName="descripcioncompleta"
-                                        required></textarea>
-                                </label>
-                                @if( isValidField(proyectoForm, 'descripcioncompleta') ) {
-                                <div class="error">
-                                    Completa este campo
-                                </div>
-                                }
-                            </div>
-
-
-
-                            <!--! IMAGEN URL -->
-                            <div class="cotenedorCompletoInput">
-                                <label class="inputForm" for="imagenprincipal">
-                                    <span class="labelInput">Imagen Principal *</span>
-                                    <div class="input__container">
-                                        <input id="imagenprincipal" type="text" class="input" name="imagenprincipal"
-                                            placeholder="Imagen" formControlName="imagenprincipal" required />
-                                    </div>
-                                </label>
-                                @if( isValidField(proyectoForm, 'imagenprincipal') ) {
-                                <div class="error">
-                                    Por favor, tiene que ingresar una imagen
-                                </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-    
-                    <!--! Galería de imágenes -->
-                    <div formArrayName="galeriaimagenes" class="space-y-2">
-                        <h3 class="font-semibold">Galería de imágenes</h3>
-
-                        <!-- Campos dinámicos -->
-                         @for (control of galeriaimagenes.controls; track $index) {
-                             <div class="flex items-center gap-2">
-                                 <input [formControlName]="$index" type="text" class="border p-2 rounded flex-1"
-                                     placeholder="URL de imagen" />
-                                 <button type="button" (click)="removeImagen($index)"
-                                     class="bg-red-500 text-white px-2 py-1 rounded">
-                                     Eliminar
-                                 </button>
-                             </div>
-                         }
-
-                        <!-- Botón para agregar nueva imagen -->
-                        <button type="button" (click)="addImagen('')"
-                            class="bg-blue-500 text-white px-3 py-1 rounded mt-2">
-                            + Agregar imagen
-                        </button>
-
-                        <!-- Vista previa de imágenes -->
-                        <div class="grid grid-cols-3 gap-2 mt-3">
-                            <img *ngFor="let control of galeriaimagenes.controls" [src]="control.value"
-                                alt="imagen de galería" class="w-full h-32 object-cover rounded border" />
-                        </div>
-                    </div>
-
-
-
-
-                    <button class="enviarMensaje" type="submit">
-                        <!-- {{ loading() ? 'Guardando Proyecto' : 'Guardar Cambios'}} -->
-                        {{ data?.project ? 'Actualizar Proyecto' : 'Crear Proyecto'}}
-                    </button>
-                </form>
+<div class="flex flex-col gap-5 p-5 rounded-2xl max-h-[80vh]">
+  <div class="flex justify-between flex-shrink-0">
+    <h2 class="font-extrabold text-3xl">
+      {{ data?.project ? "Editar Proyecto" : "Crear Nuevo Proyecto" }}
+    </h2>
+    <button
+      (click)="closeModal()"
+      class="p-2 bg-transparent appearance-none outline-none select-none text-[#71717a] top-[4px] end-1 hover:rounded-full hover:bg-[#f4f4f5]"
+    >
+      <svg
+        aria-hidden="true"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="presentation"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto scroll-delgado">
+    <div class="seccionContactanos">
+      <div class="leftContactanos">
+        <div class="contenidoContactanos">
+          <!-- <div class="tituloContactanos">Envíanos un mensaje</div> -->
+          <form
+            id="FormProyecto"
+            class="contenidoFormulario"
+            [formGroup]="proyectoForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="dosInputs">
+              <!--! TITULO -->
+              <div class="contenedorInput">
+                <label class="inputForm" for="titulo">
+                  <span class="labelInput">Titulo *</span>
+                  <div class="input__container">
+                    <input
+                      id="titulo"
+                      type="text"
+                      class="input"
+                      name="titulo"
+                      formControlName="titulo"
+                      placeholder="El titulo del proyecto "
+                      required
+                    />
+                  </div>
+                </label>
+                @if( isValidField(proyectoForm, 'titulo') ) {
+                <div class="error">
+                  El nombre del proyecto es obligatorio es obligatorio.
+                </div>
+                }
+              </div>
+              <!--! CATEGORIA -->
+              <div
+                class="contenedorInput"
+                (click)="openCategorias.set(!openCategorias())"
+              >
+                <div class="inputForm pointer">
+                  <div class="labelInput">Categoria</div>
+                  @if (categoriaSeleccionadaLectura()?.nombre) {
+                  <span> {{ categoriaSeleccionadaLectura()?.nombre }} </span>
+                  }@else {
+                  <span class="placeholderSpan"> Selecciona una opción </span>
+                  }
+                  <div class="flechaContainer">
+                    @if (openCategorias()) {
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M18 15L12 9 6 15"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    }@else {
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 9l6 6 6-6"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    }
+                  </div>
+                </div>
+                @if (openCategorias()) {
+                <div class="opcionCategorias">
+                  <ul>
+                    @for (categoria of categorias(); track categoria.id) {
+                    <li (click)="seleccionarCategoria(categoria)">
+                      {{ categoria.nombre }}
+                      @if(categoria.seleccionado) {
+                      <span class="checkIcon">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M5 13l4 4L19 7"
+                            stroke="#000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                      }
+                    </li>
+                    }
+                  </ul>
+                </div>
+                }
+              </div>
             </div>
-        </div>
+            <div class="dosInputs">
+              <!--! ANIO -->
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="fecha"
+                  placeholder="DD/MM/YYYY"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <!--! CLIENTE -->
+              <div class="contenedorInput">
+                <label class="inputForm" for="cliente">
+                  <span class="labelInput">Cliente *</span>
+                  <div class="input__container">
+                    <input
+                      id="cliente"
+                      type="text"
+                      class="input"
+                      name="cliente"
+                      placeholder="Nombre del Cliente"
+                      required
+                      formControlName="cliente"
+                    />
+                  </div>
+                </label>
+                @if( isValidField(proyectoForm, 'cliente') ) {
+                <div class="error">
+                  Por favor, ingresa el nombre del cliente
+                </div>
+                }
+              </div>
+            </div>
+            <div class="flex flex-col space-y-1">
+              <!--! UBICACION -->
+              <div class="contenedorInput mb-5">
+                <label class="inputForm" for="ubicacion">
+                  <span class="labelInput">Ubicacion *</span>
+                  <div class="input__container">
+                    <input
+                      id="ubicacion"
+                      type="text"
+                      class="input"
+                      name="ubicacion"
+                      formControlName="ubicacion"
+                      placeholder="Ubicacion"
+                      required
+                    />
+                  </div>
+                </label>
+                @if( isValidField(proyectoForm, 'ubicacion') ) {
+                <div class="error">Por favor, ingresa la ubicacion</div>
+                }
+              </div>
+              <!--! DESCRIPCION CORTA -->
+              <div class="dosInputs" style="grid-template-columns: 1fr">
+                <div class="contenedorInput">
+                  <label class="inputForm sinHeight" for="descripcioncorta">
+                    <span class="labelTextarea">Descripcion Corta *</span>
+                    <textarea
+                      class="textareaFormCorta"
+                      name="descripcioncorta"
+                      formControlName="descripcioncorta"
+                      id="descripcioncorta"
+                      placeholder="Cuéntanos sobre tu proyecto"
+                      required
+                    ></textarea>
+                  </label>
+                  @if( isValidField(proyectoForm, 'descripcioncorta') ) {
+                  <div class="error">Completa este campo</div>
+                  }
+                </div>
+              </div>
+              <!--! DESCRIPCION LARGA -->
+              <div class="dosInputs" style="grid-template-columns: 1fr">
+                <div class="contenedorInput">
+                  <label class="inputForm sinHeight" for="descripcioncompleta">
+                    <span class="labelTextarea">Descripcion Larga *</span>
+                    <textarea
+                      class="textareaForm"
+                      name="descripcioncompleta"
+                      id="descripcioncompleta"
+                      placeholder="Cuéntanos sobre tu proyecto"
+                      formControlName="descripcioncompleta"
+                      required
+                    ></textarea>
+                  </label>
+                  @if( isValidField(proyectoForm, 'descripcioncompleta') ) {
+                  <div class="error">Completa este campo</div>
+                  }
+                </div>
+                <!--! IMAGEN URL -->
+                <div class="cotenedorCompletoInput">
+                  <label class="inputForm" for="imagenprincipal">
+                    <span class="labelInput">Imagen Principal *</span>
+                    <div class="input__container">
+                      <input
+                        id="imagenprincipal"
+                        type="text"
+                        class="input"
+                        name="imagenprincipal"
+                        placeholder="Imagen"
+                        formControlName="imagenprincipal"
+                        required
+                      />
+                    </div>
+                  </label>
+                  @if( isValidField(proyectoForm, 'imagenprincipal') ) {
+                  <div class="error">
+                    Por favor, tiene que ingresar una imagen
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
 
+            <!--! Galería de imágenes -->
+            <div formArrayName="galeriaimagenes" class="space-y-2">
+              <h3 class="font-semibold">Galería de imágenes</h3>
+              <!-- Campos dinámicos -->
+              @for (control of galeriaimagenes.controls; track $index) {
+              <div class="flex items-center gap-2">
+                <input
+                  [formControlName]="$index"
+                  type="text"
+                  class="border p-2 rounded flex-1"
+                  placeholder="URL de imagen"
+                />
+                <button
+                  type="button"
+                  (click)="removeImagen($index)"
+                  class="bg-red-500 text-white px-2 py-1 rounded"
+                >
+                  Eliminar
+                </button>
+              </div>
+              }
+              <!-- Botón para agregar nueva imagen -->
+              @if (galeriaimagenes.controls.length !== 4) {
+              <button
+                type="button"
+                (click)="addImagen('')"
+                class="bg-blue-500 text-white px-3 py-1 rounded mt-2"
+              >
+                + Agregar imagen
+              </button>
+              }
+              <!-- Vista previa de imágenes -->
+              <div class="grid grid-cols-2 gap-2 mt-3">
+                <ng-container
+                  *ngFor="
+                    let control of galeriaimagenes.controls;
+                    let i = index
+                  "
+                >
+                  @if (control.value && !imagenesInvalidas[i]) {
+
+                  <img
+                    [src]="control.value"
+                    alt="imagen de galería"
+                    class="w-full h-32 object-cover rounded border"
+                    (error)="onImageError(i)"
+                    (load)="onImageLoad(i)"
+                  />
+                  }@else {
+                  <div
+                    class="w-full h-32 object-cover flex items-center justify-center bg-gray-100 text-gray-600 text-sm rounded border"
+                  >
+                    Imagen no válida
+                  </div>
+                  }
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="flex-shrink-0">
+    <button class="enviarMensaje" type="submit" form="FormProyecto">
+      <!-- {{ loading() ? 'Guardando Proyecto' : 'Guardar Cambios'}} -->
+      {{ data?.project ? "Actualizar Proyecto" : "Crear Proyecto" }}
+    </button>
+  </div>
 </div>

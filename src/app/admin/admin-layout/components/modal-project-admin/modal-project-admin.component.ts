@@ -78,6 +78,8 @@ export class ModalProjectAdminComponent {
     categorias = signal<Categoria[]>( [] );
     fb = inject( FormBuilder );
 
+    imagenesInvalidas: boolean[] = [];
+
     proyectoForm = this.fb.nonNullable.group( {
         titulo: [ '', Validators.required ],
         idcategoria: [ 0 ],
@@ -140,9 +142,34 @@ export class ModalProjectAdminComponent {
     }
 
     //! CON GET
-    addImagen( url: string = '' ) {
-        this.galeriaimagenes.push( this.fb.control( url ) );
-    }
+    addImagen(url: string = '') {
+  // Añadir control y estado de validez
+  const control = this.fb.control(url, Validators.required);
+  this.galeriaimagenes.push(control);
+  this.imagenesInvalidas.push(false);
+}
+
+onImageError(index: number) {
+  const control = this.galeriaimagenes.at(index);
+  this.imagenesInvalidas[index] = true;
+
+  // Solo marcar error si no lo tenía ya
+  if (!control.hasError('invalidImage')) {
+    control.setErrors({ invalidImage: true });
+    control.markAsTouched();
+  }
+}
+
+onImageLoad(index: number) {
+  // ✅ Si la imagen se carga correctamente, limpiar error
+  const control = this.galeriaimagenes.at(index);
+  if (this.imagenesInvalidas[index] || control.hasError('invalidImage')) {
+    this.imagenesInvalidas[index] = false;
+    control.setErrors(null);
+    control.updateValueAndValidity();
+  }
+}
+
 
     //! SIN GET
     //? addImagen2( url: string = '' ) {
@@ -150,6 +177,7 @@ export class ModalProjectAdminComponent {
     //? }
     removeImagen( index: number ) {
         this.galeriaimagenes.removeAt( index );
+         this.imagenesInvalidas.splice(index, 1);
     }
 
     //! FIN GALERIA ARRAY IMAGENES
