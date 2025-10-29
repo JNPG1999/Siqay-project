@@ -67,7 +67,7 @@ export class ModalProjectAdminComponent {
 
     private supabase = inject( SupabaseService ).supabaseClient;
     private proyectService = inject( ProyectoService );
-    private toastService = inject(ToastService);
+    private toastService = inject( ToastService );
     dialogRef = inject( MatDialogRef<ModalProjectAdminComponent> );
     data = inject<{ project: Project; } | null>( MAT_DIALOG_DATA );
     openCategorias = signal<boolean>( false );
@@ -112,7 +112,7 @@ export class ModalProjectAdminComponent {
                 console.log( "Proyecto actualizado", response );
                 console.log( "El id: ", id );
                 // this.openToast( 'Datos actualizados correctamente' );
-                this.toastService.success('Editado con exito')
+                this.toastService.success( 'Editado con exito' );
                 this.closeModal();
 
                 return;
@@ -128,7 +128,7 @@ export class ModalProjectAdminComponent {
             const response = await this.proyectService.createProyecto( this.proyectoForm.value );
             console.log( 'proyecto creado', response );
             // this.openToast( 'Proyecto creado correctamente' );
-            this.toastService.success('Creado con exito');
+            this.toastService.success( 'Creado con exito' );
             this.closeModal();
         } catch ( error ) {
             console.log( error );
@@ -142,33 +142,33 @@ export class ModalProjectAdminComponent {
     }
 
     //! CON GET
-    addImagen(url: string = '') {
-  // Añadir control y estado de validez
-  const control = this.fb.control(url, Validators.required);
-  this.galeriaimagenes.push(control);
-  this.imagenesInvalidas.push(false);
-}
+    addImagen( url: string = '' ) {
+        // Añadir control y estado de validez
+        const control = this.fb.control( url, Validators.required );
+        this.galeriaimagenes.push( control );
+        this.imagenesInvalidas.push( false );
+    }
 
-onImageError(index: number) {
-  const control = this.galeriaimagenes.at(index);
-  this.imagenesInvalidas[index] = true;
+    onImageError( index: number ) {
+        const control = this.galeriaimagenes.at( index );
+        this.imagenesInvalidas[ index ] = true;
 
-  // Solo marcar error si no lo tenía ya
-  if (!control.hasError('invalidImage')) {
-    control.setErrors({ invalidImage: true });
-    control.markAsTouched();
-  }
-}
+        // Solo marcar error si no lo tenía ya
+        if ( !control.hasError( 'invalidImage' ) ) {
+            control.setErrors( { invalidImage: true } );
+            control.markAsTouched();
+        }
+    }
 
-onImageLoad(index: number) {
-  // ✅ Si la imagen se carga correctamente, limpiar error
-  const control = this.galeriaimagenes.at(index);
-  if (this.imagenesInvalidas[index] || control.hasError('invalidImage')) {
-    this.imagenesInvalidas[index] = false;
-    control.setErrors(null);
-    control.updateValueAndValidity();
-  }
-}
+    onImageLoad( index: number ) {
+        // ✅ Si la imagen se carga correctamente, limpiar error
+        const control = this.galeriaimagenes.at( index );
+        if ( this.imagenesInvalidas[ index ] || control.hasError( 'invalidImage' ) ) {
+            this.imagenesInvalidas[ index ] = false;
+            control.setErrors( null );
+            control.updateValueAndValidity();
+        }
+    }
 
 
     //! SIN GET
@@ -177,7 +177,7 @@ onImageLoad(index: number) {
     //? }
     removeImagen( index: number ) {
         this.galeriaimagenes.removeAt( index );
-         this.imagenesInvalidas.splice(index, 1);
+        this.imagenesInvalidas.splice( index, 1 );
     }
 
     //! FIN GALERIA ARRAY IMAGENES
@@ -209,7 +209,7 @@ onImageLoad(index: number) {
             if ( Array.isArray( formValue.galeriaimagenes ) ) {
                 this.galeriaimagenes.clear(); // por si acaso
                 formValue.galeriaimagenes.forEach( ( url: string ) => {
-                    this.galeriaimagenes.push( this.fb.control( url ) );
+                    this.galeriaimagenes.push( this.fb.control( url.trim() ) );
                 } );
             }
         } else {

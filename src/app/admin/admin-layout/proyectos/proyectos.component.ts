@@ -9,12 +9,13 @@ import { ModalEliminarComponent } from '../../../components/modal-eliminar/modal
 import { PaginationComponent } from "../../../components/pagination/pagination.component";
 import { PaginationService } from '../../../services/pagination/pagination.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonModule } from '@angular/common';
 
 
 @Component( {
     selector: 'app-proyectos',
     standalone: true,
-    imports: [ MatTableModule, PaginationComponent, MatTooltipModule ],
+    imports: [ MatTableModule, PaginationComponent, MatTooltipModule, CommonModule ],
     templateUrl: './proyectos.component.html',
     styleUrl: './proyectos.component.scss'
 } )
@@ -54,7 +55,7 @@ export class ProyectosComponent {
         // this.pagination = await this.projectService.paginationProyecto();
 
         // console.log( this.projects );
-
+        console.log(this.projects())
         console.log( this.categories );
         console.log( 'projectos activos', this.projectsActivos() );
         setTimeout( () => {
@@ -102,6 +103,25 @@ export class ProyectosComponent {
 
         if ( !error && data ) {
             this.dataSource.data = data;
+        }
+    }
+
+    async visible(id: number) {
+        try {
+            const { data, error } = await this.projectService.updateProyectoVisible(id);
+            console.log('cambio visible')
+            console.log(this.projects())
+            if ( error ) throw error;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async buscarProyecto(event: Event) {
+        try {
+            await this.projectService.buscarProyecto(event);
+        } catch (error) {
+            console.log(error);
         }
     }
 

@@ -21,6 +21,7 @@ export class PaginationService {
         //     .range( from, to );
         // return { t_proyecto }
 
-        return await this.supabase.from( tabla ).select( '*' ).range( from, to ).eq('estado', true);
+        return await this.supabase.from( tabla ).select( '*' )
+            .range( from, to ).eq('estado', true);
     }
 }

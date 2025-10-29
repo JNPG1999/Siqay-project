@@ -11,6 +11,44 @@
             </div>
         </div>
     </div>
+
+    <div class="max-w-60">
+    <label
+      for="buscar"
+      class="flex gap-[6px] h-10 m-h-10 items-center bg-[#F4F4F5] rounded-md px-3 text-[#a1a1aa] hover:bg-[#e4e4e7] cursor-text"
+    >
+      <div class="text-current">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+          role="img"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path d="m21 21l-4.34-4.34"></path>
+            <circle cx="11" cy="11" r="8"></circle>
+          </g>
+        </svg>
+      </div>
+      <input
+        class="w-full text-sm text-black outline-none bg-transparent placeholder:text-[12px]"
+        type="text"
+        name="buscar"
+        placeholder="Buscar Proyectos..."
+        id="buscar"
+        (input)="buscarProyecto($event)"
+      />
+    </label>
+  </div>
     <div class="flex flex-col gap-4 w-full border border-[#E4E4E7] rounded-md">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="min-w-full h-auto w-full table-auto">
 
@@ -89,8 +127,19 @@
                             class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/eliminar-mensaje.svg" alt="eliminar-mensaje" />
                         </button>
-                        <button matTooltip="Visible/No Visible" class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
+                        <!--! VISIBLE Y NO VISIBLE -->
+                        <!-- <button matTooltip="Visible/No Visible" class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]">
                             <img src="../../../../assets/iconos/puntosInformation.svg" alt="ver-mensaje" />
+                        </button> -->
+                        <button 
+                            class="p-2 box-border rounded-md hover:bg-[#e4e4e7] text-[#525252]"
+                            [class.-ml-1]="element.visible === false" (click)="visible(element.id)">
+                            @if ( element.visible ) {
+                            <img  src="../../../../assets/iconos/ver-mensaje.svg" alt="ver-mensaje" />
+                            } @else {
+                            <img src="../../../../assets/iconos/novisible.svg" alt="no-visible" />
+
+                            }
                         </button>
 
                     </div>
@@ -100,14 +149,13 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-10">
             <tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="!border-none"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" class="!border-none"
+                [ngClass]="row.visible ? '!bg-[#f7f7f7]' : ''"></tr>
+
         </table>
     </div>
 
-    <app-pagination 
-        [totalProjects]="projectsActivos().length"
-        [currentPage]="currentPage()"
-        (pageChange)="onPageChange($event)"
-    ></app-pagination>
+    <app-pagination [totalProjects]="projectsActivos().length" [currentPage]="currentPage()"
+        (pageChange)="onPageChange($event)"></app-pagination>
 
 </div>

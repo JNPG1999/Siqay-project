@@ -33,7 +33,7 @@
             </div>
             <div class="containerProyectos">
                 @for (item of projectSignal(); track $index) {
-                    @if( item.estado === true ) {
+                    @if( item.estado === true && item.visible ) {
                         <div class="cardProyecto">
                             <img [src]="item.imagenprincipal" [alt]="item.titulo" />
                             <div class="fondoOscuroImagen"></div>

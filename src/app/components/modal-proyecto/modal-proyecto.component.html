@@ -78,7 +78,7 @@
     </div>
 
     <div class="grid grid-cols-4 gap-3 overflow-x-auto py-4 box-border justify-between scroll-delgado">
-      @for (item of project?.galeriaimagenes; track $index) {
+      @for (item of filtradoDeImagenes(); track $index) {
       <div
         class="flex-shrink-0 border-2 box-border rounded-md overflow-hidden cursor-pointer w-full h-20"
         [ngClass]="{'border-[#333333]':showImages() === item}"
