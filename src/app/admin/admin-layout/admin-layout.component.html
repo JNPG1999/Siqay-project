@@ -1,102 +1,110 @@
 @let isCollapsed = collapse();
 
-
-<div class="flex h-screen overflow-hidden">
-  <div
-    class="flex flex-col border-r border-[#1111111a] transition-all duration-300"
-    [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
-  >
+@if (!isReady) {
+  <!-- <div class="flex h-screen overflow-hidden items-center justify-center">
+    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"> -->
+      <mat-spinner></mat-spinner>
+    <!-- </div>
+  </div> -->
+}@else {
+  <div class="flex h-screen overflow-hidden">
     <div
-      class="h-16 flex items-center justify-between px-4 border-b border-[#1111111a]"
+      class="flex flex-col border-r border-[#1111111a] transition-all duration-300"
+      [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
     >
-      <div class="overflow-hidden whitespace-nowrap text-ellipsis">
-        @if (!isCollapsed) {
-        <span class="text-xl text-[#333333] ">
-          SIQAYSTUDIO
-          <span class="ml-2 text-sm text-[#71717a]">Admin</span>
-        </span>
-        }@else{
-        <span class="text-xl text-[#333333]"> S </span>
-        }
-      </div>
       <div
-        class="cursor-pointer hover:bg-[#f8f8f8] rounded-[4px] p-1 shrink-0"
-        (click)="collapsePanel()"
+        class="h-16 flex items-center justify-between px-4 border-b border-[#1111111a]"
       >
-        <img
-          src="../../../assets/iconos/flecha-left-admin.svg"
-          alt="flecha-close"
-        />
-      </div>
-    </div>
-    <div class="w-full flex-1 p-4 space-y-2">
-      @for (item of navegationItems(); track $index) {
-      <div
-        class="flex gap-3 items-center cursor-pointer px-3 py-2 rounded-md overflow-hidden whitespace-nowrap text-ellipsis"
-        [ngClass]="{'gap-3 justify-start' : !isCollapsed, 'gap-0 justify-center' : isCollapsed, 'text-white bg-[#333333] hover:bg-[#333333]' : rla.isActive , 'bg-[#ffffff] hover:bg-[#f8f8f8]' : !rla.isActive }"
-        [routerLink]="item.ruta"
-        #rla="routerLinkActive"
-        routerLinkActive=""
-        [attr.aria-current]="rla.isActive ? 'page' : null"
-      >
+        <div class="overflow-hidden whitespace-nowrap text-ellipsis">
+          @if (!isCollapsed) {
+          <span class="text-xl text-[#333333] ">
+            SIQAYSTUDIO
+            <span class="ml-2 text-sm text-[#71717a]">Admin</span>
+          </span>
+          }@else{
+          <span class="text-xl text-[#333333]"> S </span>
+          }
+        </div>
         <div
-          class="w-4 h-4 transition-colors"
-          [ngClass]="rla.isActive ? 'bg-white' : 'bg-[#333333]'"
-          [style.mask]="
-            'url(../../../assets/iconos/' +
-            item.imagen +
-            ') no-repeat center / 100% 100%'
-          "
-          [style.webkitMask]="
-            'url(../../../assets/iconos/' +
-            item.imagen +
-            ') no-repeat center / 100% 100%'
-          "
-          aria-hidden="true"
-        ></div>
-        @if (!isCollapsed) {
-        <div class="text-current">{{ item.nombre }}</div>
+          class="cursor-pointer hover:bg-[#f8f8f8] rounded-[4px] p-1 shrink-0"
+          (click)="collapsePanel()"
+        >
+          <img
+            src="../../../assets/iconos/flecha-left-admin.svg"
+            alt="flecha-close"
+          />
+        </div>
+      </div>
+      <div class="w-full flex-1 p-4 space-y-2">
+        @for (item of navegationItems(); track $index) {
+        <div
+          class="flex gap-3 items-center cursor-pointer px-3 py-2 rounded-md overflow-hidden whitespace-nowrap text-ellipsis"
+          [ngClass]="{'gap-3 justify-start' : !isCollapsed, 'gap-0 justify-center' : isCollapsed, 'text-white bg-[#333333] hover:bg-[#333333]' : rla.isActive , 'bg-[#ffffff] hover:bg-[#f8f8f8]' : !rla.isActive }"
+          [routerLink]="item.ruta"
+          #rla="routerLinkActive"
+          routerLinkActive=""
+          [attr.aria-current]="rla.isActive ? 'page' : null"
+        >
+          <div
+            class="w-4 h-4 transition-colors"
+            [ngClass]="rla.isActive ? 'bg-white' : 'bg-[#333333]'"
+            [style.mask]="
+              'url(../../../assets/iconos/' +
+              item.imagen +
+              ') no-repeat center / 100% 100%'
+            "
+            [style.webkitMask]="
+              'url(../../../assets/iconos/' +
+              item.imagen +
+              ') no-repeat center / 100% 100%'
+            "
+            aria-hidden="true"
+          ></div>
+          @if (!isCollapsed) {
+          <div class="text-current">{{ item.nombre }}</div>
+          }
+        </div>
         }
       </div>
-      }
-    </div>
-    <div
-      class="flex items-center p-4 border-t border-[#1111111a]"
-    >
-    <div class="flex gap-3 items-center cursor-pointer px-3 py-2 rounded-md hover:bg-[#f8f8f8] w-full"
-    [ngClass]="!isCollapsed ? 'gap-3 justify-start' : 'gap-0 justify-center'"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        aria-hidden="true"
-        role="img"
-        width="1em"
-        height="1em"
-        viewBox="0 0 24 24"
+      <div
+        class="flex items-center p-4 border-t border-[#1111111a]"
       >
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+      <div class="flex gap-3 items-center cursor-pointer px-3 py-2 rounded-md hover:bg-[#f8f8f8] w-full"
+      [ngClass]="!isCollapsed ? 'gap-3 justify-start' : 'gap-0 justify-center'"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+          role="img"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
         >
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </g>
-      </svg>
-      
-      @if (!isCollapsed) {
-        Admin
-      }
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </g>
+        </svg>
+        
+        @if (!isCollapsed) {
+          Admin
+        }
+      </div>
+      </div>
     </div>
+    <div class="flex flex-col flex-1">
+      <div class="flex-grow p-6">
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer-admin></app-footer-admin>
     </div>
   </div>
-  <div class="flex flex-col flex-1">
-    <div class="flex-grow p-6">
-      <router-outlet></router-outlet>
-    </div>
-    <app-footer-admin></app-footer-admin>
-  </div>
-</div>
+}
+
