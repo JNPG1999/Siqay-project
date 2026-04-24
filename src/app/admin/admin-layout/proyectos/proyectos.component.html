@@ -147,8 +147,7 @@
             </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-10">
-            <tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-10"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns" class="!border-none"
                 [ngClass]="row.visible ? '!bg-[#f7f7f7]' : ''"></tr>
 
