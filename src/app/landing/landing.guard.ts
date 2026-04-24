@@ -1,22 +1,22 @@
-import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
-import { SupabaseService } from '../services/supabase/supabase.service';
+import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { SessionStorageService } from '../services/session-storage/session-storage.service';
+import { SupabaseService } from '../services/supabase/supabase.service';
 
-export const landingGuard: CanMatchFn  = async (route, state) => {
-  const _supabaseService = inject(SupabaseService);
-  const _SessionStorageService = inject(SessionStorageService);
-  const _router = inject(Router);
+export const landingGuard: CanActivateFn = async () => {
+  const supabase = inject(SupabaseService);
+  const router = inject(Router);
 
-  // if (
-  //   _SessionStorageService.validateTokken()
-  // ) {
-  //   _router.navigateByUrl('/dashboard');
-  //   return false;
-  // }
+  if (!supabase['isBrowser']) return true;
 
-    const { data } = await _supabaseService.supabaseClient.auth.getSession();
-  return data.session ? _router.parseUrl('/dashboard') : true;
+  // ⏳ Espera hasta que la sesión esté completamente cargada
+  await supabase.readyPromise;
 
-  //return true;
+  const isAuthenticated = supabase.isAuthenticated();
+
+  if (isAuthenticated) {
+    router.navigateByUrl('/dashboard');
+    return false;
+  }
+
+  return true;
 };
